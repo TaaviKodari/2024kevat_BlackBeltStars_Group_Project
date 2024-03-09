@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     private void playerMove()
     {
         Vector2 dir = input.Player.Movement.ReadValue<Vector2>();
-        rb.velocity += dir * speed; //This works. Can be changed to movepos.
+        rb.velocity += dir * speed;
     }
 
     void FixedUpdate()
