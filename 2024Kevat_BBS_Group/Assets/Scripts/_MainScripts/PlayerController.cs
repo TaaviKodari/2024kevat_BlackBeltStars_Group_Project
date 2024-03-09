@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Entity
 {
-    [SerializeField] float speed = 2f;
-    private Rigidbody2D rb;
     private MasterInput input;
+    public static Vector2 playerPos { get; private set; } = Vector2.zero;
 
-    void Awake()
+    protected override void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        base.Awake();
         input = new MasterInput();
     }
 
@@ -28,6 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 dir = input.Player.Movement.ReadValue<Vector2>();
         rb.velocity += dir * speed;
+        playerPos = rb.position;
     }
 
     void FixedUpdate()
