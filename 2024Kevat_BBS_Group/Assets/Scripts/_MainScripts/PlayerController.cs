@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : Entity
 {
-    private MasterInput input;
+    public MasterInput input { get; private set; }
     public static Vector2 playerPos { get; private set; } = Vector2.zero;
 
     protected override void Awake()
