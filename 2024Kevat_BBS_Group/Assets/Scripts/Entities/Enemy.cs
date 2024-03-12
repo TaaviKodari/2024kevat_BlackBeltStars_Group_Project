@@ -6,10 +6,10 @@ public class Enemy : Entity
 {
     void FixedUpdate()
     {
-        moveTowardsPlayer();
+        MoveTowardsPlayer();
     }
 
-    void moveTowardsPlayer()
+    void MoveTowardsPlayer()
     {
         Vector2 dir = PlayerController.playerPos - rb.position;
         rb.MovePosition(rb.position + dir.normalized * Time.deltaTime * speed);

@@ -23,7 +23,7 @@ public class PlayerController : Entity
         input.Disable();
     }
 
-    private void playerMove()
+    private void PlayerMove()
     {
         Vector2 dir = input.Player.Movement.ReadValue<Vector2>();
         rb.velocity += dir * speed;
@@ -32,6 +32,6 @@ public class PlayerController : Entity
 
     void FixedUpdate()
     {
-        playerMove();
+        PlayerMove();
     }
 }
