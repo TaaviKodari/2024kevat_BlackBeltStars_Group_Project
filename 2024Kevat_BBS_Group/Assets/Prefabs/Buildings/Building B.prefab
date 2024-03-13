@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1091367216703645}
   - component: {fileID: 3567668095190244044}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1727554197454336223}
   - component: {fileID: 3194125035186779656}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8642656727159226259}
   - component: {fileID: 1051412125141192522}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4382116121812577473}
   - component: {fileID: 7976472148827583266}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 3407980485932495935}
   - component: {fileID: -5838272299805140029}
   - component: {fileID: 4863466493053898645}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Building B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
