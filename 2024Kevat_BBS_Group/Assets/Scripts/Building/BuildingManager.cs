@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -8,6 +7,11 @@ using UnityEngine.EventSystems;
 
 public class BuildingManager : MonoBehaviour
 {
+    // Layer mask used to check if a building can be placed at a certain position using collisions
+    // Buildings are excluded as they can be accurately checked using the position data
+    // Initialized in Awake
+    private int buildingPlacementLayerMask;
+    
     [SerializeField]
     private PlayerController player;
     [SerializeField]
@@ -23,6 +27,8 @@ public class BuildingManager : MonoBehaviour
     private void Awake()
     {
         selectedBuilding = null;
+        // Have to init this here, unity doesn't allow for layer masks to be created before awake
+        buildingPlacementLayerMask = ~LayerMask.GetMask("Buildings", "Ignore Raycast");
     }
 
     private void Update()
@@ -90,7 +96,7 @@ public class BuildingManager : MonoBehaviour
         var pos = GetPlacementPos();
         var building = Instantiate(selectedBuilding, pos, Quaternion.identity, transform);
         var buildingPositions = building.GetUsedPositions();
-        if (usedPositions.Overlaps(buildingPositions))
+        if (!CanPlace(building))
         {
             Destroy(building.gameObject);
             return;
@@ -135,8 +141,21 @@ public class BuildingManager : MonoBehaviour
         if (buildingPreview == null) return;
         buildingPreview.transform.position = GetPlacementPos();
         // Sets the material of the preview
-        var material = usedPositions.Overlaps(buildingPreview.GetComponent<Building>().GetUsedPositions()) ? invalidPreviewMaterial : previewMaterial;
+        var material = CanPlace(buildingPreview.GetComponent<Building>()) ? previewMaterial : invalidPreviewMaterial;
         foreach (var renderer in buildingPreview.GetComponentsInChildren<Renderer>(true))
             renderer.sharedMaterial = material;
+    }
+    
+    private bool CanPlace(Building building)
+    {
+        var buildingPositions = building.GetUsedPositions();
+        if (usedPositions.Overlaps(buildingPositions)) return false;
+        var halfVec = new Vector2(0.5f, 0.5f);
+        foreach (var pos in buildingPositions)
+        {
+            if (Physics2D.OverlapBox(pos + halfVec, Vector2.one, 0, buildingPlacementLayerMask) != null)
+                return false;
+        }
+        return true;
     }
 }
