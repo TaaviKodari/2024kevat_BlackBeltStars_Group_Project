@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : Entity
 {
     public MasterInput input { get; private set; }
-    public static Vector2 playerPos { get; private set; } = Vector2.zero;
 
     protected override void Awake()
     {
@@ -26,8 +25,7 @@ public class PlayerController : Entity
     private void PlayerMove()
     {
         Vector2 dir = input.Player.Movement.ReadValue<Vector2>();
-        rb.velocity += dir * speed;
-        playerPos = rb.position;
+        rb.MovePosition(rb.position + dir * Time.deltaTime * speed);
     }
 
     void FixedUpdate()

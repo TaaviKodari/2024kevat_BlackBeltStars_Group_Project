@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+    public Rigidbody2D player;
+
     void FixedUpdate()
     {
         MoveTowardsPlayer();
@@ -11,7 +13,7 @@ public class Enemy : Entity
 
     void MoveTowardsPlayer()
     {
-        Vector2 dir = PlayerController.playerPos - rb.position;
+        Vector2 dir = player.position - rb.position;
         rb.MovePosition(rb.position + dir.normalized * Time.deltaTime * speed);
     }
 }
