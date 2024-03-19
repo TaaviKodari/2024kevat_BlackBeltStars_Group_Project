@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : Entity
@@ -22,14 +20,8 @@ public class PlayerController : Entity
         input.Disable();
     }
 
-    private void PlayerMove()
+    protected override Vector2 GetMoveDirection()
     {
-        Vector2 dir = input.Player.Movement.ReadValue<Vector2>();
-        rb.MovePosition(rb.position + dir * Time.deltaTime * speed);
-    }
-
-    void FixedUpdate()
-    {
-        PlayerMove();
+        return input.Player.Movement.ReadValue<Vector2>();
     }
 }

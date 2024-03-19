@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
@@ -15,5 +13,18 @@ public abstract class Entity : MonoBehaviour
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    protected abstract Vector2 GetMoveDirection();
+
+    private void Move()
+    {
+        var dir = GetMoveDirection();
+        rb.velocity += dir * (Time.fixedDeltaTime * speed * 50);
     }
 }

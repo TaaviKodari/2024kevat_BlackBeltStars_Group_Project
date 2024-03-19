@@ -1,19 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : Entity
 {
     public Rigidbody2D player;
 
-    void FixedUpdate()
+    protected override Vector2 GetMoveDirection()
     {
-        MoveTowardsPlayer();
-    }
-
-    void MoveTowardsPlayer()
-    {
-        Vector2 dir = player.position - rb.position;
-        rb.MovePosition(rb.position + dir.normalized * Time.deltaTime * speed);
+        return (player.position - rb.position).normalized;
     }
 }
