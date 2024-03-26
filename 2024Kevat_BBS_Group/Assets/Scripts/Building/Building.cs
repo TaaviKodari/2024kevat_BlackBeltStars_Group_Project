@@ -6,18 +6,20 @@ public class Building : MonoBehaviour
     public Vector2Int size = Vector2Int.one;
     private BuildingManager manager;
 
-    private void OnDestroy()
+    private void Awake()
     {
-        if (manager != null)
-        {
-            manager.RemoveBuilding(this);
-        }
+        manager = FindObjectOfType<BuildingManager>();
     }
     
+    private void OnDestroy()
+    {
+        manager.RemoveBuilding(this);
+    }
+    
+    // Gets the position in the center of this building. Can be off by 0.5 for buildings with an even size
     private Vector2Int GetPosition()
     {
-        var position = transform.position;
-        return new Vector2Int(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y));
+        return manager.WorldPosToBuildingPos(transform.position);
     }
 
     public HashSet<Vector2Int> GetUsedPositions()
@@ -28,18 +30,9 @@ public class Building : MonoBehaviour
         {
             for (var y = 0; y < size.y; y++)
             {
-                positions.Add(new Vector2Int(x, y) + basePos);
+                positions.Add(new Vector2Int(x + basePos.x, y + basePos.y));
             }
         }
         return positions;
-    }
-    
-    public void SetManager(BuildingManager manager)
-    {
-        if (this.manager != null)
-        {
-            Debug.LogError("Manager already set");
-        }
-        this.manager = manager;
     }
 }

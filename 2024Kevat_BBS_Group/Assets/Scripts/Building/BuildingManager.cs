@@ -18,11 +18,14 @@ public class BuildingManager : MonoBehaviour
     private Material previewMaterial;
     [SerializeField]
     private Material invalidPreviewMaterial;
+    [SerializeField]
+    private Vector2 tileSize = new Vector2(1, 1);
     
     private Building selectedBuilding;
     private GameObject buildingPreview;
     private readonly HashSet<Vector2Int> usedPositions = new HashSet<Vector2Int>();
-    private readonly Dictionary<Vector2Int, Building> buildings = new Dictionary<Vector2Int, Building>();
+    private readonly Dictionary<Vector2Int, Building> positionToBuilding = new Dictionary<Vector2Int, Building>();
+    private readonly HashSet<Building> buildings = new HashSet<Building>();
     
     private void Awake()
     {
@@ -52,33 +55,45 @@ public class BuildingManager : MonoBehaviour
         }
         else if (player.input.Building.Destroy.IsPressed() && selectedBuilding == null)
         {
-            var buildingPlacementPos = GetBuildingPlacementPos();
-            if (buildings.TryGetValue(buildingPlacementPos, out var building))
+            var buildingPlacementPos = GetSelectedTile(Vector2Int.one);
+            if (positionToBuilding.TryGetValue(buildingPlacementPos, out var building))
                 Destroy(building.gameObject);
         }
     }
 
-    private Vector3 GetPlacementPos()
+    private Vector2Int GetSelectedTile(Vector2Int size)
     {
         var camera = Camera.main;
         if (camera == null)
         {
             Debug.LogError("No main camera found");
-            return Vector3.zero;
+            return Vector2Int.zero;
         }
-
-        var buildingSize = selectedBuilding != null ? selectedBuilding.size : Vector2Int.one;
-        var pos = camera.ScreenToWorldPoint(player.input.Building.MousePosition.ReadValue<Vector2>());
-        pos.z = 0;
-        pos.x = math.round(pos.x + buildingSize.x / 2f) - buildingSize.x / 2f;
-        pos.y = math.round(pos.y + buildingSize.y / 2f) - buildingSize.y / 2f;
-        return pos; 
+        var mousePos = camera.ScreenToWorldPoint(player.input.Building.MousePosition.ReadValue<Vector2>());
+        mousePos.x += math.frac(size.x / 2f + 0.5f);
+        mousePos.y += math.frac(size.y / 2f + 0.5f);
+        return WorldPosToBuildingPos(mousePos);
     }
 
-    private Vector2Int GetBuildingPlacementPos()
+    private Vector3 GetPlacementPos()
     {
-        var pos = GetPlacementPos();
-        return new Vector2Int(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y));
+        if (selectedBuilding == null) return Vector3.zero;
+        var size = selectedBuilding.size;
+        return BuildingPosToWorldPos(GetSelectedTile(size)) + new Vector2(math.frac(size.x / 2f), math.frac(size.y / 2f));
+    }
+    
+    public Vector2Int WorldPosToBuildingPos(Vector2 worldPos)
+    {
+        var x = Mathf.FloorToInt(worldPos.x / tileSize.x);
+        var y = Mathf.FloorToInt(worldPos.y / tileSize.y);
+        return new Vector2Int(x, y);
+    }
+    
+    public Vector2 BuildingPosToWorldPos(Vector2Int pos)
+    {
+        var x = pos.x * tileSize.x;
+        var y = pos.y * tileSize.y;
+        return new Vector2(x, y);
     }
 
     [UsedImplicitly] // Assigned to buttons in the editor
@@ -102,17 +117,19 @@ public class BuildingManager : MonoBehaviour
             return;
         }
         usedPositions.UnionWith(buildingPositions);
-        buildingPositions.ToList().ForEach(p => buildings.Add(p, building));
-        
+        buildings.Add(building);
+        buildingPositions.ToList().ForEach(p => positionToBuilding.Add(p, building));
+
         building.name = selectedBuilding.name;
-        building.SetManager(this);
     }
 
     public void RemoveBuilding(Building building)
     {
+        if (!buildings.Contains(building)) return;
         var buildingPositions = building.GetUsedPositions();
         usedPositions.ExceptWith(buildingPositions);
-        buildingPositions.ToList().ForEach(p => buildings.Remove(p));
+        buildings.Remove(building);
+        buildingPositions.ToList().ForEach(p => positionToBuilding.Remove(p));
     }
 
     private void CreatePreview()
