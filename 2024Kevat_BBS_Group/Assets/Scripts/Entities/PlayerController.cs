@@ -24,4 +24,5 @@ public class PlayerController : Entity
     {
         return input.Player.Movement.ReadValue<Vector2>();
     }
+    
 }
