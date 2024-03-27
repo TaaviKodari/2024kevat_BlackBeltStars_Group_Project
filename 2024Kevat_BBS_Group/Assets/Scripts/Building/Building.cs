@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    public Vector2Int size = Vector2Int.one;
+    public BuildingData data;
     private BuildingManager manager;
 
     private void Awake()
@@ -25,10 +25,10 @@ public class Building : MonoBehaviour
     public HashSet<Vector2Int> GetUsedPositions()
     {
         var positions = new HashSet<Vector2Int>();
-        var basePos = GetPosition() - size / 2;
-        for (var x = 0; x < size.x; x++)
+        var basePos = GetPosition() - data.size / 2;
+        for (var x = 0; x < data.size.x; x++)
         {
-            for (var y = 0; y < size.y; y++)
+            for (var y = 0; y < data.size.y; y++)
             {
                 positions.Add(new Vector2Int(x + basePos.x, y + basePos.y));
             }
