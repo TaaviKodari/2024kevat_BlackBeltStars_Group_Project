@@ -481,8 +481,8 @@ MonoBehaviour:
         m_MethodName: SelectBuilding
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8370969526154973477, guid: 6d15409ef07d8c5419d649d17525c1ac, type: 3}
-          m_ObjectArgumentAssemblyTypeName: Building, Assembly-CSharp
+          m_ObjectArgument: {fileID: 11400000, guid: 7bdc676c2f895f84a83d8c67a04b8d92, type: 2}
+          m_ObjectArgumentAssemblyTypeName: BuildingData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2120,8 +2120,8 @@ MonoBehaviour:
         m_MethodName: SelectBuilding
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: -6430842525842048442, guid: ceaabf24b10aa32499b831c98efeefa6, type: 3}
-          m_ObjectArgumentAssemblyTypeName: Building, Assembly-CSharp
+          m_ObjectArgument: {fileID: 11400000, guid: d37d90e1f8af65a499ca56747fcd55cc, type: 2}
+          m_ObjectArgumentAssemblyTypeName: BuildingData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2484,8 +2484,8 @@ MonoBehaviour:
         m_MethodName: SelectBuilding
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: -5838272299805140029, guid: b762989de0fc4194e9bd8049a7d4aafd, type: 3}
-          m_ObjectArgumentAssemblyTypeName: Building, Assembly-CSharp
+          m_ObjectArgument: {fileID: 11400000, guid: 2b08f781c4813de4eb8dc9b0c5ca32eb, type: 2}
+          m_ObjectArgumentAssemblyTypeName: BuildingData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3097,8 +3097,13 @@ MonoBehaviour:
         m_MethodName: OpenMenu
         m_Mode: 1
         m_Arguments:
+<<<<<<< HEAD
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+=======
+          m_ObjectArgument: {fileID: 11400000, guid: dd1e5bf6fd3378a47a249aad126ec766, type: 2}
+          m_ObjectArgumentAssemblyTypeName: BuildingData, Assembly-CSharp
+>>>>>>> 6adb39ae92438dcd7db22f01ea16ce752d560702
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

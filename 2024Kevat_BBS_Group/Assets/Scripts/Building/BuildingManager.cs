@@ -21,7 +21,7 @@ public class BuildingManager : MonoBehaviour
     [SerializeField]
     private Vector2 tileSize = new Vector2(1, 1);
     
-    private Building selectedBuilding;
+    private BuildingData selectedBuilding;
     private GameObject buildingPreview;
     private readonly HashSet<Vector2Int> usedPositions = new HashSet<Vector2Int>();
     private readonly Dictionary<Vector2Int, Building> positionToBuilding = new Dictionary<Vector2Int, Building>();
@@ -97,11 +97,11 @@ public class BuildingManager : MonoBehaviour
     }
 
     [UsedImplicitly] // Assigned to buttons in the editor
-    public void SelectBuilding(Building prefab)
+    public void SelectBuilding(BuildingData building)
     {
         if (buildingPreview != null)
             Destroy(buildingPreview);
-        selectedBuilding = prefab;
+        selectedBuilding = building;
         if (selectedBuilding != null)
             CreatePreview();
     }
@@ -109,7 +109,8 @@ public class BuildingManager : MonoBehaviour
     private void PlaceBuilding()
     {
         var pos = GetPlacementPos();
-        var building = Instantiate(selectedBuilding, pos, Quaternion.identity, transform);
+        var building = Instantiate(selectedBuilding.prefab, pos, Quaternion.identity, transform).GetComponent<Building>();
+        building.data = selectedBuilding;
         var buildingPositions = building.GetUsedPositions();
         if (!CanPlace(building))
         {
@@ -135,7 +136,9 @@ public class BuildingManager : MonoBehaviour
     private void CreatePreview()
     {
         var pos = GetPlacementPos();
-        var preview = Instantiate(selectedBuilding, pos, Quaternion.identity, transform);
+        var preview = Instantiate(selectedBuilding.prefab, pos, Quaternion.identity, transform);
+        preview.GetComponent<Building>().data = selectedBuilding;
+        
         // Remove all scripts from the preview. This is a way to prevent the preview from doing anything.
         foreach (var script in preview.GetComponentsInChildren<MonoBehaviour>(true))
         {
@@ -148,7 +151,7 @@ public class BuildingManager : MonoBehaviour
             Destroy(collider);
         }
 
-        buildingPreview = preview.gameObject;
+        buildingPreview = preview;
         buildingPreview.name = "BuildingPreview";
         UpdatePreview();
     }
