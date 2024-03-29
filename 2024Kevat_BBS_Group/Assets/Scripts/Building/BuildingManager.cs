@@ -26,6 +26,11 @@ public class BuildingManager : MonoBehaviour
     private readonly HashSet<Vector2Int> usedPositions = new HashSet<Vector2Int>();
     private readonly Dictionary<Vector2Int, Building> positionToBuilding = new Dictionary<Vector2Int, Building>();
     private readonly HashSet<Building> buildings = new HashSet<Building>();
+
+    public bool IsBuilding(Vector2Int pos)
+    {
+        return usedPositions.Contains(pos);
+    }
     
     private void Awake()
     {
