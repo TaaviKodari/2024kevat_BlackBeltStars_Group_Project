@@ -21,11 +21,13 @@ public class BuildingConnector : MonoBehaviour
     private SpriteRenderer sr;
     private BuildingManager buildingManager;
     private Building building;
+    private new PolygonCollider2D collider;
 
     // Start is called before the first frame update
     void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
+        collider = GetComponentInChildren<PolygonCollider2D>();
         buildingManager = FindObjectOfType<BuildingManager>();
         building = GetComponent<Building>();
     }
@@ -49,6 +51,22 @@ public class BuildingConnector : MonoBehaviour
         bool b = buildingManager.IsBuilding(new Vector2Int(minX, minY - 1));
 
         sr.sprite = GetSprite(l, r, t, b);
+        UpdateCollider(sr.sprite);
+    }
+
+    // Unity doesn't update the collider when the sprite is changed at runtime
+    // and doesn't even provide a method to do so, so we have to do it manually
+    private void UpdateCollider(Sprite sprite)
+    {
+        collider.pathCount = sprite.GetPhysicsShapeCount();
+        
+        // Reuse the list
+        var path = new List<Vector2>();
+        for (var i = 0; i < collider.pathCount; i++) {
+            path.Clear();
+            sprite.GetPhysicsShape(i, path);
+            collider.SetPath(i, path.ToArray());
+        }
     }
 
     private Sprite GetSprite(bool l, bool r, bool t, bool b)
