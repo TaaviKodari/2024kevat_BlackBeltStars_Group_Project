@@ -251,6 +251,15 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""BuildToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""3111ef5f-1a8a-418f-bef0-a4a43f7768b6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -297,6 +306,17 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""action"": ""Destroy"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c91b8d75-74e5-4d10-a153-bdb4e44ba999"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BuildToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -314,6 +334,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         m_Building_Destroy = m_Building.FindAction("Destroy", throwIfNotFound: true);
         m_Building_Cancel = m_Building.FindAction("Cancel", throwIfNotFound: true);
         m_Building_MousePosition = m_Building.FindAction("Mouse Position", throwIfNotFound: true);
+        m_Building_BuildToggle = m_Building.FindAction("BuildToggle", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -441,6 +462,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Building_Destroy;
     private readonly InputAction m_Building_Cancel;
     private readonly InputAction m_Building_MousePosition;
+    private readonly InputAction m_Building_BuildToggle;
     public struct BuildingActions
     {
         private @MasterInput m_Wrapper;
@@ -449,6 +471,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         public InputAction @Destroy => m_Wrapper.m_Building_Destroy;
         public InputAction @Cancel => m_Wrapper.m_Building_Cancel;
         public InputAction @MousePosition => m_Wrapper.m_Building_MousePosition;
+        public InputAction @BuildToggle => m_Wrapper.m_Building_BuildToggle;
         public InputActionMap Get() { return m_Wrapper.m_Building; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -470,6 +493,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @MousePosition.started += instance.OnMousePosition;
             @MousePosition.performed += instance.OnMousePosition;
             @MousePosition.canceled += instance.OnMousePosition;
+            @BuildToggle.started += instance.OnBuildToggle;
+            @BuildToggle.performed += instance.OnBuildToggle;
+            @BuildToggle.canceled += instance.OnBuildToggle;
         }
 
         private void UnregisterCallbacks(IBuildingActions instance)
@@ -486,6 +512,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @MousePosition.started -= instance.OnMousePosition;
             @MousePosition.performed -= instance.OnMousePosition;
             @MousePosition.canceled -= instance.OnMousePosition;
+            @BuildToggle.started -= instance.OnBuildToggle;
+            @BuildToggle.performed -= instance.OnBuildToggle;
+            @BuildToggle.canceled -= instance.OnBuildToggle;
         }
 
         public void RemoveCallbacks(IBuildingActions instance)
@@ -515,5 +544,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         void OnDestroy(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnBuildToggle(InputAction.CallbackContext context);
     }
 }

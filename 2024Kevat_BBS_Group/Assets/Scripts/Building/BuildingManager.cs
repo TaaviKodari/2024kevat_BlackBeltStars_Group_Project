@@ -188,19 +188,20 @@ public class BuildingManager : MonoBehaviour
     }
     private void BuildMode()
     {
-        if(player.input.Building.BuildToggle.triggered)
+        if(player.input.Building.Cancel.triggered)
         {
             menuController = GameObject.Find("Canvas").GetComponent<MenuController>();
-            switch(menuController.CurrentMenuState)
-            {
-                case MenuController.MenuStates.None:
-                    menuController.CurrentMenuState = MenuController.MenuStates.Build;
-                    break;
-                case MenuController.MenuStates.Build:
-                    menuController.CurrentMenuState = MenuController.MenuStates.None;
-                    break;
+            if(selectedBuilding == null){
+                switch(menuController.CurrentMenuState)
+                {
+                    case MenuController.MenuStates.None:
+                        menuController.CurrentMenuState = MenuController.MenuStates.Build;
+                        break;
+                    case MenuController.MenuStates.Build:
+                        menuController.CurrentMenuState = MenuController.MenuStates.None;
+                        break;
+                }
             }
-            
         } 
     }
 }
