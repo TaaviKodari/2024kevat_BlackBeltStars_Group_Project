@@ -35,4 +35,4 @@ public class Building : MonoBehaviour
         }
         return positions;
     }
-}
+} 
