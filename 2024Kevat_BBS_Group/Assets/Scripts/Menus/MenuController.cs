@@ -11,7 +11,7 @@ public class MenuController : MonoBehaviour
     public GameObject OptionsMenuUI;
     public GameObject BuildUI;
     //add more states when needed
-    public enum MenuStates{None, Pause, Options};
+    public enum MenuStates{None, Pause, Options, Build};
     public MenuStates CurrentMenuState;
 
     private void Awake()
@@ -47,6 +47,9 @@ public class MenuController : MonoBehaviour
                 case MenuStates.Options:
                     CurrentMenuState = MenuStates.Pause;
                     break;
+                case MenuStates.Build:
+                    CurrentMenuState = MenuStates.None;
+                    break;
             }
         }
     }
@@ -56,7 +59,7 @@ public class MenuController : MonoBehaviour
         switch(CurrentMenuState)
         {
             case MenuStates.None:
-                BuildUI.SetActive(true);
+                BuildUI.SetActive(false);
                 PauseMenuUI.SetActive(false);
                 OptionsMenuUI.SetActive(false);
                 break;
@@ -69,6 +72,11 @@ public class MenuController : MonoBehaviour
                 BuildUI.SetActive(false);
                 PauseMenuUI.SetActive(false);
                 OptionsMenuUI.SetActive(true);
+                break;
+            case MenuStates.Build:
+                BuildUI.SetActive(true);
+                PauseMenuUI.SetActive(false);
+                OptionsMenuUI.SetActive(false);
                 break;
         }
     }

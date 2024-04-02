@@ -20,7 +20,9 @@ public class BuildingManager : MonoBehaviour
     private Material invalidPreviewMaterial;
     [SerializeField]
     private Vector2 tileSize = new Vector2(1, 1);
-    
+
+    private GameObject Canvas;
+    private MenuController menuController;
     private BuildingData selectedBuilding;
     private GameObject buildingPreview;
     private readonly HashSet<Vector2Int> usedPositions = new HashSet<Vector2Int>();
@@ -43,6 +45,7 @@ public class BuildingManager : MonoBehaviour
     {
         HandleInput();
         UpdatePreview();
+        BuildMode();
     }
 
     private void HandleInput()
@@ -182,5 +185,22 @@ public class BuildingManager : MonoBehaviour
                 return false;
         }
         return true;
+    }
+    private void BuildMode()
+    {
+        if(player.input.Building.BuildToggle.triggered)
+        {
+            menuController = GameObject.Find("Canvas").GetComponent<MenuController>();
+            switch(menuController.CurrentMenuState)
+            {
+                case MenuController.MenuStates.None:
+                    menuController.CurrentMenuState = MenuController.MenuStates.Build;
+                    break;
+                case MenuController.MenuStates.Build:
+                    menuController.CurrentMenuState = MenuController.MenuStates.None;
+                    break;
+            }
+            
+        } 
     }
 }
