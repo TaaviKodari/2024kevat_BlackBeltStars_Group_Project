@@ -21,7 +21,6 @@ public class BuildingManager : MonoBehaviour
     [SerializeField]
     private Vector2 tileSize = new Vector2(1, 1);
 
-    private GameObject Canvas;
     private MenuController menuController;
     private BuildingData selectedBuilding;
     private GameObject buildingPreview;
@@ -45,7 +44,7 @@ public class BuildingManager : MonoBehaviour
     {
         HandleInput();
         UpdatePreview();
-        BuildMode();
+        CheckToggle();
     }
 
     private void HandleInput()
@@ -186,22 +185,21 @@ public class BuildingManager : MonoBehaviour
         }
         return true;
     }
-    private void BuildMode()
+    
+    // TODO: move to menu controller
+    private void CheckToggle()
     {
-        if(player.input.Building.Cancel.triggered)
+        if (!player.input.Building.ToggleBuilding.triggered) return;
+        
+        menuController = GameObject.Find("Canvas").GetComponent<MenuController>();
+        switch(menuController.CurrentMenuState)
         {
-            menuController = GameObject.Find("Canvas").GetComponent<MenuController>();
-            if(selectedBuilding == null){
-                switch(menuController.CurrentMenuState)
-                {
-                    case MenuController.MenuStates.None:
-                        menuController.CurrentMenuState = MenuController.MenuStates.Build;
-                        break;
-                    case MenuController.MenuStates.Build:
-                        menuController.CurrentMenuState = MenuController.MenuStates.None;
-                        break;
-                }
-            }
-        } 
+            case MenuController.MenuStates.None:
+                menuController.CurrentMenuState = MenuController.MenuStates.Build;
+                break;
+            case MenuController.MenuStates.Build:
+                menuController.CurrentMenuState = MenuController.MenuStates.None;
+                break;
+        }
     }
 }

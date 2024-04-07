@@ -231,7 +231,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "BuildToggle",
+                    "name": "Toggle Building",
                     "type": "Button",
                     "id": "3111ef5f-1a8a-418f-bef0-a4a43f7768b6",
                     "expectedControlType": "Button",
@@ -292,7 +292,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "BuildToggle",
+                    "action": "Toggle Building",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
