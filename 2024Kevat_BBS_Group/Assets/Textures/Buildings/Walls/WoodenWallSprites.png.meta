@@ -4,40 +4,40 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 3412172458643973072
-    second: Wooden-Wall-Spritesheet_0
+    second: Wooden Wall (T down)
   - first:
       213: -1610459602441432260
-    second: Wooden-Wall-Spritesheet_1
+    second: Wooden Wall (T right)
   - first:
       213: 6979926493084868848
-    second: Wooden-Wall-Spritesheet_2
+    second: Wooden Wall (bottom right corner)
   - first:
       213: -269177440757509325
-    second: Wooden-Wall-Spritesheet_3
+    second: Wooden Wall (bottom left corner)
   - first:
       213: 4170053093938960504
-    second: Wooden-Wall-Spritesheet_4
+    second: Wooden Wall (horizontal)
   - first:
       213: 1876103328161833988
-    second: Wooden-Wall-Spritesheet_5
+    second: Wooden Wall (cross)
   - first:
       213: -3824085563825947466
-    second: Wooden-Wall-Spritesheet_6
+    second: Wooden Wall (T left)
   - first:
       213: -3551644100956950701
-    second: Wooden-Wall-Spritesheet_7
+    second: Wooden Wall (T up)
   - first:
       213: -3486453560365570257
-    second: Wooden-Wall-Spritesheet_8
+    second: Wooden Wall (top right corner)
   - first:
       213: 8615204457590467089
-    second: Wooden-Wall-Spritesheet_9
+    second: Wooden Wall (top left corner)
   - first:
       213: -6339303158465587964
-    second: Wooden-Wall-Spritesheet_10
+    second: Wooden Wall (vertical)
   - first:
       213: 115456857148852384
-    second: Wooden-Wall-Spritesheet_11
+    second: Wooden Wall (single)
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -79,7 +79,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 0
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
@@ -140,7 +140,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wooden-Wall-Spritesheet_0
+      name: Wooden Wall (T down)
       rect:
         serializedVersion: 2
         x: 0
@@ -169,7 +169,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden-Wall-Spritesheet_1
+      name: Wooden Wall (T right)
       rect:
         serializedVersion: 2
         x: 16
@@ -198,7 +198,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden-Wall-Spritesheet_2
+      name: Wooden Wall (bottom right corner)
       rect:
         serializedVersion: 2
         x: 32
@@ -225,7 +225,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden-Wall-Spritesheet_3
+      name: Wooden Wall (bottom left corner)
       rect:
         serializedVersion: 2
         x: 48
@@ -252,7 +252,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden-Wall-Spritesheet_4
+      name: Wooden Wall (horizontal)
       rect:
         serializedVersion: 2
         x: 64
@@ -277,7 +277,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden-Wall-Spritesheet_5
+      name: Wooden Wall (cross)
       rect:
         serializedVersion: 2
         x: 80
@@ -310,7 +310,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden-Wall-Spritesheet_6
+      name: Wooden Wall (T left)
       rect:
         serializedVersion: 2
         x: 0
@@ -339,7 +339,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden-Wall-Spritesheet_7
+      name: Wooden Wall (T up)
       rect:
         serializedVersion: 2
         x: 16
@@ -368,7 +368,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden-Wall-Spritesheet_8
+      name: Wooden Wall (top right corner)
       rect:
         serializedVersion: 2
         x: 32
@@ -395,7 +395,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden-Wall-Spritesheet_9
+      name: Wooden Wall (top left corner)
       rect:
         serializedVersion: 2
         x: 48
@@ -422,7 +422,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden-Wall-Spritesheet_10
+      name: Wooden Wall (vertical)
       rect:
         serializedVersion: 2
         x: 64
@@ -447,7 +447,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden-Wall-Spritesheet_11
+      name: Wooden Wall (single)
       rect:
         serializedVersion: 2
         x: 80
