@@ -3,8 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceManager : MonoBehaviour;
-public class ResourceManager2
+public class ResourceManager : MonoBehaviour
 {
     // resurssit ja määrät
     private Dictionary<ResourceType, int> resources;
@@ -19,7 +18,7 @@ public class ResourceManager2
     }
 
    
-    public ResourceManager2()
+    public ResourceManager()
     {
         resources = new Dictionary<ResourceType, int>();
         foreach (ResourceType type in Enum.GetValues(typeof(ResourceType)))
