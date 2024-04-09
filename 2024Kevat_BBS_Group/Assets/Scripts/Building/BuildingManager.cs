@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public class BuildingManager : MonoBehaviour
 {
@@ -14,16 +15,21 @@ public class BuildingManager : MonoBehaviour
     
     [SerializeField]
     private PlayerController player;
+    [FormerlySerializedAs("material")] [SerializeField]
+    private Material normalMaterial;
     [SerializeField]
     private Material previewMaterial;
     [SerializeField]
     private Material invalidPreviewMaterial;
+    [SerializeField] 
+    private Material hoverMaterial;
     [SerializeField]
     private Vector2 tileSize = new Vector2(1, 1);
 
     private MenuController menuController;
     private BuildingData selectedBuilding;
     private GameObject buildingPreview;
+    private GameObject hoveredBuilding;
     private readonly HashSet<Vector2Int> usedPositions = new HashSet<Vector2Int>();
     private readonly Dictionary<Vector2Int, Building> positionToBuilding = new Dictionary<Vector2Int, Building>();
     private readonly HashSet<Building> buildings = new HashSet<Building>();
@@ -35,7 +41,7 @@ public class BuildingManager : MonoBehaviour
     
     private void Awake()
     {
-        selectedBuilding = null;
+        menuController = GameObject.Find("Canvas").GetComponent<MenuController>();
         // Have to init this here, unity doesn't allow for layer masks to be created before awake
         buildingPlacementLayerMask = ~LayerMask.GetMask("Buildings", "Ignore Raycast");
     }
@@ -44,6 +50,7 @@ public class BuildingManager : MonoBehaviour
     {
         HandleInput();
         UpdatePreview();
+        UpdateHoveredBuilding();
         CheckToggle();
     }
 
@@ -129,6 +136,8 @@ public class BuildingManager : MonoBehaviour
         buildingPositions.ToList().ForEach(p => positionToBuilding.Add(p, building));
 
         building.name = selectedBuilding.name;
+        // Apply normal material to placed buildings to ensure that they look the same even after hovering
+        SetMaterial(building.gameObject, normalMaterial);
     }
 
     public void RemoveBuilding(Building building)
@@ -138,6 +147,33 @@ public class BuildingManager : MonoBehaviour
         usedPositions.ExceptWith(buildingPositions);
         buildings.Remove(building);
         buildingPositions.ToList().ForEach(p => positionToBuilding.Remove(p));
+    }
+
+    private void UpdateHoveredBuilding()
+    {
+        if (selectedBuilding != null)
+        {
+            if (hoveredBuilding != null)
+            {
+                SetMaterial(hoveredBuilding, normalMaterial);
+                hoveredBuilding = null;
+            }
+            return;
+        }
+        
+        positionToBuilding.TryGetValue(GetSelectedTile(Vector2Int.one), out var building);
+        var buildingObject = building == null ? null : building.gameObject;
+        if (buildingObject == hoveredBuilding) return;
+
+        if (hoveredBuilding != null)
+        {
+            SetMaterial(hoveredBuilding, normalMaterial);
+        }
+        hoveredBuilding = buildingObject;
+        if (hoveredBuilding != null)
+        {
+            SetMaterial(hoveredBuilding, hoverMaterial);
+        }
     }
 
     private void CreatePreview()
@@ -169,8 +205,7 @@ public class BuildingManager : MonoBehaviour
         buildingPreview.transform.position = GetPlacementPos();
         // Sets the material of the preview
         var material = CanPlace(buildingPreview.GetComponent<Building>()) ? previewMaterial : invalidPreviewMaterial;
-        foreach (var renderer in buildingPreview.GetComponentsInChildren<Renderer>(true))
-            renderer.sharedMaterial = material;
+        SetMaterial(buildingPreview, material);
     }
     
     private bool CanPlace(Building building)
@@ -185,13 +220,18 @@ public class BuildingManager : MonoBehaviour
         }
         return true;
     }
+
+    private static void SetMaterial(GameObject obj, Material mat)
+    {
+        foreach (var renderer in obj.GetComponentsInChildren<Renderer>(true))
+            renderer.sharedMaterial = mat;
+    }
     
     // TODO: move to menu controller
     private void CheckToggle()
     {
         if (!player.input.Building.ToggleBuilding.triggered) return;
         
-        menuController = GameObject.Find("Canvas").GetComponent<MenuController>();
         switch(menuController.CurrentMenuState)
         {
             case MenuController.MenuStates.None:

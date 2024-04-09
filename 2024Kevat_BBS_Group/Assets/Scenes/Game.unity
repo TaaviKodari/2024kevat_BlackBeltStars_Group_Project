@@ -4005,8 +4005,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 78882052}
+  normalMaterial: {fileID: 2100000, guid: dac42779e175b2d4eaa486f40469b64c, type: 2}
   previewMaterial: {fileID: 2100000, guid: 6a21579e202dcf246ae0af3d5f7489b4, type: 2}
   invalidPreviewMaterial: {fileID: 2100000, guid: 8c278ae5466161043bbb3c77c5474559, type: 2}
+  hoverMaterial: {fileID: 2100000, guid: 333f792a72d000c4a8a84544b7f63f7a, type: 2}
   tileSize: {x: 1, y: 1}
 --- !u!4 &1708680285
 Transform:
