@@ -24,5 +24,9 @@ public class PlayerController : Entity
     {
         return input.Player.Movement.ReadValue<Vector2>();
     }
-    
+
+    protected override void Die()
+    {
+        // TODO: Game over screen
+    }
 }
