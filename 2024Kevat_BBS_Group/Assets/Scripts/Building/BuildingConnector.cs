@@ -45,10 +45,10 @@ public class BuildingConnector : MonoBehaviour
         int minY = building.GetUsedPositions().Min((Vector2Int pos) => pos.y);
         int maxY = building.GetUsedPositions().Max((Vector2Int pos) => pos.y);
 
-        bool l = buildingManager.IsBuilding(new Vector2Int(minX - 1, minY));
-        bool r = buildingManager.IsBuilding(new Vector2Int(maxX + 1, minY));
-        bool t = buildingManager.IsBuilding(new Vector2Int(minX, maxY + 1));
-        bool b = buildingManager.IsBuilding(new Vector2Int(minX, minY - 1));
+        bool l = buildingManager.HasBuildingAt(new Vector2Int(minX - 1, minY));
+        bool r = buildingManager.HasBuildingAt(new Vector2Int(maxX + 1, minY));
+        bool t = buildingManager.HasBuildingAt(new Vector2Int(minX, maxY + 1));
+        bool b = buildingManager.HasBuildingAt(new Vector2Int(minX, minY - 1));
 
         sr.sprite = GetSprite(l, r, t, b);
         UpdateCollider(sr.sprite);

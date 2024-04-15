@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb827b9066472854b9cfd4009023e65c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  maxHealth: 2
   damage: 1
   speed: 2
 --- !u!50 &78882053
@@ -709,8 +709,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1708680284}
-        m_TargetAssemblyTypeName: BuildingManager, Assembly-CSharp
+      - m_Target: {fileID: 1708680286}
+        m_TargetAssemblyTypeName: BuildingPlacer, Assembly-CSharp
         m_MethodName: SelectBuilding
         m_Mode: 2
         m_Arguments:
@@ -2192,8 +2192,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1708680284}
-        m_TargetAssemblyTypeName: BuildingManager, Assembly-CSharp
+      - m_Target: {fileID: 1708680286}
+        m_TargetAssemblyTypeName: BuildingPlacer, Assembly-CSharp
         m_MethodName: SelectBuilding
         m_Mode: 2
         m_Arguments:
@@ -3090,8 +3090,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1708680284}
-        m_TargetAssemblyTypeName: BuildingManager, Assembly-CSharp
+      - m_Target: {fileID: 1708680286}
+        m_TargetAssemblyTypeName: BuildingPlacer, Assembly-CSharp
         m_MethodName: SelectBuilding
         m_Mode: 2
         m_Arguments:
@@ -3454,8 +3454,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1708680284}
-        m_TargetAssemblyTypeName: BuildingManager, Assembly-CSharp
+      - m_Target: {fileID: 1708680286}
+        m_TargetAssemblyTypeName: BuildingPlacer, Assembly-CSharp
         m_MethodName: SelectBuilding
         m_Mode: 2
         m_Arguments:
@@ -3985,6 +3985,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1708680285}
   - component: {fileID: 1708680284}
+  - component: {fileID: 1708680286}
   m_Layer: 0
   m_Name: Building Manager
   m_TagString: Untagged
@@ -4005,10 +4006,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 78882052}
-  normalMaterial: {fileID: 2100000, guid: dac42779e175b2d4eaa486f40469b64c, type: 2}
-  previewMaterial: {fileID: 2100000, guid: 6a21579e202dcf246ae0af3d5f7489b4, type: 2}
-  invalidPreviewMaterial: {fileID: 2100000, guid: 8c278ae5466161043bbb3c77c5474559, type: 2}
-  hoverMaterial: {fileID: 2100000, guid: 333f792a72d000c4a8a84544b7f63f7a, type: 2}
   tileSize: {x: 1, y: 1}
 --- !u!4 &1708680285
 Transform:
@@ -4024,6 +4021,23 @@ Transform:
   m_Father: {fileID: 2101914870}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1708680286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1708680283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d885e8ed0c4367a790fbc6f53ad751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 78882052}
+  normalMaterial: {fileID: 2100000, guid: dac42779e175b2d4eaa486f40469b64c, type: 2}
+  previewMaterial: {fileID: 2100000, guid: 6a21579e202dcf246ae0af3d5f7489b4, type: 2}
+  invalidPreviewMaterial: {fileID: 2100000, guid: 8c278ae5466161043bbb3c77c5474559, type: 2}
+  hoverMaterial: {fileID: 2100000, guid: 333f792a72d000c4a8a84544b7f63f7a, type: 2}
 --- !u!1 &1729201677
 GameObject:
   m_ObjectHideFlags: 0
@@ -4189,8 +4203,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1708680284}
-        m_TargetAssemblyTypeName: BuildingManager, Assembly-CSharp
+      - m_Target: {fileID: 1708680286}
+        m_TargetAssemblyTypeName: BuildingPlacer, Assembly-CSharp
         m_MethodName: SelectBuilding
         m_Mode: 2
         m_Arguments:
