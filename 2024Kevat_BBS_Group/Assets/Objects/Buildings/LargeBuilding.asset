@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 2, y: 2}
   prefab: {fileID: 3593593953817526983, guid: 83097aa766a218a4d931f4f5cebc7716, type: 3}
+  costs:
+  - type: 2
+    amount: 12

@@ -27,6 +27,7 @@ public class BuildingManager : MonoBehaviour
     private Vector2 tileSize = new Vector2(1, 1);
 
     private MenuController menuController;
+        
     private BuildingData selectedBuilding;
     private GameObject buildingPreview;
     private GameObject hoveredBuilding;
@@ -138,6 +139,11 @@ public class BuildingManager : MonoBehaviour
         building.name = selectedBuilding.name;
         // Apply normal material to placed buildings to ensure that they look the same even after hovering
         SetMaterial(building.gameObject, normalMaterial);
+        
+        foreach (var cost in building.data.costs)
+        {
+            ResourceManager.Instance.RemoveResource(cost.type, cost.amount);
+        }
     }
 
     public void RemoveBuilding(Building building)
@@ -147,6 +153,11 @@ public class BuildingManager : MonoBehaviour
         usedPositions.ExceptWith(buildingPositions);
         buildings.Remove(building);
         buildingPositions.ToList().ForEach(p => positionToBuilding.Remove(p));
+
+        foreach (var cost in building.data.costs)
+        {
+            ResourceManager.Instance.AddResource(cost.type, Mathf.FloorToInt(cost.amount * 0.75f));
+        }
     }
 
     private void UpdateHoveredBuilding()
@@ -210,6 +221,12 @@ public class BuildingManager : MonoBehaviour
     
     private bool CanPlace(Building building)
     {
+        var costs = building.data.costs;
+        if (costs.Any(cost => ResourceManager.Instance.GetResourceAmount(cost.type) < cost.amount))
+        {
+            return false;
+        }
+        
         var buildingPositions = building.GetUsedPositions();
         if (usedPositions.Overlaps(buildingPositions)) return false;
         var halfVec = new Vector2(0.5f, 0.5f);
@@ -224,7 +241,9 @@ public class BuildingManager : MonoBehaviour
     private static void SetMaterial(GameObject obj, Material mat)
     {
         foreach (var renderer in obj.GetComponentsInChildren<Renderer>(true))
+        {
             renderer.sharedMaterial = mat;
+        }
     }
     
     // TODO: move to menu controller
