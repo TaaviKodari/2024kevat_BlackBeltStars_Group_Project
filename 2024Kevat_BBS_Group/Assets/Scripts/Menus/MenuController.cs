@@ -1,22 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    public MasterInput input { get; private set; }
-    public GameObject PauseMenuUI;
-    public GameObject OptionsMenuUI;
-    public GameObject BuildUI;
-    //add more states when needed
-    public enum MenuStates{None, Pause, Options, Build};
-    public MenuStates CurrentMenuState;
+    private MasterInput input;
+    private Animator animator;
 
     private void Awake()
     {
         input = new MasterInput();
+        animator = GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -31,77 +23,42 @@ public class MenuController : MonoBehaviour
 
     private void Update()
     {
-        SwitchMenu();
+        if (input.Building.ToggleBuilding.triggered)
+        {
+            animator.SetTrigger("key/build");
+        }
         if(input.Player.Menu.triggered)
         {
-            switch(CurrentMenuState)
-            {
-                //from what state
-                case MenuStates.None:
-                    //to what state
-                    CurrentMenuState = MenuStates.Pause;
-                    break;
-                case MenuStates.Pause:
-                    CurrentMenuState = MenuStates.None;
-                    break;
-                case MenuStates.Options:
-                    CurrentMenuState = MenuStates.Pause;
-                    break;
-                case MenuStates.Build:
-                    CurrentMenuState = MenuStates.None;
-                    break;
-            }
+            animator.SetTrigger("key/menu");
         }
     }
-
-    private void SwitchMenu()
-    {
-        switch(CurrentMenuState)
-        {
-            case MenuStates.None:
-                BuildUI.SetActive(false);
-                PauseMenuUI.SetActive(false);
-                OptionsMenuUI.SetActive(false);
-                break;
-            case MenuStates.Pause:
-                BuildUI.SetActive(false);
-                PauseMenuUI.SetActive(true);
-                OptionsMenuUI.SetActive(false);
-                break;
-            case MenuStates.Options:
-                BuildUI.SetActive(false);
-                PauseMenuUI.SetActive(false);
-                OptionsMenuUI.SetActive(true);
-                break;
-            case MenuStates.Build:
-                BuildUI.SetActive(true);
-                PauseMenuUI.SetActive(false);
-                OptionsMenuUI.SetActive(false);
-                break;
-        }
-    }
+    
     //buttons
     public void Resume()
     {
-        CurrentMenuState = MenuStates.None;
+        animator.SetTrigger("button/resume");
     }
+    
     public void OpenMenu()
     {
         Debug.Log("Open Menu");
         //have this be the main menu scene or whatever once its done
         //SceneManager.LoadScene("Menu");
     }
+    
     public void MenuQuit()
     {
         Debug.Log("Quitting from game menu");
         Application.Quit(); //doesn't end test in unity when testing, works as intended i think
     }
+    
     public void MenuOptions()
     {
-        CurrentMenuState = MenuStates.Options;
+        animator.SetTrigger("button/options");
     }
+    
     public void MenuBackPause()
     {
-        CurrentMenuState = MenuStates.Pause;
+        animator.SetTrigger("button/back");
     }
 }

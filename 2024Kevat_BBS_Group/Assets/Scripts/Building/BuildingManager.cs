@@ -29,11 +29,6 @@ public class BuildingManager : MonoBehaviour
         buildingPlacementLayerMask = ~LayerMask.GetMask("Buildings", "Ignore Raycast");
     }
 
-    private void Update()
-    {
-        CheckToggle();
-    }
-
     public bool HasBuildingAt(Vector2Int pos)
     {
         return usedPositions.Contains(pos);
@@ -108,22 +103,6 @@ public class BuildingManager : MonoBehaviour
         foreach (var cost in building.data.costs)
         {
             ResourceManager.Instance.AddResource(cost.type, Mathf.FloorToInt(cost.amount * 0.75f));
-        }
-    }
-
-    // TODO: move to menu controller
-    private void CheckToggle()
-    {
-        if (!player.input.Building.ToggleBuilding.triggered) return;
-        
-        switch(menuController.CurrentMenuState)
-        {
-            case MenuController.MenuStates.None:
-                menuController.CurrentMenuState = MenuController.MenuStates.Build;
-                break;
-            case MenuController.MenuStates.Build:
-                menuController.CurrentMenuState = MenuController.MenuStates.None;
-                break;
         }
     }
 }
