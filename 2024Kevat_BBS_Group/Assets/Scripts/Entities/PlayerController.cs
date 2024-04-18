@@ -20,6 +20,16 @@ public class PlayerController : Entity
         input.Disable();
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Resource"))
+        {
+            ResourceData data = collision.gameObject.GetComponent<ResourceData>();
+            ResourceManager.Instance.AddResource(data.type, data.amount);
+            Destroy(collision.gameObject);
+        }
+    }
+
     protected override Vector2 GetMoveDirection()
     {
         return input.Player.Movement.ReadValue<Vector2>();

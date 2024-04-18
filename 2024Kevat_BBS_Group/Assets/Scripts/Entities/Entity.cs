@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
@@ -5,6 +7,16 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private float maxHealth = 2f;
     [SerializeField] protected float damage = 1f;
     [SerializeField] protected float speed = 2f;
+    public List<ResourceDrop> drops;
+
+    [Serializable]
+    public class ResourceDrop
+    {
+        public ResourceManager.ResourceType type;
+        public int amount;
+    }
+
+    public ResourceData resourcePrefab;
 
     private float health;
     private float lastHitTime;
@@ -63,6 +75,13 @@ public abstract class Entity : MonoBehaviour
     
     protected virtual void Die()
     {
-        Destroy(this);
+        foreach (ResourceDrop drop in drops)
+        {
+            ResourceData rd = Instantiate<ResourceData>(resourcePrefab, transform.position, resourcePrefab.transform.rotation);
+            rd.type = drop.type;
+            rd.amount = drop.amount;
+            rd.SetTexture();
+        }
+        Destroy(gameObject);
     } 
 }
