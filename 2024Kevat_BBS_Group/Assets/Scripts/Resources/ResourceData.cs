@@ -14,9 +14,12 @@ public class ResourceData : MonoBehaviour
     }
     public ResourceManager.ResourceType type;
     public int amount;
+    public float randomDiff;
 
-    public void SetTexture()
+    public void Init()
     {
         GetComponent<SpriteRenderer>().sprite = resourceTextures.Find(t => t.type == type).sprite;
+        GetComponent<Rigidbody2D>().velocity = new Vector2(
+            UnityEngine.Random.Range(0, randomDiff), UnityEngine.Random.Range(0, randomDiff));
     }
 }

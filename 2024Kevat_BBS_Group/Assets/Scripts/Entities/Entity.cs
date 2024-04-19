@@ -80,7 +80,7 @@ public abstract class Entity : MonoBehaviour
             ResourceData rd = Instantiate<ResourceData>(resourcePrefab, transform.position, resourcePrefab.transform.rotation);
             rd.type = drop.type;
             rd.amount = drop.amount;
-            rd.SetTexture();
+            rd.Init();
         }
         Destroy(gameObject);
     } 
