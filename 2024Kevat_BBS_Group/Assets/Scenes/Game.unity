@@ -296,9 +296,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2
   damage: 1
+  knockback: 2
   speed: 2
-  drops: []
-  resourcePrefab: {fileID: 0}
 --- !u!50 &78882053
 Rigidbody2D:
   serializedVersion: 4

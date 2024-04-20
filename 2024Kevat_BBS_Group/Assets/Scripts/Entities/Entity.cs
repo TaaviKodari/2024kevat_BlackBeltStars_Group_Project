@@ -6,22 +6,13 @@ public abstract class Entity : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 2f;
     [SerializeField] protected float damage = 1f;
+    [SerializeField] private float knockback = 2f;
     [SerializeField] protected float speed = 2f;
-    public List<ResourceDrop> drops;
-
-    [Serializable]
-    public class ResourceDrop
-    {
-        public ResourceManager.ResourceType type;
-        public int amount;
-    }
-
-    public ResourceData resourcePrefab;
 
     private float health;
     private float lastHitTime;
     private float lastHitDamage;
-    
+
     protected Rigidbody2D rb;
 
     // Virtual means the method can be overridden in a child class.
@@ -60,7 +51,7 @@ public abstract class Entity : MonoBehaviour
         health -= amount;
         lastHitTime = Time.time;
         lastHitDamage = amount;
-        
+
         if (health <= 0)
         {
             health = 0;
@@ -72,16 +63,17 @@ public abstract class Entity : MonoBehaviour
     {
         health = Mathf.Max(health + amount, maxHealth);
     }
-    
+
     protected virtual void Die()
     {
-        foreach (ResourceDrop drop in drops)
-        {
-            ResourceData rd = Instantiate<ResourceData>(resourcePrefab, transform.position, resourcePrefab.transform.rotation);
-            rd.type = drop.type;
-            rd.amount = drop.amount;
-            rd.Init();
-        }
         Destroy(gameObject);
-    } 
+    }
+
+    protected void Attack(Entity other)
+    {
+        other.Damage(damage);
+        Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
+        if (rb != null) rb.velocity += (Vector2)(other.transform.position - transform.position).normalized * knockback;
+        Debug.Log(rb.velocity);
+    }
 }
