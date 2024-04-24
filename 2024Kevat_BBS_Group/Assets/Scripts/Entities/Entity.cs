@@ -15,11 +15,16 @@ public abstract class Entity : MonoBehaviour
 
     protected Rigidbody2D rb;
 
+    public HealthBar healthBar;
+
     // Virtual means the method can be overridden in a child class.
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         health = maxHealth;
+
+        healthBar.setMaxHealth(maxHealth);
+        healthBar.setHealth(maxHealth);
     }
 
     private void FixedUpdate()
@@ -57,11 +62,16 @@ public abstract class Entity : MonoBehaviour
             health = 0;
             Die();
         }
+
+        healthBar.setHealth(health);
+        
+        
     }
 
     public void Heal(float amount)
     {
         health = Mathf.Max(health + amount, maxHealth);
+        healthBar.setHealth(health);
     }
 
     protected virtual void Die()
