@@ -1,8 +1,17 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : Entity
 {
     public MasterInput input { get; private set; }
+
+    [SerializeField]
+    private GameObject arrowPrefab;
+    [SerializeField]
+    private float arrowForce = 20;
+    [SerializeField]
+    private Transform shootPoint;
+    
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
@@ -22,6 +31,24 @@ public class PlayerController : Entity
     private void OnDisable()
     {
         input.Disable();
+    }
+
+    private void Update()
+    {
+        if (input.Player.Attack.WasPerformedThisFrame())
+        {
+            if (Camera.main == null) return;
+            var mousePosition = Mouse.current.position.ReadValue();
+            var worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            var direction = (Vector2)(worldPosition - shootPoint.position);
+            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            
+            var arrow = Instantiate(arrowPrefab, shootPoint.position, Quaternion.AngleAxis(angle, Vector3.forward));
+            arrow.GetComponent<Arrow>().Owner = gameObject;
+            
+            var arrowRb = arrow.GetComponent<Rigidbody2D>();
+            arrowRb.AddForce(direction.normalized * arrowForce, ForceMode2D.Impulse);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
