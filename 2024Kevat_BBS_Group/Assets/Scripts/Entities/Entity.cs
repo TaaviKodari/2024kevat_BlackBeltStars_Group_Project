@@ -38,6 +38,11 @@ public abstract class Entity : MonoBehaviour
     {
         var dir = GetMoveDirection();
         rb.velocity += dir * (Time.fixedDeltaTime * speed * 50);
+        OnMove(dir);
+    }
+
+    protected virtual void OnMove(Vector2 direction)
+    {
     }
 
     public void Damage(float amount)

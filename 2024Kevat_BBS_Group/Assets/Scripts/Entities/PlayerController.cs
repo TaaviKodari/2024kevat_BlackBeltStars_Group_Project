@@ -3,11 +3,15 @@ using UnityEngine;
 public class PlayerController : Entity
 {
     public MasterInput input { get; private set; }
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     protected override void Awake()
     {
         base.Awake();
         input = new MasterInput();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void OnEnable()
@@ -27,6 +31,16 @@ public class PlayerController : Entity
             ResourceData data = collision.gameObject.GetComponent<ResourceData>();
             ResourceManager.Instance.AddResource(data.type, data.amount);
             Destroy(collision.gameObject);
+        }
+    }
+
+    protected override void OnMove(Vector2 direction)
+    {
+        var moving = direction.sqrMagnitude > 0.1;
+        animator.SetBool("Running", moving);
+        if (moving)
+        {
+            spriteRenderer.flipX = direction.x < 0;
         }
     }
 
