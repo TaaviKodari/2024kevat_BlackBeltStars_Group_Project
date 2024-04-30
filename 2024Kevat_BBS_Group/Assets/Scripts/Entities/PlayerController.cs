@@ -38,7 +38,7 @@ public class PlayerController : Entity
     {
         var moving = direction.sqrMagnitude > 0.1;
         animator.SetBool("Running", moving);
-        if (moving)
+        if (Mathf.Abs(direction.x) > 0.1)
         {
             spriteRenderer.flipX = direction.x < 0;
         }
