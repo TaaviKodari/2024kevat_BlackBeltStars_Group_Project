@@ -55,6 +55,8 @@ public class PlayerController : Entity
             
         var arrowRb = arrow.GetComponent<Rigidbody2D>();
         arrowRb.AddForce(direction.normalized * arrowForce, ForceMode2D.Impulse);
+
+        FindObjectOfType<AudioManager>().Play("PlayerShoot");
     }
 
     void OnCollisionEnter2D(Collision2D collision)
