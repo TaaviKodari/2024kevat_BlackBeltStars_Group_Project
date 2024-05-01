@@ -59,6 +59,7 @@ public abstract class Entity : MonoBehaviour
 
         if (amount <= 0) return;
         health -= amount;
+        FindObjectOfType<AudioManager>().Play("EnemyDamaged");
         lastHitTime = Time.time;
         lastHitDamage = amount;
 
