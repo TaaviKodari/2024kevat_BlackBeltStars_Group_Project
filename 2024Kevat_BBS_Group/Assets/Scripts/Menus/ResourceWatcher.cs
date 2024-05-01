@@ -1,20 +1,20 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using TMPro;
+using UnityEngine;
 
 public class ResourceWatcher : MonoBehaviour
 {
     [SerializeField]
     private ResourceManager.ResourceType resource;
 
-    private Text text;
+    private TMP_Text tmpText;
 
     private void Awake()
     {
-        text = GetComponentInChildren<Text>();
+        tmpText = GetComponentInChildren<TMP_Text>();
     }
 
     private void Update()
     {
-        text.text = ResourceManager.Instance.GetResourceAmount(resource).ToString();
+        tmpText.text = ResourceManager.Instance.GetResourceAmount(resource).ToString();
     }
 }
