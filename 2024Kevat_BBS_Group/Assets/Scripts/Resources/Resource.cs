@@ -1,9 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class ResourceData : MonoBehaviour
+public class Resource : MonoBehaviour
 {
     public List<ResourceTexture> resourceTextures;
     [Serializable]
@@ -19,7 +19,15 @@ public class ResourceData : MonoBehaviour
     public void Init()
     {
         GetComponent<SpriteRenderer>().sprite = resourceTextures.Find(t => t.type == type).sprite;
-        GetComponent<Rigidbody2D>().velocity = new Vector2(
-            UnityEngine.Random.Range(0, randomDiff), UnityEngine.Random.Range(0, randomDiff));
+        GetComponent<Rigidbody2D>().velocity = Random.insideUnitCircle * randomDiff;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            ResourceManager.Instance.AddResource(type, amount);
+            Destroy(gameObject);
+        }
     }
 }

@@ -13,7 +13,7 @@ public class Enemy : Entity
         public int amount;
     }
 
-    public ResourceData resourcePrefab;
+    public Resource resourcePrefab;
 
     protected override Vector2 GetMoveDirection()
     {
@@ -30,7 +30,7 @@ public class Enemy : Entity
     {
         foreach (ResourceDrop drop in drops)
         {
-            ResourceData rd = Instantiate<ResourceData>(resourcePrefab, transform.position, resourcePrefab.transform.rotation);
+            var rd = Instantiate(resourcePrefab, transform.position, resourcePrefab.transform.rotation);
             rd.type = drop.type;
             rd.amount = drop.amount;
             rd.Init();

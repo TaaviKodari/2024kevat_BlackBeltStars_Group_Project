@@ -59,16 +59,6 @@ public class PlayerController : Entity
         FindObjectOfType<AudioManager>().Play("PlayerShoot");
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Resource"))
-        {
-            ResourceData data = collision.gameObject.GetComponent<ResourceData>();
-            ResourceManager.Instance.AddResource(data.type, data.amount);
-            Destroy(collision.gameObject);
-        }
-    }
-
     protected override void OnMove(Vector2 direction)
     {
         var moving = direction.sqrMagnitude > 0.1;
