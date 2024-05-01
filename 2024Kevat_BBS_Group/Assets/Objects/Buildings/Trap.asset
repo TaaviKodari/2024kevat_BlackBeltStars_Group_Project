@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b42bdbe6f704f4999b335fb5577626, type: 3}
   m_Name: Trap
   m_EditorClassIdentifier: 
+  blocksProjectiles: 0
   size: {x: 1, y: 1}
   prefab: {fileID: 4013348513916688291, guid: d52d27d7dda37474e980ef48aba3ce11, type: 3}
   costs:

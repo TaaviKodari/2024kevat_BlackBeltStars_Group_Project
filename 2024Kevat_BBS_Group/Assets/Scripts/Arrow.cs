@@ -18,7 +18,7 @@ public class Arrow : MonoBehaviour
             entity.Damage(damage);
             Destroy(gameObject);
         } 
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Buildings"))
+        else if (other.TryGetComponent<Building>(out var building) && building.data.blocksProjectiles)
         {
             Destroy(gameObject);
         }

@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Building", menuName = "ScriptableObjects/BuildingData", order = 1)]
 public class BuildingData : ScriptableObject
 {
+    public bool blocksProjectiles = true;
     public Vector2Int size = Vector2Int.one;
     public GameObject prefab;
     public List<ResourceCost> costs;
