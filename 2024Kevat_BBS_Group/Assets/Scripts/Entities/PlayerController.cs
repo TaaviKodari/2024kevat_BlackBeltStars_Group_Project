@@ -12,9 +12,10 @@ public class PlayerController : Entity
     private float arrowForce = 20;
     [SerializeField]
     private Transform shootPoint;
-    
+
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private BuildingPlacer buildingPlacer;
 
     protected override void Awake()
     {
@@ -22,6 +23,7 @@ public class PlayerController : Entity
         input = new MasterInput();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        buildingPlacer = FindObjectOfType<BuildingPlacer>();
     }
 
     private void OnEnable()
@@ -36,7 +38,8 @@ public class PlayerController : Entity
 
     private void Update()
     {
-        if (!EventSystem.current.IsPointerOverGameObject() && input.Player.Attack.WasPerformedThisFrame())
+        if (!EventSystem.current.IsPointerOverGameObject() && input.Player.Attack.WasPerformedThisFrame()
+        && buildingPlacer.GetBuilding() == null)
         {
             Shoot();
         }
@@ -49,10 +52,10 @@ public class PlayerController : Entity
         var worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
         var direction = (Vector2)(worldPosition - shootPoint.position);
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            
+
         var arrow = Instantiate(arrowPrefab, shootPoint.position, Quaternion.AngleAxis(angle, Vector3.forward));
         arrow.GetComponent<Arrow>().Owner = gameObject;
-            
+
         var arrowRb = arrow.GetComponent<Rigidbody2D>();
         arrowRb.AddForce(direction.normalized * arrowForce, ForceMode2D.Impulse);
 

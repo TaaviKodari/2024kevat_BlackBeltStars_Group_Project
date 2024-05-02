@@ -167,4 +167,9 @@ public class BuildingPlacer : MonoBehaviour
             renderer.sharedMaterial = mat;
         }
     }
+
+    public BuildingData GetBuilding()
+    {
+        return selectedBuilding;
+    }
 }
