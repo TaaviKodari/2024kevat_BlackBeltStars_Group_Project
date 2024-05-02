@@ -14,6 +14,7 @@ public class Enemy : Entity
     }
 
     public Resource resourcePrefab;
+    public EnemyManager manager;
 
     protected override Vector2 GetMoveDirection()
     {
@@ -23,6 +24,7 @@ public class Enemy : Entity
     protected override void Die()
     {
         DropLoot();
+        manager.EnemyDie(this);
         base.Die();
         FindObjectOfType<AudioManager>().Play("EnemyDie");
     }

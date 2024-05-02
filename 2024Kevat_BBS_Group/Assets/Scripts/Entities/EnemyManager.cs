@@ -6,6 +6,7 @@ public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager instance { get; private set; }
     public GameObject player { get; private set; }
+    private List<Enemy> enemies = new List<Enemy>();
     
     void Awake()
     {
@@ -20,9 +21,21 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void SpawnEnemy(GameObject enemyPrefab, Vector2 position)
+    public void SpawnEnemy(Enemy enemyPrefab, Vector2 position)
     {
-        Instantiate(enemyPrefab, position, Quaternion.identity);
+        var enemy = Instantiate(enemyPrefab, position, Quaternion.identity);
+        enemies.Add(enemy);
+        enemy.manager = this;
+    }
+
+    public void EnemyDie(Enemy enemy)
+    {
+        enemies.Remove(enemy);
+    }
+
+    public int GetEnemyCount()
+    {
+        return enemies.Count;
     }
 
     // Returns random position a certain distance away from player. (Donut shape)
