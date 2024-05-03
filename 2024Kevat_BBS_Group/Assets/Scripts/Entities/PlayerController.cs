@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -43,6 +44,11 @@ public class PlayerController : Entity
         {
             Shoot();
         }
+
+        if (input.Player.Mine.WasPerformedThisFrame())
+        {
+            Mine();
+        }
     }
 
     private void Shoot()
@@ -60,6 +66,19 @@ public class PlayerController : Entity
         arrowRb.AddForce(direction.normalized * arrowForce, ForceMode2D.Impulse);
 
         FindObjectOfType<AudioManager>().Play("PlayerShoot");
+    }
+
+    private void Mine()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1);
+        foreach (var collider in colliders)
+        {
+            if (collider.TryGetComponent<MineableObject>(out var mineable))
+            {
+                mineable.Mine();
+                break;
+            }
+        }
     }
 
     protected override void OnMove(Vector2 direction)
