@@ -26,13 +26,18 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void Spawn()
     {
         if (manager.GetEnemyCount() < limit)
-            manager.SpawnEnemy(prefab, manager.GetRandomPosition(manager.player.transform.position, minRange, maxRange));
+        {
+            Vector2 position = manager.GetRandomPosition(manager.player.transform.position, minRange, maxRange);
+            if (position != Vector2.zero)
+                manager.SpawnEnemy(prefab, position);
+        }
+
         Invoke("Spawn", Random.Range(minWait, maxWait));
     }
 }

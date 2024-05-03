@@ -7,10 +7,10 @@ public class EnemyManager : MonoBehaviour
     public static EnemyManager instance { get; private set; }
     public GameObject player { get; private set; }
     private List<Enemy> enemies = new List<Enemy>();
-    
+
     void Awake()
     {
-        if(instance != null && instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(this);
         }
@@ -41,14 +41,24 @@ public class EnemyManager : MonoBehaviour
     // Returns random position a certain distance away from player. (Donut shape)
     public Vector2 GetRandomPosition(Vector2 origin, float minRange, float maxRange)
     {
-        for(int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
         {
             Vector2 dir = Random.insideUnitCircle.normalized;
             float distance = Random.Range(minRange, maxRange);
             Vector2 position = origin + dir * distance;
 
             //If not inside a collider, return valid position.
-            if (Physics2D.OverlapCircle(position, 1f) == null)
+            bool isValid = Physics2D.OverlapCircle(position, 1f) == null;
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 5);
+            foreach (var collider in colliders)
+            {
+                if (collider.GetComponent<Campfire>() != null)
+                {
+                    isValid = false;
+                    break;
+                }
+            }
+            if (isValid)
             {
                 return position;
             }
