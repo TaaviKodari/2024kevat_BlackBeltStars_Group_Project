@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour, IBuildingBlocker
 {
+    private const float InvulnerabilityTime = 0;
+        
     [SerializeField] private float maxHealth = 2f;
     [SerializeField] protected float damage = 1f;
     [SerializeField] private float knockback = 2f;
@@ -48,7 +50,7 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
     public void Damage(float amount)
     {
         // Minecraft style i-frames: You can take damage during them if the new damage is larger
-        if (lastHitTime > Time.time - 0.5)
+        if (lastHitTime > Time.time - InvulnerabilityTime)
         {
             amount -= lastHitDamage;
         }
@@ -70,8 +72,6 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
         }
 
         healthBar.setHealth(health);
-        
-        
     }
 
     public void Heal(float amount)
