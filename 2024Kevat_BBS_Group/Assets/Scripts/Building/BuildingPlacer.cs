@@ -62,7 +62,7 @@ public class BuildingPlacer : MonoBehaviour
     {
         if (selectedBuilding == null) return Vector3.zero;
         var size = selectedBuilding.size;
-        return manager.BuildingPosToWorldPos(GetSelectedTile(size)) + new Vector2(math.frac(size.x / 2f), math.frac(size.y / 2f));
+        return manager.BuildingPosToWorldPos(GetSelectedTile(size)) + new Vector2(math.frac(size.x / 2f), math.frac(size.y / 2f)) + selectedBuilding.offset;
     }
     
     private Vector2Int GetSelectedTile(Vector2Int size)
