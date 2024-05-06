@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Entity : MonoBehaviour
+public abstract class Entity : MonoBehaviour, IBuildingBlocker
 {
     [SerializeField] private float maxHealth = 2f;
     [SerializeField] protected float damage = 1f;

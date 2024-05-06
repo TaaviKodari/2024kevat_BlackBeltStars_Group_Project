@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MineableObject : MonoBehaviour
+public class MineableObject : MonoBehaviour, IBuildingBlocker
 {
     public List<ResourceDrop> drops;
 
