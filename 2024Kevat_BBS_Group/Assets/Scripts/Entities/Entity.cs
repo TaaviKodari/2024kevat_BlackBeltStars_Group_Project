@@ -88,8 +88,9 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
     protected void Attack(Entity other)
     {
         other.Damage(damage);
-        Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
-        if (rb != null) rb.velocity += (Vector2)(other.transform.position - transform.position).normalized * knockback;
-        Debug.Log(rb.velocity);
+        if (other.TryGetComponent<Rigidbody2D>(out var rb))
+        {
+            rb.velocity += (Vector2)(other.transform.position - transform.position).normalized * knockback;
+        }
     }
 }
