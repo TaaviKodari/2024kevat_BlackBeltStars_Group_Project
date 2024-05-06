@@ -40,17 +40,22 @@ public class BuildingConnector : MonoBehaviour
 
     private void Connect()
     {
-        int minX = building.GetUsedPositions().Min((Vector2Int pos) => pos.x);
-        int maxX = building.GetUsedPositions().Max((Vector2Int pos) => pos.x);
-        int minY = building.GetUsedPositions().Min((Vector2Int pos) => pos.y);
-        int maxY = building.GetUsedPositions().Max((Vector2Int pos) => pos.y);
+        var minX = building.GetUsedPositions().Min(pos => pos.x);
+        var maxX = building.GetUsedPositions().Max(pos => pos.x);
+        var minY = building.GetUsedPositions().Min(pos => pos.y);
+        var maxY = building.GetUsedPositions().Max(pos => pos.y);
 
-        bool l = buildingManager.HasBuildingAt(new Vector2Int(minX - 1, minY));
-        bool r = buildingManager.HasBuildingAt(new Vector2Int(maxX + 1, minY));
-        bool t = buildingManager.HasBuildingAt(new Vector2Int(minX, maxY + 1));
-        bool b = buildingManager.HasBuildingAt(new Vector2Int(minX, minY - 1));
+        var lBuilding = buildingManager.GetBuildingAt(new Vector2Int(minX - 1, minY));
+        var rBuilding = buildingManager.GetBuildingAt(new Vector2Int(maxX + 1, minY));
+        var tBuilding = buildingManager.GetBuildingAt(new Vector2Int(minX, maxY + 1));
+        var bBuilding = buildingManager.GetBuildingAt(new Vector2Int(minX, minY - 1));
+        
+        var hasL = lBuilding != null && lBuilding.TryGetComponent<BuildingConnector>(out var ignoredL);
+        var hasR = rBuilding != null && rBuilding.TryGetComponent<BuildingConnector>(out var ignoredR);
+        var hasT = tBuilding != null && tBuilding.TryGetComponent<BuildingConnector>(out var ignoredT);
+        var hasB = bBuilding != null && bBuilding.TryGetComponent<BuildingConnector>(out var ignoredB);
 
-        sr.sprite = GetSprite(l, r, t, b);
+        sr.sprite = GetSprite(hasL, hasR, hasT, hasB);
         UpdateCollider(sr.sprite);
     }
 
