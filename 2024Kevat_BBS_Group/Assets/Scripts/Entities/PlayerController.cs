@@ -49,6 +49,8 @@ public class PlayerController : Entity
         {
             Mine();
         }
+        //not sure where else to put this lol
+        FindObjectOfType<AudioManager>().Play("MainTheme");
     }
 
     private void Shoot()

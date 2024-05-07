@@ -4544,9 +4544,58 @@ MonoBehaviour:
   musicMixerGroup: {fileID: 0}
   SFXMixerGroup: {fileID: 0}
   sounds:
-  - audioType: 0
-    name: PlayerShoot
+  - name: MainTheme
+    audioType: 1
+    clip: {fileID: 8300000, guid: 29f75d133872cca4186e99c03551f377, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: MainMenu
+    audioType: 1
+    clip: {fileID: 8300000, guid: a655eb39a554ee442845165554175a10, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PlayerShoot
+    audioType: 0
     clip: {fileID: 8300000, guid: 65370dde612d14c4a80c5fc49a9f1f4b, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: EnemyDamaged
+    audioType: 0
+    clip: {fileID: 8300000, guid: 4cfe2348b52ed3543b8013aba173d26c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: EnemyDie
+    audioType: 0
+    clip: {fileID: 8300000, guid: b8448830e89742b448a3e33c0db4b484, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ItemPickup
+    audioType: 0
+    clip: {fileID: 8300000, guid: b3c3119e7c5e84944ac1561447bc9b05, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WalkSound
+    audioType: 0
+    clip: {fileID: 8300000, guid: 93004f534429764418a5470f2b619f6d, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: CantPlace
+    audioType: 0
+    clip: {fileID: 8300000, guid: f492f6560ed3b874e8f99005809d5618, type: 3}
     volume: 1
     pitch: 1
     loop: 0
