@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
-using Random = Unity.Mathematics.Random;
 
 public class Building : MonoBehaviour
 {
@@ -21,7 +19,7 @@ public class Building : MonoBehaviour
     // Gets the position in the center of this building. Can be off by 0.5 for buildings with an even size
     private Vector2Int GetPosition()
     {
-        return manager.WorldPosToBuildingPos(transform.position);
+        return manager.WorldPosToBuildingPos((Vector2) transform.position - data.offset);
     }
 
     public HashSet<Vector2Int> GetUsedPositions()
