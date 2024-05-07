@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
     [SerializeField] private AudioMixerGroup musicMixerGroup;
     [SerializeField] private AudioMixerGroup SFXMixerGroup;
+    [SerializeField] private AudioMixerGroup masterMixerGroup;
     public Sound[] sounds;
     // Start is called before the first frame update
     void Awake()
@@ -33,6 +34,9 @@ public class AudioManager : MonoBehaviour
                 case Sound.AudioTypes.Music:
                     s.source.outputAudioMixerGroup = musicMixerGroup;
                     break;
+                case Sound.AudioTypes.Master:
+                    s.source.outputAudioMixerGroup = masterMixerGroup;
+                    break;
             }
         }
     }
@@ -54,6 +58,7 @@ public class AudioManager : MonoBehaviour
     {
         musicMixerGroup.audioMixer.SetFloat("MusicVol", Mathf.Log10(AudioOptionsManager.MusicVol)*20);
         SFXMixerGroup.audioMixer.SetFloat("SFXVol", Mathf.Log10(AudioOptionsManager.SFXVol)*20);
+        masterMixerGroup.audioMixer.SetFloat("MasterVol", Mathf.Log10(AudioOptionsManager.MasterVol)*20);
     }
 
 }

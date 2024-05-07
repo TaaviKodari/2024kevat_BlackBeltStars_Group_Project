@@ -5,7 +5,7 @@ using UnityEngine;
 public class Sound
 {
     public string name;
-    public enum AudioTypes{SFX, Music}
+    public enum AudioTypes{SFX, Music, Master}
     public AudioTypes audioType;
     public AudioClip clip; [Range(0f, 1f)]
     public float volume; [Range(0.1f, 3f)]

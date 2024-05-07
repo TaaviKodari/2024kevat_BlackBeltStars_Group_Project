@@ -49,6 +49,10 @@ public class PlayerController : Entity
         {
             Mine();
         }
+        if(input.Player.Movement.IsPressed())
+        {
+            FindObjectOfType<AudioManager>().Play("WalkSound");
+        }
         //not sure where else to put this lol
         FindObjectOfType<AudioManager>().Play("MainTheme");
     }
