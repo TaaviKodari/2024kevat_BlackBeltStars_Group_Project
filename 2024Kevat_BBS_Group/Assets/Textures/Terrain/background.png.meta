@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 63dd32fca91eef4449b8d0cd055a1b9d
+guid: 86cb582a7f71273458e4a422e91b2468
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7443756053782179069
-    second: background_0
+      213: 1598077705777412343
+    second: Background (base)
   - first:
-      213: -3192133289119773823
-    second: background_1
+      213: -3359782949753117554
+    second: Background (alt 1)
   - first:
-      213: 3970015981214305365
-    second: background_2
+      213: 3459917871011451345
+    second: Background (alt 2)
   - first:
-      213: 1405897620634370583
-    second: background_3
+      213: -1971040586835702553
+    second: Background (alt 3)
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -47,9 +47,9 @@ TextureImporter:
     filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -81,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -93,7 +93,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -104,85 +104,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: background_0
+      name: Background (base)
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 30356abce4772b890800000000000000
-      internalID: -7443756053782179069
+      spriteID: 7f87558d4338d2610800000000000000
+      internalID: 1598077705777412343
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background_1
+      name: Background (alt 1)
       rect:
         serializedVersion: 2
-        x: 16
+        x: 64
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18b015aafa343b3d0800000000000000
-      internalID: -3192133289119773823
+      spriteID: e842d854537af51d0800000000000000
+      internalID: -3359782949753117554
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background_2
+      name: Background (alt 2)
       rect:
         serializedVersion: 2
-        x: 32
+        x: 128
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55c07e83084581730800000000000000
-      internalID: 3970015981214305365
+      spriteID: 1d1d9a5e8f8140030800000000000000
+      internalID: 3459917871011451345
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background_3
+      name: Background (alt 3)
       rect:
         serializedVersion: 2
-        x: 48
+        x: 192
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7128a7cef60c28310800000000000000
-      internalID: 1405897620634370583
+      spriteID: 7ecc7cf770575a4e0800000000000000
+      internalID: -1971040586835702553
       vertices: []
       indices: 
       edges: []
