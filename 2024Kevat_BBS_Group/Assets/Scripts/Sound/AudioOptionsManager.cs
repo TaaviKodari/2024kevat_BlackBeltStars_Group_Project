@@ -5,8 +5,10 @@ public class AudioOptionsManager : MonoBehaviour
 {
     public static float MusicVol { get; private set; }
     public static float SFXVol { get; private set; }
+    public static float MasterVol { get; private set; }
     [SerializeField] private TextMeshProUGUI musicvalue;
     [SerializeField] private TextMeshProUGUI SFXvalue;
+    [SerializeField] private TextMeshProUGUI mastervalue;
     public void OnMusicSliderValueChange(float value)
     {
         MusicVol = value;
@@ -17,6 +19,12 @@ public class AudioOptionsManager : MonoBehaviour
     {
         SFXVol = value;
         SFXvalue.text = ((int)(value * 100)).ToString();
+        AudioManager.instance.UpdateMixervolume();
+    }
+    public void OnMasterSliderValueChange(float value)
+    {
+        MasterVol = value;
+        mastervalue.text = ((int)(value * 100)).ToString();
         AudioManager.instance.UpdateMixervolume();
     }
 }

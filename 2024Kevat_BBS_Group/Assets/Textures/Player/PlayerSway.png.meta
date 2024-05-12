@@ -1,28 +1,28 @@
 fileFormatVersion: 2
-guid: 4043d46d95130474a8b5e10ae3d637b3
+guid: 0fb178c9a693b9d41af76805525722ff
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3079211439732071269
-    second: PlayerSway_0
+      213: 6491194705354661097
+    second: PlayerSway 1_0
   - first:
-      213: -144033938531731148
-    second: PlayerSway_1
+      213: 7195671584265358886
+    second: PlayerSway 1_1
   - first:
-      213: 6763861039433284828
-    second: PlayerSway_2
+      213: 5449826396842516612
+    second: PlayerSway 1_2
   - first:
-      213: -7410734088666543742
-    second: PlayerSway_3
+      213: -6549417636785432237
+    second: PlayerSway 1_3
   - first:
-      213: -1526729910933145821
-    second: PlayerSway_4
+      213: -5974421586435428855
+    second: PlayerSway 1_4
   - first:
-      213: 871085122962960338
-    second: PlayerSway_5
+      213: -9081449069332800748
+    second: PlayerSway 1_5
   - first:
-      213: -8159493010138198048
-    second: PlayerSway_6
+      213: -3385705351415802116
+    second: PlayerSway 1_6
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -64,7 +64,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
@@ -125,7 +125,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerSway_0
+      name: PlayerSway 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -139,14 +139,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56b9c857d7e8bba20800000000000000
-      internalID: 3079211439732071269
+      spriteID: 9ec9f84513b551a50800000000000000
+      internalID: 6491194705354661097
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSway_1
+      name: PlayerSway 1_1
       rect:
         serializedVersion: 2
         x: 64
@@ -160,14 +160,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 439373265e9400ef0800000000000000
-      internalID: -144033938531731148
+      spriteID: 62e428c7e292cd360800000000000000
+      internalID: 7195671584265358886
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSway_2
+      name: PlayerSway 1_2
       rect:
         serializedVersion: 2
         x: 128
@@ -181,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cdc768567cf0edd50800000000000000
-      internalID: 6763861039433284828
+      spriteID: 4806857cb3ca1ab40800000000000000
+      internalID: 5449826396842516612
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSway_3
+      name: PlayerSway 1_3
       rect:
         serializedVersion: 2
         x: 192
@@ -202,14 +202,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28907203c98c72990800000000000000
-      internalID: -7410734088666543742
+      spriteID: 359d9b11c5bcb15a0800000000000000
+      internalID: -6549417636785432237
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSway_4
+      name: PlayerSway 1_4
       rect:
         serializedVersion: 2
         x: 0
@@ -223,14 +223,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 327bdd62c37ffcae0800000000000000
-      internalID: -1526729910933145821
+      spriteID: 90e27129837961da0800000000000000
+      internalID: -5974421586435428855
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSway_5
+      name: PlayerSway 1_5
       rect:
         serializedVersion: 2
         x: 64
@@ -244,14 +244,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2dfa55bdd47b61c00800000000000000
-      internalID: 871085122962960338
+      spriteID: 41bdd90ef2638f180800000000000000
+      internalID: -9081449069332800748
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSway_6
+      name: PlayerSway 1_6
       rect:
         serializedVersion: 2
         x: 128
@@ -265,8 +265,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ef0e6f8658a3ce80800000000000000
-      internalID: -8159493010138198048
+      spriteID: cf6d8becbee8301d0800000000000000
+      internalID: -3385705351415802116
       vertices: []
       indices: 
       edges: []
