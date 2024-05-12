@@ -984,7 +984,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!4 &78882056
 Transform:
   m_ObjectHideFlags: 0
@@ -1035,10 +1035,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.6}
+  m_Offset: {x: 0, y: 0.4}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.25}
     oldSize: {x: 4, y: 4}
     newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
@@ -2677,6 +2677,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 738242013600641722, guid: 323823243581f4f479b3bfb9aec8e663, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7016787098450432796, guid: 323823243581f4f479b3bfb9aec8e663, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -2724,6 +2728,10 @@ PrefabInstance:
     - target: {fileID: 7396071165482995430, guid: 323823243581f4f479b3bfb9aec8e663, type: 3}
       propertyPath: m_Name
       value: Tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 8917662767964300073, guid: 323823243581f4f479b3bfb9aec8e663, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 323823243581f4f479b3bfb9aec8e663, type: 3}
@@ -5847,7 +5855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicMixerGroup: {fileID: 6725206891967788226, guid: 9e903c507d694a341b3476149eae1123, type: 2}
   SFXMixerGroup: {fileID: 5477452573706265926, guid: 9e903c507d694a341b3476149eae1123, type: 2}
-  masterMixerGroup: {fileID: 24300002, guid: 9e903c507d694a341b3476149eae1123, type: 2}
+  masterMixerGroup: {fileID: 0}
   sounds:
   - name: MainTheme
     audioType: 1
@@ -5940,7 +5948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicvalue: {fileID: 881355570}
   SFXvalue: {fileID: 4349973}
-  mastervalue: {fileID: 2113042458}
+  mastervalue: {fileID: 0}
 --- !u!1 &1451374579
 GameObject:
   m_ObjectHideFlags: 0
@@ -8658,7 +8666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5668730913904278957, guid: 4ff69b6021318fb4281fed1837915b40, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5668730913904278957, guid: 4ff69b6021318fb4281fed1837915b40, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

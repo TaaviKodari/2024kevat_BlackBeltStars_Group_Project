@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!50 &1453978197814258309
 Rigidbody2D:
   serializedVersion: 4
@@ -130,6 +130,7 @@ MonoBehaviour:
   - type: 2
     amount: 1
   resourcePrefab: {fileID: -4289518416573118115, guid: 709ddbbda1a0f5d4f8dcb55482b87e35, type: 3}
+  manager: {fileID: 0}
 --- !u!61 &4908577002335786849
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -143,10 +144,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.25}
+  m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.15625}
     oldSize: {x: 3, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -154,7 +155,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 1.5}
+  m_Size: {x: 2, y: 1}
   m_EdgeRadius: 0
 --- !u!1001 &744884871754803931
 PrefabInstance:
@@ -163,6 +164,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1453978197814258363}
     m_Modifications:
+    - target: {fileID: 5668730913693430046, guid: 4ff69b6021318fb4281fed1837915b40, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 5668730913904278955, guid: 4ff69b6021318fb4281fed1837915b40, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -237,7 +242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5668730913904278957, guid: 4ff69b6021318fb4281fed1837915b40, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5668730913904278957, guid: 4ff69b6021318fb4281fed1837915b40, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
