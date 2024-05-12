@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : Entity
 {
     public List<ResourceDrop> drops;
+    private bool resourcesDropped;
 
     [Serializable]
     public class ResourceDrop
@@ -31,6 +32,9 @@ public class Enemy : Entity
 
     private void DropLoot()
     {
+        // Sometimes an enemy can die again before being removed from the world, this check prevents dropping resources twice.
+        if (resourcesDropped) return;
+        
         foreach (ResourceDrop drop in drops)
         {
             var rd = Instantiate(resourcePrefab, transform.position, resourcePrefab.transform.rotation);
@@ -38,6 +42,8 @@ public class Enemy : Entity
             rd.amount = drop.amount;
             rd.Init();
         }
+
+        resourcesDropped = true;
     }
 
     void OnCollisionEnter2D(Collision2D other)
