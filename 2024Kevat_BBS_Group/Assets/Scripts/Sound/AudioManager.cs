@@ -41,7 +41,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Play(string name)
+    //dont let same audioclip overlap
+    public void PlayFull(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if(s == null){
@@ -54,6 +55,29 @@ public class AudioManager : MonoBehaviour
         }
         
     }
+    //stop sound then play it again
+    public void PlayStop(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if(s == null){
+            Debug.LogWarning("Sound: '" + name + "' not found!");
+            return;
+        }
+        s.source.Stop();
+        s.source.Play();
+    }
+    //play audioclip over itself if triggered
+    public void PlayOver(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if(s == null){
+            Debug.LogWarning("Sound: '" + name + "' not found!");
+            return;
+        }
+        s.source.Play();
+    }
+    //template for sound clips
+    //FindObjectOfType<AudioManager>().PlayFull("name of clip");
     public void UpdateMixervolume()
     {
         musicMixerGroup.audioMixer.SetFloat("MusicVol", Mathf.Log10(AudioOptionsManager.MusicVol)*20);

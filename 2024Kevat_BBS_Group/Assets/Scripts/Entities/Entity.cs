@@ -61,7 +61,7 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
 
         if (amount <= 0) return;
         health -= amount;
-        FindObjectOfType<AudioManager>().Play("EnemyDamaged");
+        FindObjectOfType<AudioManager>().PlayOver("EnemyDamaged");
         lastHitTime = Time.time;
         lastHitDamage = amount;
 

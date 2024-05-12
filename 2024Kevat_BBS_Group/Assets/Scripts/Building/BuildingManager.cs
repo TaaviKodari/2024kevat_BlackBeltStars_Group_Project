@@ -63,14 +63,14 @@ public class BuildingManager : MonoBehaviour
             Destroy(building.gameObject);
             if(player.input.Building.Place.triggered)
             {
-                FindObjectOfType<AudioManager>().Play("CantPlace");
+                FindObjectOfType<AudioManager>().PlayFull("CantPlace");
             }
             return;
         }
         usedPositions.UnionWith(buildingPositions);
         buildings.Add(building);
         buildingPositions.ToList().ForEach(p => positionToBuilding.Add(p, building));
-        FindObjectOfType<AudioManager>().Play("PlaceSound");
+        FindObjectOfType<AudioManager>().PlayOver("PlaceSound");
         foreach (var cost in building.data.costs)
         {
             ResourceManager.Instance.RemoveResource(cost.type, cost.amount);

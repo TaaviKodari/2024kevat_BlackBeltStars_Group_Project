@@ -51,10 +51,10 @@ public class PlayerController : Entity
         }
         if(input.Player.Movement.IsPressed())
         {
-            FindObjectOfType<AudioManager>().Play("WalkSound");
+            FindObjectOfType<AudioManager>().PlayFull("WalkSound");
         }
         //not sure where else to put this lol
-        FindObjectOfType<AudioManager>().Play("MainTheme");
+        FindObjectOfType<AudioManager>().PlayFull("MainTheme");
     }
 
     private void Shoot()
@@ -71,7 +71,7 @@ public class PlayerController : Entity
         var arrowRb = arrow.GetComponent<Rigidbody2D>();
         arrowRb.AddForce(direction.normalized * arrowForce, ForceMode2D.Impulse);
 
-        FindObjectOfType<AudioManager>().Play("PlayerShoot");
+        FindObjectOfType<AudioManager>().PlayStop("PlayerShoot");
     }
 
     private void Mine()

@@ -27,7 +27,7 @@ public class Enemy : Entity
         DropLoot();
         manager.EnemyDie(this);
         base.Die();
-        FindObjectOfType<AudioManager>().Play("EnemyDie");
+        FindObjectOfType<AudioManager>().PlayFull("EnemyDie");
     }
 
     private void DropLoot()

@@ -27,7 +27,7 @@ public class Resource : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             ResourceManager.Instance.AddResource(type, amount);
-            FindObjectOfType<AudioManager>().Play("ItemPickup");
+            FindObjectOfType<AudioManager>().PlayOver("ItemPickup");
             Destroy(gameObject);
         }
     }
