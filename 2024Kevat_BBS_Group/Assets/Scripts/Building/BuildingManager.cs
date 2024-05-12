@@ -89,7 +89,7 @@ public class BuildingManager : MonoBehaviour
         if (usedPositions.Overlaps(buildingPositions)) return false;
         var halfVec = new Vector2(0.5f, 0.5f);
         // Get all overlapping colliders and make sure none have a IBuildingBlocker component
-        return buildingPositions.SelectMany(pos => Physics2D.OverlapBoxAll(pos + halfVec, Vector2.one, 0, buildingPlacementLayerMask))
+        return buildingPositions.SelectMany(pos => Physics2D.OverlapBoxAll(pos + halfVec, Vector2.one * 0.95f, 0, buildingPlacementLayerMask))
             .All(collider2d => collider2d.GetComponent<IBuildingBlocker>() == null);
     }
 
