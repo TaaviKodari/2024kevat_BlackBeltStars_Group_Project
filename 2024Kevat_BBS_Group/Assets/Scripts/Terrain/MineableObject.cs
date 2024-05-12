@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MineableObject : MonoBehaviour, IBuildingBlocker
 {
+    private Animator animator;
     public List<ResourceDrop> drops;
 
     [Serializable]
@@ -18,16 +19,10 @@ public class MineableObject : MonoBehaviour, IBuildingBlocker
     public int hitsNeeded;
     private int hitsLeft;
 
-    // Start is called before the first frame update
     void Start()
     {
         hitsLeft = hitsNeeded;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        animator = GetComponent<Animator>();
     }
 
     public void Mine()
@@ -39,6 +34,10 @@ public class MineableObject : MonoBehaviour, IBuildingBlocker
             DropLoot();
             FindObjectOfType<AudioManager>().Play("MineDestroySound");
             Destroy(gameObject);
+        }
+        else
+        {
+            animator.SetTrigger("Mine");
         }
     }
 

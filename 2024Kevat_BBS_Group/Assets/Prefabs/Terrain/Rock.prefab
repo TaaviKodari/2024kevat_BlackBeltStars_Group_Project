@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6118162214499125421}
   - component: {fileID: 5538936498224552471}
   - component: {fileID: -4888610039956569560}
+  - component: {fileID: 1498470897874956919}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -127,3 +128,24 @@ MonoBehaviour:
     amount: 2
   resourcePrefab: {fileID: -4289518416573118115, guid: 709ddbbda1a0f5d4f8dcb55482b87e35, type: 3}
   hitsNeeded: 10
+--- !u!95 &1498470897874956919
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7396071165482995430}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 78679563227aed74890041a4496e92dd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
