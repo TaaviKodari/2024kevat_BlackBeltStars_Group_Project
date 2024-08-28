@@ -55,6 +55,7 @@ public class BuildingManager : MonoBehaviour
         return new Vector2(x, y);
     }
 
+    // Builds given building if possible (player has enough resources and building does not overlap with other buildings)
     public void TryAddBuilding(Building building)
     {
         var buildingPositions = building.GetUsedPositions();
@@ -77,6 +78,7 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
+    // Checks is it possible to build given building (player has enough resources and building does not overlap with other buildings)
     public bool CanPlace(Building building)
     {
         var costs = building.data.costs;
@@ -93,6 +95,7 @@ public class BuildingManager : MonoBehaviour
             .All(collider2d => collider2d.GetComponent<IBuildingBlocker>() == null);
     }
 
+    // Demolish given building and returns 75% of the price
     public void RemoveBuilding(Building building)
     {
         if (!buildings.Contains(building)) return;

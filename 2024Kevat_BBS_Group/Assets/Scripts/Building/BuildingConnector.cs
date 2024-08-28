@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+// Used to connect walls
 public class BuildingConnector : MonoBehaviour
 {
     [Header("Sprites")]
@@ -38,6 +39,7 @@ public class BuildingConnector : MonoBehaviour
         Connect();
     }
 
+    // Looks for other connectable buildings next to this building to update sprite and collider
     private void Connect()
     {
         var minX = building.GetUsedPositions().Min(pos => pos.x);
@@ -74,6 +76,8 @@ public class BuildingConnector : MonoBehaviour
         }
     }
 
+    // Returns a sprite based on parameters (l=left, r=right, t=top and b=bottom).
+    // For example sprite lrb is wall that connects left, right and down
     private Sprite GetSprite(bool l, bool r, bool t, bool b)
     {
         if (l && r && t && b) return lrtb;

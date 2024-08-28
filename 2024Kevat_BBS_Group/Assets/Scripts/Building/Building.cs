@@ -22,6 +22,7 @@ public class Building : MonoBehaviour
         return manager.WorldPosToBuildingPos((Vector2) transform.position - data.offset);
     }
 
+    // Returns positions used by this building so no other buildings can build that overlap this building
     public HashSet<Vector2Int> GetUsedPositions()
     {
         var positions = new HashSet<Vector2Int>();
