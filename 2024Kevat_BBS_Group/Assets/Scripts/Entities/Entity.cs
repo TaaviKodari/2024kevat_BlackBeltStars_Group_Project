@@ -76,7 +76,7 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
 
     public void Heal(float amount)
     {
-        health = Mathf.Max(health + amount, maxHealth);
+        health = Mathf.Min(health + amount, maxHealth);
         healthBar.setHealth(health);
     }
 
