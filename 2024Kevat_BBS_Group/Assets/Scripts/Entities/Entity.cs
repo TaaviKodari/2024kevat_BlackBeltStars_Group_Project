@@ -25,8 +25,8 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
         rb = GetComponent<Rigidbody2D>();
         health = maxHealth;
 
-        healthBar.setMaxHealth(maxHealth);
-        healthBar.setHealth(maxHealth);
+        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetHealth(maxHealth);
     }
 
     private void FixedUpdate()
@@ -71,13 +71,13 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
             Die();
         }
 
-        healthBar.setHealth(health);
+        healthBar.SetHealth(health);
     }
 
     public void Heal(float amount)
     {
         health = Mathf.Min(health + amount, maxHealth);
-        healthBar.setHealth(health);
+        healthBar.SetHealth(health);
     }
 
     protected virtual void Die()
