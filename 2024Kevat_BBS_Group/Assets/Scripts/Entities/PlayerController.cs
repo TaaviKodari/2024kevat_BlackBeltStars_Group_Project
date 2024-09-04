@@ -17,6 +17,8 @@ public class PlayerController : Entity
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private BuildingPlacer buildingPlacer;
+    private bool aiming;
+    private float aimTime;
 
     protected override void Awake()
     {
@@ -39,11 +41,13 @@ public class PlayerController : Entity
 
     private void Update()
     {
-        if (!EventSystem.current.IsPointerOverGameObject() && input.Player.Attack.WasPerformedThisFrame()
-        && buildingPlacer.GetBuilding() == null)
+        if (!EventSystem.current.IsPointerOverGameObject()
+            && input.Player.Attack.WasPerformedThisFrame()
+            && buildingPlacer.GetBuilding() == null)
         {
-            Shoot();
+            aiming = true;
         }
+        UpdateAiming();
 
         if (input.Player.Mine.WasPerformedThisFrame())
         {
@@ -57,12 +61,28 @@ public class PlayerController : Entity
         FindObjectOfType<AudioManager>().PlayFull("MainTheme");
     }
 
+    private void UpdateAiming()
+    {
+        if (aiming && input.Player.Attack.IsPressed())
+        {
+            aimTime += Time.deltaTime;
+        } 
+        else if (aiming && aimTime >= 1)
+        {
+            Shoot();
+            aiming = false;
+        }
+        else
+        {
+            aimTime = 0;
+            aiming = false;
+        }
+        animator.SetBool("Aiming", aiming);
+    }
+
     private void Shoot()
     {
-        if (Camera.main == null) return;
-        var mousePosition = Mouse.current.position.ReadValue();
-        var worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        var direction = (Vector2)(worldPosition - shootPoint.position);
+        var direction = GetAimDirection();
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         var arrow = Instantiate(arrowPrefab, shootPoint.position, Quaternion.AngleAxis(angle, Vector3.forward));
@@ -87,14 +107,28 @@ public class PlayerController : Entity
         }
     }
 
-    protected override void OnMove(Vector2 direction)
+    private void UpdateLookDirection(Vector2 movementDirection)
     {
-        var moving = direction.sqrMagnitude > 0.1;
-        animator.SetBool("Running", moving);
+        var direction = aiming ? GetAimDirection() : movementDirection;
         if (Mathf.Abs(direction.x) > 0.1)
         {
             spriteRenderer.flipX = direction.x < 0;
         }
+    }
+
+    protected override void OnMove(Vector2 direction)
+    {
+        var moving = direction.sqrMagnitude > 0.1;
+        animator.SetBool("Running", moving);
+        UpdateLookDirection(direction);
+    }
+
+    private Vector2 GetAimDirection()
+    {
+        if (Camera.main == null) return Vector2.zero;
+        var mousePosition = Mouse.current.position.ReadValue();
+        var worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        return worldPosition - shootPoint.position;
     }
 
     protected override Vector2 GetMoveDirection()
