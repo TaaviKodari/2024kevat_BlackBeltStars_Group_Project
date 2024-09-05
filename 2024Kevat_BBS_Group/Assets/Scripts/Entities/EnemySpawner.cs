@@ -29,8 +29,8 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Start the spawning process by invoking the Spawn method after a random delay
-        Invoke("Spawn", Random.Range(minWait, maxWait));
+        // Start the spawning process by invoking the Spawn method after a random delay (currently disabled)
+        // Invoke("Spawn", Random.Range(minWait, maxWait));
     }
 
     // Update is called once per frame (currently not used)

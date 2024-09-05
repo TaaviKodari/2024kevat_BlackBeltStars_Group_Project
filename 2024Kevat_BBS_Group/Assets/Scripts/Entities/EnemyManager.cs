@@ -9,7 +9,7 @@ public class EnemyManager : MonoBehaviour
     // Reference to the player GameObject
     public GameObject player { get; private set; }
     // List to keep track of all enemies currently in the game
-    private List<Enemy> enemies = new List<Enemy>();
+    public List<Enemy> enemies = new List<Enemy>();
 
     // Called when the script instance is being loaded
     void Awake()
