@@ -6,6 +6,7 @@ public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance { get; private set; }
     private readonly Dictionary<ResourceType, int> resources;
+    public PlayerController player { get; private set; }
 
     public enum ResourceType
     {
@@ -26,6 +27,7 @@ public class ResourceManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        player = FindObjectOfType<PlayerController>();
     }
     
     public void AddResource(ResourceType type, int amount)
