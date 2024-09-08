@@ -11,11 +11,11 @@ public class MineableObject : MonoBehaviour, IBuildingBlocker
     [Serializable]
     public class ResourceDrop
     {
-        public ResourceManager.ResourceType type;
+        public ResourceType type;
         public int amount;
     }
 
-    public Resource resourcePrefab;
+    public DroppedResource resourcePrefab;
     public int hitsNeeded;
     private int hitsLeft;
 

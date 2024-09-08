@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blocksProjectiles: 0
   size: {x: 1, y: 1}
+  offset: {x: 0, y: 0}
   prefab: {fileID: 4013348513916688291, guid: 2f5f1a70c6de0f647b7db9f511f10fc6, type: 3}
   costs:
-  - type: 0
+  - type: {fileID: 11400000, guid: a4d3e6967337a444dbacf4787edc2a2d, type: 2}
     amount: 3

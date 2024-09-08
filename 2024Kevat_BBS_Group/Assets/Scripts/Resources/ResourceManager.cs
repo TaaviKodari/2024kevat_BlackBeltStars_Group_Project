@@ -5,29 +5,18 @@ using UnityEngine;
 public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance { get; private set; }
-    private readonly Dictionary<ResourceType, int> resources;
+    private readonly Dictionary<ResourceType, int> resources = new Dictionary<ResourceType, int>();
+    public List<ResourceType> allResourceTypes = new List<ResourceType>();
     public PlayerController player { get; private set; }
-
-    public enum ResourceType
-    {
-        Wood,
-        Stone,
-        Iron
-    }
-    
-    public ResourceManager()
-    {
-        resources = new Dictionary<ResourceType, int>();
-        foreach (ResourceType type in Enum.GetValues(typeof(ResourceType)))
-        {
-            resources.Add(type, 0);
-        }
-    }
 
     private void Awake()
     {
         Instance = this;
         player = FindObjectOfType<PlayerController>();
+        foreach (var resource in allResourceTypes)
+        {
+            resources[resource] = 0;
+        }
     }
     
     public void AddResource(ResourceType type, int amount)
@@ -42,11 +31,11 @@ public class ResourceManager : MonoBehaviour
 
     public void RemoveResource(ResourceType type, int amount)
     {
-        if (!resources.ContainsKey(type))
+        if (!resources.TryGetValue(type, out var available))
         {
             throw new KeyNotFoundException($"Unknown resource type: {type}");
         }
-        if (resources[type] < amount)
+        if (available < amount)
         {
             throw new ArgumentOutOfRangeException($"Not enough resources of type {type}");
         }
@@ -67,8 +56,9 @@ public class ResourceManager : MonoBehaviour
     // Temporary method for use in UI. Button callbacks can't deal with enums
     public void IncrementResources()
     {
-        AddResource(ResourceType.Wood, 13);
-        AddResource(ResourceType.Stone, 7);
-        AddResource(ResourceType.Iron, 17);
+        foreach (var resource in allResourceTypes)
+        {
+            AddResource(resource, 10);
+        }
     }
 }

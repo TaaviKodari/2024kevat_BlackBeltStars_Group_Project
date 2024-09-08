@@ -1,27 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
-public class Resource : MonoBehaviour
+public class DroppedResource : MonoBehaviour
 {
-    public List<ResourceTexture> resourceTextures;
-    [Serializable]
-    public class ResourceTexture
-    {
-        public ResourceManager.ResourceType type;
-        public Sprite sprite;
-    }
-    public ResourceManager.ResourceType type;
+    public ResourceType type;
     public int amount;
     public float randomDiff;
     private float cooldown;
 
     public void Init()
     {
-        GetComponent<SpriteRenderer>().sprite = resourceTextures.Find(t => t.type == type).sprite;
+        GetComponent<SpriteRenderer>().sprite = type.sprite;
         GetComponent<Rigidbody2D>().velocity = Random.insideUnitCircle * randomDiff;
         cooldown = 0.5f;
     }

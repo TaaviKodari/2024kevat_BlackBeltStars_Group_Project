@@ -4,7 +4,7 @@ using UnityEngine;
 public class ResourceWatcher : MonoBehaviour
 {
     [SerializeField]
-    private ResourceManager.ResourceType resource;
+    private ResourceType resource;
 
     private TMP_Text tmpText;
 

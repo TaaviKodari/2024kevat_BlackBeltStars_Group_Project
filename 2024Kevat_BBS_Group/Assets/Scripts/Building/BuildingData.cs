@@ -14,7 +14,7 @@ public class BuildingData : ScriptableObject
     [Serializable]
     public class ResourceCost
     {
-        public ResourceManager.ResourceType type;
+        public ResourceType type;
         public int amount;
     }
 }

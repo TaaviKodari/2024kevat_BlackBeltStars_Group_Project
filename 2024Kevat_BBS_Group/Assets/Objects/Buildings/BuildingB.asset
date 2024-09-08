@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b42bdbe6f704f4999b335fb5577626, type: 3}
   m_Name: BuildingB
   m_EditorClassIdentifier: 
+  blocksProjectiles: 1
   size: {x: 2, y: 1}
+  offset: {x: 0, y: 0}
   prefab: {fileID: 4077358017561607114, guid: b762989de0fc4194e9bd8049a7d4aafd, type: 3}
   costs:
-  - type: 0
+  - type: {fileID: 11400000, guid: 7152db1e095851849baac84b8494c59c, type: 2}
     amount: 4
-  - type: 1
+  - type: {fileID: 11400000, guid: a4d3e6967337a444dbacf4787edc2a2d, type: 2}
     amount: 7

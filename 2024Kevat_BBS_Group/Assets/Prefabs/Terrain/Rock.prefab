@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drops:
-  - type: 1
+  - type: {fileID: 11400000, guid: 866fc108a0596c24e92eb8dfe5dd6d4c, type: 2}
     amount: 2
   resourcePrefab: {fileID: -4289518416573118115, guid: 709ddbbda1a0f5d4f8dcb55482b87e35, type: 3}
   hitsNeeded: 10

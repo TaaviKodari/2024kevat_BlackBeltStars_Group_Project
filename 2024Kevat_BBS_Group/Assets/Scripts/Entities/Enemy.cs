@@ -13,12 +13,12 @@ public class Enemy : Entity
     [Serializable]
     public class ResourceDrop
     {
-        public ResourceManager.ResourceType type; // Type of resource to drop
+        public ResourceType type; // Type of resource to drop
         public int amount; // Amount of the resource to drop
     }
 
     // Prefab for the resource that will be instantiated upon death
-    public Resource resourcePrefab;
+    public DroppedResource resourcePrefab;
     // Reference to the EnemyManager that handles this enemy
     public EnemyManager manager;
 
