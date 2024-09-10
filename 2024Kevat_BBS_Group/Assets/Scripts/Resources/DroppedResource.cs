@@ -13,6 +13,7 @@ public class DroppedResource : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = type.sprite;
         GetComponent<Rigidbody2D>().velocity = Random.insideUnitCircle * randomDiff;
         cooldown = 0.5f;
+        name = "Dropped Resource (" + type.name + ")";
     }
     
     // We update resources in FixedUpdate because we directly interact with physics

@@ -14,8 +14,7 @@ public class MineableObject : MonoBehaviour, IBuildingBlocker
         public ResourceType type;
         public int amount;
     }
-
-    public DroppedResource resourcePrefab;
+    
     public int hitsNeeded;
     private int hitsLeft;
 
@@ -43,12 +42,9 @@ public class MineableObject : MonoBehaviour, IBuildingBlocker
 
     private void DropLoot()
     {
-        foreach (ResourceDrop drop in drops)
+        foreach (var drop in drops)
         {
-            var rd = Instantiate(resourcePrefab, transform.position, resourcePrefab.transform.rotation);
-            rd.type = drop.type;
-            rd.amount = drop.amount;
-            rd.Init();
+            ResourceManager.Instance.SpawnResource(drop.type, drop.amount, transform.position);
         }
     }
 }

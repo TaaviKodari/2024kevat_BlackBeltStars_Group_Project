@@ -16,9 +16,7 @@ public class Enemy : Entity
         public ResourceType type; // Type of resource to drop
         public int amount; // Amount of the resource to drop
     }
-
-    // Prefab for the resource that will be instantiated upon death
-    public DroppedResource resourcePrefab;
+    
     // Reference to the EnemyManager that handles this enemy
     public EnemyManager manager;
 
@@ -49,16 +47,10 @@ public class Enemy : Entity
         // Check if resources have already been dropped to prevent duplication
         if (resourcesDropped) return;
         
-        // Iterate through each ResourceDrop in the drops list
-        foreach (ResourceDrop drop in drops)
+        // Iterate through each ResourceDrop in the drops list and spawn them
+        foreach (var drop in drops)
         {
-            // Instantiate the resourcePrefab at the enemy's position
-            var rd = Instantiate(resourcePrefab, transform.position, resourcePrefab.transform.rotation);
-            // Set the type and amount of the resource drop
-            rd.type = drop.type;
-            rd.amount = drop.amount;
-            // Initialize the resource (e.g., setting up any necessary parameters)
-            rd.Init();
+            ResourceManager.Instance.SpawnResource(drop.type, drop.amount, transform.position);
         }
 
         // Mark resources as dropped to prevent dropping again

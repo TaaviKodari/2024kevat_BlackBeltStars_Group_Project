@@ -8,6 +8,7 @@ public class ResourceManager : MonoBehaviour
     private readonly Dictionary<ResourceType, int> resources = new Dictionary<ResourceType, int>();
     public List<ResourceType> allResourceTypes = new List<ResourceType>();
     public PlayerController player { get; private set; }
+    public DroppedResource resourcePrefab;
 
     private void Awake()
     {
@@ -17,6 +18,18 @@ public class ResourceManager : MonoBehaviour
         {
             resources[resource] = 0;
         }
+    }
+
+    // Spawns a resource in the world
+    public void SpawnResource(ResourceType type, int amount, Vector2 position)
+    {
+        // Instantiate the resourcePrefab at the specified position as a child of the manager
+        var droppedResource = Instantiate(resourcePrefab, position, Quaternion.identity, transform);
+        // Set the type and amount of the resource drop
+        droppedResource.type = type;
+        droppedResource.amount = amount;
+        // Initialize the resource (e.g., setting up initial velocity)
+        droppedResource.Init();
     }
     
     public void AddResource(ResourceType type, int amount)
