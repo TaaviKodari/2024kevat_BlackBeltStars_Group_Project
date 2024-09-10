@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
@@ -42,14 +43,16 @@ public class MenuController : MonoBehaviour
     public void OpenMenu()
     {
         Debug.Log("Open Menu");
-        //have this be the main menu scene or whatever once its done
-        //SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("MainMenu");
     }
     
     public void MenuQuit()
     {
         Debug.Log("Quitting from game menu");
-        Application.Quit(); //doesn't end test in unity when testing, works as intended i think
+        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
     
     public void MenuOptions()
