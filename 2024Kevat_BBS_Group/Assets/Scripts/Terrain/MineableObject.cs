@@ -27,11 +27,11 @@ public class MineableObject : MonoBehaviour, IBuildingBlocker
     public void Mine()
     {
         hitsLeft -= 1;
-        FindObjectOfType<AudioManager>().PlayOver("MineSound");
+        AudioManager.Instance.PlayOver("MineSound");
         if (hitsLeft <= 0)
         {
             DropLoot();
-            FindObjectOfType<AudioManager>().PlayFull("MineDestroySound");
+            AudioManager.Instance.PlayFull("MineDestroySound");
             Destroy(gameObject);
         }
         else

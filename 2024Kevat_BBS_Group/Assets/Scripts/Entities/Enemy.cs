@@ -38,7 +38,7 @@ public class Enemy : Entity
         // Call the base class's Die method to handle destruction
         base.Die();
         // Play the "EnemyDie" sound effect
-        FindObjectOfType<AudioManager>().PlayFull("EnemyDie");
+        AudioManager.Instance.PlayFull("EnemyDie");
     }
 
     // Method to drop loot when the enemy dies

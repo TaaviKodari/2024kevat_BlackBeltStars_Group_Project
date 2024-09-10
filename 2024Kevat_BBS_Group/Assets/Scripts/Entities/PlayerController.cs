@@ -74,11 +74,11 @@ public class PlayerController : Entity
         // Check if the player is moving to play the walking sound
         if(input.Player.Movement.IsPressed())
         {
-            FindObjectOfType<AudioManager>().PlayFull("WalkSound");
+            AudioManager.Instance.PlayFull("WalkSound");
         }
 
         // Play the main theme on every update (this should likely be moved elsewhere for optimization)
-        FindObjectOfType<AudioManager>().PlayFull("MainTheme");
+        AudioManager.Instance.PlayFull("MainTheme");
     }
 
     // Update the aiming state based on player input
@@ -122,7 +122,7 @@ public class PlayerController : Entity
         arrowRb.AddForce(direction.normalized * arrowForce, ForceMode2D.Impulse);
 
         // Play the shooting sound effect
-        FindObjectOfType<AudioManager>().PlayStop("PlayerShoot");
+        AudioManager.Instance.PlayStop("PlayerShoot");
     }
 
     // Handle mining objects within range

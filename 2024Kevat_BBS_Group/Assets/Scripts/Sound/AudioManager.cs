@@ -4,21 +4,16 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
+    public static AudioManager Instance { get; private set; }
     [SerializeField] private AudioMixerGroup musicMixerGroup;
     [SerializeField] private AudioMixerGroup SFXMixerGroup;
     [SerializeField] private AudioMixerGroup masterMixerGroup;
     public Sound[] sounds;
-    // Start is called before the first frame update
+    
     void Awake()
     {
-        if (instance == null){
-            instance = this;
-        }
-        else{
-            Destroy(gameObject);
-            return;
-        }
+        Instance = this;
+        
         foreach(Sound s in sounds){
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
@@ -40,13 +35,13 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
-
-    //dont let same audioclip overlap
-    public void PlayFull(string name)
+    
+    // Plays an audio clip unless it is already playing
+    public void PlayFull(string clipName)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        var s = Array.Find(sounds, sound => sound.name == clipName);
         if(s == null){
-            Debug.LogWarning("Sound: '" + name + "' not found!");
+            Debug.LogWarning("Sound: '" + clipName + "' not found!");
             return;
         }
         if(!s.source.isPlaying)
@@ -55,34 +50,35 @@ public class AudioManager : MonoBehaviour
         }
         
     }
-    //stop sound then play it again
-    public void PlayStop(string name)
+    
+    // Plays an audio clip, stopping all previous instances of it
+    public void PlayStop(string clipName)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        var s = Array.Find(sounds, sound => sound.name == clipName);
         if(s == null){
-            Debug.LogWarning("Sound: '" + name + "' not found!");
+            Debug.LogWarning("Sound: '" + clipName + "' not found!");
             return;
         }
         s.source.Stop();
         s.source.Play();
     }
-    //play audioclip over itself if triggered
-    public void PlayOver(string name)
+    
+    // Plays an audio clip, allowing the clip to overlap if played multiple timess
+    public void PlayOver(string clipName)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        var s = Array.Find(sounds, sound => sound.name == clipName);
         if(s == null){
-            Debug.LogWarning("Sound: '" + name + "' not found!");
+            Debug.LogWarning("Sound: '" + clipName + "' not found!");
             return;
         }
         s.source.Play();
     }
+    
     //template for sound clips
-    //FindObjectOfType<AudioManager>().PlayFull("name of clip");
     public void UpdateMixervolume()
     {
         musicMixerGroup.audioMixer.SetFloat("MusicVol", Mathf.Log10(AudioOptionsManager.MusicVol)*20);
         SFXMixerGroup.audioMixer.SetFloat("SFXVol", Mathf.Log10(AudioOptionsManager.SFXVol)*20);
         masterMixerGroup.audioMixer.SetFloat("MasterVol", Mathf.Log10(AudioOptionsManager.MasterVol)*20);
     }
-
 }

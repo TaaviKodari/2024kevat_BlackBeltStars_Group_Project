@@ -35,7 +35,7 @@ public class DroppedResource : MonoBehaviour
         if (distance.sqrMagnitude < 0.1)
         {
             ResourceManager.Instance.AddResource(type, amount);
-            FindObjectOfType<AudioManager>().PlayOver("ItemPickup");
+            AudioManager.Instance.PlayOver("ItemPickup");
             Destroy(gameObject);
         }
     }

@@ -39,6 +39,6 @@ public class MainMenuManager : MonoBehaviour
 
     void Update()
     {
-        FindObjectOfType<AudioManager>().PlayFull("MainMenu");
+        AudioManager.Instance.PlayFull("MainMenu");
     }
 }

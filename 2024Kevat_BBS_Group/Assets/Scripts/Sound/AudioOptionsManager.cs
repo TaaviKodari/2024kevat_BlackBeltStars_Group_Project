@@ -13,18 +13,18 @@ public class AudioOptionsManager : MonoBehaviour
     {
         MusicVol = value;
         musicvalue.text = ((int)(value * 100)).ToString();
-        AudioManager.instance.UpdateMixervolume();
+        AudioManager.Instance.UpdateMixervolume();
     }
     public void OnSFXSliderValueChange(float value)
     {
         SFXVol = value;
         SFXvalue.text = ((int)(value * 100)).ToString();
-        AudioManager.instance.UpdateMixervolume();
+        AudioManager.Instance.UpdateMixervolume();
     }
     public void OnMasterSliderValueChange(float value)
     {
         MasterVol = value;
         mastervalue.text = ((int)(value * 100)).ToString();
-        AudioManager.instance.UpdateMixervolume();
+        AudioManager.Instance.UpdateMixervolume();
     }
 }
