@@ -96,6 +96,16 @@ public class BuildingManager : MonoBehaviour
     }
 
     // Demolish given building and returns 75% of the price
+    public void DemolishBuilding(Building building)
+    {
+        RemoveBuilding(building);
+
+        foreach (var cost in building.data.costs)
+        {
+            ResourceManager.Instance.AddResource(cost.type, Mathf.FloorToInt(cost.amount * 0.75f));
+        }
+    }
+
     public void RemoveBuilding(Building building)
     {
         if (!buildings.Contains(building)) return;
@@ -103,10 +113,5 @@ public class BuildingManager : MonoBehaviour
         usedPositions.ExceptWith(buildingPositions);
         buildings.Remove(building);
         buildingPositions.ToList().ForEach(p => positionToBuilding.Remove(p));
-
-        foreach (var cost in building.data.costs)
-        {
-            ResourceManager.Instance.AddResource(cost.type, Mathf.FloorToInt(cost.amount * 0.75f));
-        }
     }
 }

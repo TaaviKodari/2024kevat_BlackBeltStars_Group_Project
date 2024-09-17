@@ -10,6 +10,7 @@ public class BuildingData : ScriptableObject
     public Vector2 offset = Vector2.zero;
     public GameObject prefab;
     public List<ResourceCost> costs;
+    public int durability;
 
     [Serializable]
     public class ResourceCost

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,15 +6,17 @@ public class Building : MonoBehaviour
 {
     public BuildingData data;
     private BuildingManager manager;
+    private float durability;
 
     private void Awake()
     {
         manager = FindObjectOfType<BuildingManager>();
+        durability = data.durability;
     }
     
     private void OnDestroy()
     {
-        manager.RemoveBuilding(this);
+        manager.DemolishBuilding(this);
     }
     
     // Gets the position in the center of this building. Can be off by 0.5 for buildings with an even size
@@ -36,4 +39,11 @@ public class Building : MonoBehaviour
         }
         return positions;
     }
-} 
+
+    public void DoDamage(float amount)
+    {
+        durability = Mathf.Max(durability - amount, 0); // Prevent going below zero
+        if (durability == 0)
+            manager.RemoveBuilding(this);
+    }
+}
