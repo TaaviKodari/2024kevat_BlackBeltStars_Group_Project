@@ -95,11 +95,9 @@ public class BuildingManager : MonoBehaviour
             .All(collider2d => collider2d.GetComponent<IBuildingBlocker>() == null);
     }
 
-    // Demolish given building and returns 75% of the price
-    public void DemolishBuilding(Building building)
+    // Returns 75% of the price of a building to the player
+    public static void ReturnBuildingResources(Building building)
     {
-        RemoveBuilding(building);
-
         foreach (var cost in building.data.costs)
         {
             ResourceManager.Instance.AddResource(cost.type, Mathf.FloorToInt(cost.amount * 0.75f));

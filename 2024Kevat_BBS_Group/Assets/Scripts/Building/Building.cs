@@ -11,12 +11,16 @@ public class Building : MonoBehaviour
     private void Awake()
     {
         manager = FindObjectOfType<BuildingManager>();
+    }
+
+    private void Start()
+    {
         durability = data.durability;
     }
     
     private void OnDestroy()
     {
-        manager.DemolishBuilding(this);
+        manager.RemoveBuilding(this);
     }
     
     // Gets the position in the center of this building. Can be off by 0.5 for buildings with an even size
@@ -43,7 +47,6 @@ public class Building : MonoBehaviour
     public void DoDamage(float amount)
     {
         durability = Mathf.Max(durability - amount, 0); // Prevent going below zero
-        if (durability == 0)
-            manager.RemoveBuilding(this);
+        if (durability == 0) Destroy(gameObject);
     }
 }

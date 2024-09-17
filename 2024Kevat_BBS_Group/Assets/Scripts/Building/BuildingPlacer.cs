@@ -53,6 +53,7 @@ public class BuildingPlacer : MonoBehaviour
             var building = manager.GetBuildingAt(buildingPlacementPos);
             if (building != null)
             {
+                BuildingManager.ReturnBuildingResources(building);
                 Destroy(building.gameObject);
             }
         }
@@ -89,7 +90,6 @@ public class BuildingPlacer : MonoBehaviour
         SetMaterial(building.gameObject, normalMaterial);
         manager.TryAddBuilding(building);
     }
-
     
     [UsedImplicitly] // Assigned to buttons in the editor
     public void SelectBuilding(BuildingData building)
