@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 // Used to connect walls
-public class BuildingConnector : MonoBehaviour
+public class BuildingConnector : MonoBehaviour, IConnectable
 {
     [Header("Sprites")]
     public Sprite alone;
@@ -52,10 +52,10 @@ public class BuildingConnector : MonoBehaviour
         var tBuilding = buildingManager.GetBuildingAt(new Vector2Int(minX, maxY + 1));
         var bBuilding = buildingManager.GetBuildingAt(new Vector2Int(minX, minY - 1));
         
-        var hasL = lBuilding != null && lBuilding.TryGetComponent<BuildingConnector>(out var ignoredL);
-        var hasR = rBuilding != null && rBuilding.TryGetComponent<BuildingConnector>(out var ignoredR);
-        var hasT = tBuilding != null && tBuilding.TryGetComponent<BuildingConnector>(out var ignoredT);
-        var hasB = bBuilding != null && bBuilding.TryGetComponent<BuildingConnector>(out var ignoredB);
+        var hasL = lBuilding != null && lBuilding.TryGetComponent<IConnectable>(out var ignoredL);
+        var hasR = rBuilding != null && rBuilding.TryGetComponent<IConnectable>(out var ignoredR);
+        var hasT = tBuilding != null && tBuilding.TryGetComponent<IConnectable>(out var ignoredT);
+        var hasB = bBuilding != null && bBuilding.TryGetComponent<IConnectable>(out var ignoredB);
 
         sr.sprite = GetSprite(hasL, hasR, hasT, hasB);
         UpdateCollider(sr.sprite);
