@@ -61,7 +61,9 @@ namespace Pathfinding
                     var cost = NodeType.Open;
                     for (var i = 0; i < colliders; i++)
                     {
-                        var layer = colliderArray[i].gameObject.layer;
+                        var collider = colliderArray[i];
+                        if (collider.isTrigger) continue;
+                        var layer = collider.gameObject.layer;
                         if (layer == LayerMask.NameToLayer("Buildings"))
                         {
                             cost = NodeTypes.Max(cost, NodeType.Building);
