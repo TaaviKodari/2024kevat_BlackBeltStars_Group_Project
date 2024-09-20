@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using Pathfinding;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,6 +9,7 @@ public class BuildingPlacer : MonoBehaviour
     [SerializeField]
     private PlayerController player;
     private BuildingManager manager;
+    private PathfindingManager pathfindingManager;
     
     [SerializeField]
     private Material normalMaterial;
@@ -25,6 +27,7 @@ public class BuildingPlacer : MonoBehaviour
     private void Awake()
     {
         manager = FindObjectOfType<BuildingManager>();
+        pathfindingManager = FindObjectOfType<PathfindingManager>();
     }
 
     private void Update()
@@ -89,6 +92,8 @@ public class BuildingPlacer : MonoBehaviour
         // Apply normal material to placed buildings to ensure that they look the same even after hovering
         SetMaterial(building.gameObject, normalMaterial);
         manager.TryAddBuilding(building);
+        
+        pathfindingManager.UpdateChunks((Vector2) pos - selectedBuilding.offset, selectedBuilding.size);
     }
     
     [UsedImplicitly] // Assigned to buttons in the editor

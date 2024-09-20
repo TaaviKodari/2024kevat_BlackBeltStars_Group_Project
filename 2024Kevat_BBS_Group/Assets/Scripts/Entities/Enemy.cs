@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Pathfinding;
 using UnityEngine;
 
 public class Enemy : Entity
@@ -20,11 +21,23 @@ public class Enemy : Entity
     // Reference to the EnemyManager that handles this enemy
     public EnemyManager manager;
 
+    private EntityPathfinder pathfinder;
+
+    private void Start()
+    {
+        pathfinder = GetComponent<EntityPathfinder>();
+    }
+
+    private void Update()
+    {
+        pathfinder.SetTarget(EnemyManager.instance.player.transform.position);
+    }
+
     // Override of the abstract GetMoveDirection method from the Entity class
     // Returns the direction towards the player, normalized for consistent speed
     protected override Vector2 GetMoveDirection()
     {
-        return ((Vector2)EnemyManager.instance.player.transform.position - rb.position).normalized;
+        return pathfinder.GetDirection();
     }
 
     // Override of the Die method from the Entity class

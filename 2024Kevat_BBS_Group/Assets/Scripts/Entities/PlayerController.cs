@@ -43,7 +43,7 @@ public class PlayerController : Entity
     // Enable the input system when the player is enabled
     private void OnEnable()
     {
-        input.Enable();
+         input.Enable();
     }
 
     // Disable the input system when the player is disabled

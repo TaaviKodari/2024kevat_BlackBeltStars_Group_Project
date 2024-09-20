@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Pathfinding;
 using UnityEngine;
 using Random = Unity.Mathematics.Random;
 
@@ -10,7 +11,7 @@ public class TerrainDecorator : MonoBehaviour
     private Transform player;
     [SerializeField]
     [Tooltip("The size of the chunks in which things are generated")]
-    private Vector2Int regionSize = new Vector2Int(100, 100);
+    private Vector2Int regionSize = new(100, 100);
     [SerializeField]
     private int worldSeed = 1;
     [SerializeField]
@@ -20,10 +21,13 @@ public class TerrainDecorator : MonoBehaviour
     private readonly ISet<Vector2Int> generatedRegions = new HashSet<Vector2Int>();
     private Vector2Int prevRegion;
 
+    private PathfindingManager pathfindingManager;
+
     private void Awake()
     {
         // Set the region to a bogus value to ensure it gets updated next frame
         prevRegion = new Vector2Int(int.MaxValue, int.MaxValue);
+        pathfindingManager = FindObjectOfType<PathfindingManager>();
     }
 
     private void Update()
@@ -88,6 +92,8 @@ public class TerrainDecorator : MonoBehaviour
                 }
             }
         }
+        
+        pathfindingManager.UpdateChunks(region * regionSize + regionSize / 2, regionSize + new Vector2Int(10, 10));
         
         // Mark the region as generated to not do work twice
         generatedRegions.Add(region);
