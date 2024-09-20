@@ -92,8 +92,6 @@ public class BuildingPlacer : MonoBehaviour
         // Apply normal material to placed buildings to ensure that they look the same even after hovering
         SetMaterial(building.gameObject, normalMaterial);
         manager.TryAddBuilding(building);
-        
-        pathfindingManager.UpdateChunks((Vector2) pos - selectedBuilding.offset, selectedBuilding.size);
     }
     
     [UsedImplicitly] // Assigned to buttons in the editor

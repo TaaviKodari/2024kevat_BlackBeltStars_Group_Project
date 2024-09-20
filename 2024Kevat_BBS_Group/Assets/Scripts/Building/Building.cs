@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Pathfinding;
 using UnityEngine;
 
 public class Building : MonoBehaviour
@@ -16,11 +17,13 @@ public class Building : MonoBehaviour
     private void Start()
     {
         durability = data.durability;
+        FindObjectOfType<PathfindingManager>().UpdateChunks((Vector2) transform.position - data.offset, data.size);
     }
     
     private void OnDestroy()
     {
         manager.RemoveBuilding(this);
+        FindObjectOfType<PathfindingManager>().UpdateChunks((Vector2) transform.position - data.offset, data.size);
     }
     
     // Gets the position in the center of this building. Can be off by 0.5 for buildings with an even size
