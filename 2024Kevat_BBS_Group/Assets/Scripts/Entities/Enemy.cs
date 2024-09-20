@@ -79,5 +79,10 @@ public class Enemy : Entity
             // Call the Attack method inherited from the Entity class
             Attack(other.gameObject.GetComponent<Entity>());
         }
+        else if (other.gameObject.TryGetComponent<Building>(out var building))
+        {
+            building.DoDamage(1);
+            rb.velocity += ((Vector2)(other.transform.position - transform.position)).normalized * 2;
+        }
     }
 }
