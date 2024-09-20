@@ -9,14 +9,17 @@ namespace Pathfinding
     internal class PathFinder
     {
         private readonly PathfindingManager manager;
+        // Cache for nodes visited during pathfinding.
+        // The same nodes get read multiple times and this saves a lot of time
         private readonly Dictionary<NodePos, PathNode> nodeCache = new();
 
-        public PathFinder(PathfindingManager manager)
+        internal PathFinder(PathfindingManager manager)
         {
             this.manager = manager;
         }
 
         // Main pathfinding function adapted from wikipedia pseudocode
+        // TODO: figure out a way to get the path the node closest to the target, might be useful later
         [CanBeNull]
         internal Path FindPath(NodePos from, NodePos to, float maxDistance)
         {
@@ -74,23 +77,13 @@ namespace Pathfinding
             return new Path(path, manager);
         }
         
-        private float Distance(NodePos from, NodePos to)
+        // Calculates the distance between two nodes, taking into account their costs
+        private float Distance(NodePos a, NodePos b)
         {
-            return (to.Pos - from.Pos).magnitude + (GetNode(from).Type.Cost() + GetNode(to).Type.Cost()) / 2;
+            return (b.Pos - a.Pos).magnitude + (GetNode(a).Type.Cost() + GetNode(b).Type.Cost()) / 2;
         }
 
-        private PathNode GetNode(NodePos pos)
-        {
-            if (!nodeCache.TryGetValue(pos, out var node))
-            {
-                node = manager.GetNode(pos);
-                nodeCache[pos] = node;
-            }
-
-            return node;
-        }
-
-        // Generates all neighbours of a node
+        // Generates all neighbours of a node as an iteratior
         private IEnumerable<NodePos> Neighbours(NodePos pos)
         {
             for (var x = -1; x <= 1; x++)
@@ -104,8 +97,19 @@ namespace Pathfinding
                 }
             }
         }
+
+        // Resolves a node, using the cache if possible
+        private PathNode GetNode(NodePos pos)
+        {
+            if (nodeCache.TryGetValue(pos, out var node)) return node;
+            
+            node = manager.GetNode(pos);
+            nodeCache[pos] = node;
+            return node;
+        }
     }
 
+    // A completed path that should be able to be walked
     public class Path
     {
         private readonly PathfindingManager manager;

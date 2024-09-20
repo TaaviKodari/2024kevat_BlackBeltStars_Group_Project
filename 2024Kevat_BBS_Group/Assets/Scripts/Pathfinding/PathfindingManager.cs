@@ -5,6 +5,8 @@ using UnityEngine;
 
 namespace Pathfinding
 {
+    // The main manager of pathfinding
+    // Keeps all the chunks and pathfinding settings
     public class PathfindingManager : MonoBehaviour
     {
         [SerializeField]
@@ -32,12 +34,14 @@ namespace Pathfinding
             }
         }
 
+        // Finds a path
         [CanBeNull]
         public Path FindPath(Vector2 from, Vector2 to, float maxDistance = 50)
         {
             return pathFinder.FindPath(GetClosestNode(from), GetClosestNode(to), maxDistance);
         }
 
+        // Updates the nodes in chunks within a certain area
         public void UpdateChunks(Vector2 pos, Vector2 size)
         {
             size += colliderSize;
@@ -66,16 +70,19 @@ namespace Pathfinding
             chunk.Update();
         }
 
+        // Gets the in world position of a node
         public Vector2 GetNodePos(NodePos node)
         {
             return node.Pos * nodeDensity;
         }
         
+        // Gets the closes node to an in world position
         public NodePos GetClosestNode(Vector2 pos)
         {
             return new NodePos(new Vector2Int(Mathf.RoundToInt(pos.x / nodeDensity.x), Mathf.RoundToInt(pos.y / nodeDensity.y)), this);
         }
         
+        // Gets the data of a node at a certain positon
         public PathNode GetNode(NodePos nodePos)
         {
             if (chunks.TryGetValue(nodePos.ChunkPos, out var chunk))

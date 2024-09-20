@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 namespace Pathfinding
 {
-    public class PathChunk
+    // A chunk of pathfinding nodes
+    // This class handles storing and updating the nodes in a chunk
+    internal class PathChunk
     {
+        // Layer mask for the types of objects that affect pathfinding.
         private static readonly int CollisionMask = LayerMask.GetMask("Buildings", "Terrain Obstacles");
         private readonly Vector2Int pos;
         private readonly PathNode[,] nodes;
         private readonly PathfindingManager manager;
 
-        public PathChunk(Vector2Int pos, PathfindingManager manager)
+        internal PathChunk(Vector2Int pos, PathfindingManager manager)
         {
             this.pos = pos;
             var size = manager.chunkSize;
@@ -27,7 +28,7 @@ namespace Pathfinding
             return chunkWorldSize * pos + node * manager.nodeDensity;
         }
 
-        public void RenderGizmos()
+        internal void RenderGizmos()
         {
             for (var x = 0; x < nodes.GetLength(0); x++)
             {
@@ -45,14 +46,17 @@ namespace Pathfinding
                 }
             }
         }
-
-        public void Update()
+        
+        internal void Update()
         {
+            // We use a single array for all collision checks to avoid allocations
             var colliderArray = new Collider2D[4];
+            
             for (var x = 0; x < nodes.GetLength(0); x++)
             {
                 for (var y = 0; y < nodes.GetLength(1); y++)
                 {
+                    // Loop over every matching container in every node and combine them for a node cost
                     var colliders = Physics2D.OverlapBoxNonAlloc(GetNodePos(new Vector2Int(x, y)), manager.colliderSize, 0, colliderArray, CollisionMask);
                     var cost = NodeType.Open;
                     for (var i = 0; i < colliders; i++)
@@ -68,17 +72,21 @@ namespace Pathfinding
                         } 
                     }
 
+                    // Update the node with the cost
                     nodes[x, y] = new PathNode(cost);
                 }
             }
         }
 
-        public PathNode GetNode(NodePos nodePos)
+        // Gets a node from this chunk.
+        // Providing a position outside this chunk will cause the wrong node to be returned.
+        internal PathNode GetNode(NodePos nodePos)
         {
             return nodes[nodePos.SubPos.x, nodePos.SubPos.y];
         }
     }
 
+    // Data associated with a pathfinding node.
     public readonly struct PathNode
     {
         public readonly NodeType Type;
@@ -89,8 +97,10 @@ namespace Pathfinding
         }
     }
 
+    // Utilities for working with node types
     public static class NodeTypes
     {
+        // Calculates the cost of a node type
         public static float Cost(this NodeType nodeType)
         {
             return nodeType switch
@@ -102,6 +112,7 @@ namespace Pathfinding
             };
         }
 
+        // Gets the more expensive of two node types
         public static NodeType Max(NodeType a, NodeType b)
         {
             return a.Cost() > b.Cost() ? a : b;
@@ -113,6 +124,8 @@ namespace Pathfinding
         Open, Blocked, Building
     }
     
+    // A node position
+    // Additionally stores the chunk it belongs to and its position within said chunk for convenience and fast access
     public readonly struct NodePos : IEquatable<NodePos>
     {
         public readonly Vector2Int Pos;
@@ -124,6 +137,11 @@ namespace Pathfinding
             Pos = pos;
             ChunkPos = new Vector2Int(Mathf.FloorToInt((float) pos.x / manager.chunkSize.x), Mathf.FloorToInt((float) pos.y / manager.chunkSize.y));
             SubPos = pos - ChunkPos * manager.chunkSize;
+        }
+
+        public override string ToString()
+        {
+            return $"{nameof(NodePos)}{Pos}";
         }
 
         public bool Equals(NodePos other)
