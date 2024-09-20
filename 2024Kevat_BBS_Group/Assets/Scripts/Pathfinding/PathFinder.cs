@@ -59,6 +59,7 @@ namespace Pathfinding
                 }
             }
 
+            Debug.Log($"Failed to pathfind. {gScore.Count} nodes visited");
             nodeCache.Clear();
             return null;
         }

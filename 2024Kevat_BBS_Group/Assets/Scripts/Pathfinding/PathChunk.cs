@@ -106,8 +106,8 @@ namespace Pathfinding
             return nodeType switch
             {
                 NodeType.Open => 0,
-                NodeType.Blocked => 5,
-                NodeType.Building => float.PositiveInfinity,
+                NodeType.Blocked => float.PositiveInfinity,
+                NodeType.Building => 5,
                 _ => throw new ArgumentOutOfRangeException(nameof(nodeType), nodeType, "Unexpected node type")
             };
         }
