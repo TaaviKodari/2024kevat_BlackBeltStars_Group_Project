@@ -27,7 +27,8 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
     protected Rigidbody2D rb;
 
     // Reference to the HealthBar UI element that shows the entity's health
-    public HealthBar healthBar;
+    [SerializeField]
+    private HealthBar healthBar;
 
     // Awake is called when the script instance is being loaded
     protected virtual void Awake()
@@ -38,8 +39,7 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
         health = maxHealth;
 
         // Set up the health bar with the max health and current health
-        healthBar.SetMaxHealth(maxHealth);
-        healthBar.SetHealth(maxHealth);
+        healthBar.SetHealth(maxHealth, maxHealth);
     }
 
     // FixedUpdate is called at a fixed interval and is used here for physics-related updates
@@ -101,7 +101,7 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
         }
 
         // Update the health bar to reflect the new health value
-        healthBar.SetHealth(health);
+        healthBar.SetHealth(health, maxHealth);
     }
 
     // Method to heal the entity by a specified amount
@@ -110,7 +110,7 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
         // Increase health by the amount healed, but don't exceed max health
         health = Mathf.Min(health + amount, maxHealth);
         // Update the health bar to reflect the new health value
-        healthBar.SetHealth(health);
+        healthBar.SetHealth(health, maxHealth);
     }
 
     // Virtual method that can be overridden to define custom behavior when the entity dies
