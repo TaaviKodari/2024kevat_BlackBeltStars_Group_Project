@@ -8,23 +8,12 @@ public class Campfire : MonoBehaviour
     public float healAmount;
     private float lastHealed;
 
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerStay2D(Collider2D other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 3);
-        foreach (var collider in colliders)
+        if (other.TryGetComponent<PlayerController>(out var player) && Time.time - lastHealed >= healWait)
         {
-            if (Time.time - lastHealed >= healWait && collider.TryGetComponent<PlayerController>(out var player))
-            {
-                player.Heal(healAmount);
-                lastHealed = Time.time;
-            }
+            player.Heal(healAmount);
+            lastHealed = Time.time;
         }
     }
 }
