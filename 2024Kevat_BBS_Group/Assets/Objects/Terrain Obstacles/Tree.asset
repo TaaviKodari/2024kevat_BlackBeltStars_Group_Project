@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 234823cabdfe45e1bc6305b3abcb8faf, type: 3}
-  m_Name: Iron
+  m_Script: {fileID: 11500000, guid: 1791ee27562a471d93657fce9cd743f3, type: 3}
+  m_Name: Tree
   m_EditorClassIdentifier: 
-  id: iron
-  sprite: {fileID: -7742461276724822292, guid: 6bb4aacabffa2c743866f60e7e2efb67, type: 3}
+  id: tree
+  defaultPlacement:
+    prefab: {fileID: 7016787098450432796, guid: 323823243581f4f479b3bfb9aec8e663, type: 3}
+    gridSize: 5
+    offset: 0.5
+    noiseScale: 10
+    noiseCutoff: 0.5

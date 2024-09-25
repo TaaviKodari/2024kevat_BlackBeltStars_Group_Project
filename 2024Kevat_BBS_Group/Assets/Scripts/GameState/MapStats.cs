@@ -26,7 +26,7 @@ namespace GameState
     [Serializable]
     public class ObstacleCountMapModifier : IMapModifier
     {
-        public int obstacleType;
+        public string obstacleType;
         public float factor;
     }
 

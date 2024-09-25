@@ -5,8 +5,7 @@ using UnityEngine;
 public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance { get; private set; }
-    private readonly Dictionary<ResourceType, int> resources = new Dictionary<ResourceType, int>();
-    public List<ResourceType> allResourceTypes = new List<ResourceType>();
+    private readonly Dictionary<ResourceType, int> resources = new();
     public PlayerController player { get; private set; }
     public DroppedResource resourcePrefab;
 
@@ -14,7 +13,7 @@ public class ResourceManager : MonoBehaviour
     {
         Instance = this;
         player = FindObjectOfType<PlayerController>();
-        foreach (var resource in allResourceTypes)
+        foreach (var resource in VariantManager.Instance.ResourceTypes.Values)
         {
             resources[resource] = 0;
         }
@@ -69,7 +68,7 @@ public class ResourceManager : MonoBehaviour
     // Temporary method for use in UI. Button callbacks can't deal with enums
     public void IncrementResources()
     {
-        foreach (var resource in allResourceTypes)
+        foreach (var resource in VariantManager.Instance.ResourceTypes.Values)
         {
             AddResource(resource, 10);
         }
