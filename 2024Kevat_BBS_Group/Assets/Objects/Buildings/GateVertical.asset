@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b42bdbe6f704f4999b335fb5577626, type: 3}
+  m_Name: GateVertical
+  m_EditorClassIdentifier: 
+  blocksProjectiles: 1
+  size: {x: 1, y: 2}
+  offset: {x: 0, y: 0}
+  prefab: {fileID: 4013348513916688291, guid: a0e5799d4d7724a6f94ee644467a14db, type: 3}
+  costs:
+  - type: {fileID: 11400000, guid: a4d3e6967337a444dbacf4787edc2a2d, type: 2}
+    amount: 3
+  - type: {fileID: 11400000, guid: 7152db1e095851849baac84b8494c59c, type: 2}
+    amount: 1
+  durability: 0
