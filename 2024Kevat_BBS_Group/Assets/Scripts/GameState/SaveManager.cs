@@ -1,0 +1,32 @@
+﻿using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+
+namespace GameState
+{
+    public static class SaveManager
+    {
+        public static void SaveGame(SaveGame saveGame)
+        {
+            var path = $"saves/{saveGame.SaveName}.json";
+
+            var writer = File.CreateText(path);
+            writer.Write(JsonUtility.ToJson(saveGame));
+            writer.Close();
+        }
+
+        public static List<SaveGame> LoadGames()
+        {
+            var saves = new List<SaveGame>();
+            foreach (var saveFile in Directory.EnumerateFiles("saves", "*.json", SearchOption.AllDirectories))
+            {
+                var text = File.ReadAllText(saveFile);
+                var save = JsonUtility.FromJson<SaveGame>(text);
+                save.SaveName = saveFile.Remove(saveFile.Length - 5);
+                saves.Add(save);
+            }
+
+            return saves;
+        }
+    }
+}

@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 # Unwanted IDE files
 .idea/
+
+# Game save files
+saves/
