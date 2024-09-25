@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 0}
+  isVertical: 1
 --- !u!114 &-5019929781594297171
 MonoBehaviour:
   m_ObjectHideFlags: 0
