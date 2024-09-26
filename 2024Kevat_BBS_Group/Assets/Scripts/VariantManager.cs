@@ -18,7 +18,7 @@ public class VariantManager : ScriptableObject
     [NonSerialized]
     public readonly Dictionary<string, TerrainObstacle> TerrainObstacles = new();
 
-    private void Awake()
+    private void OnEnable()
     {
         Instance = this;
         foreach (var resourceType in resourceTypes)

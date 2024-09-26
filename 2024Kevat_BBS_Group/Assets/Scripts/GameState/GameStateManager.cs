@@ -4,16 +4,12 @@ namespace GameState
 {
     public class GameStateManager : MonoBehaviour
     {
-        private SaveGame currentSaveGame;
+        public SaveGame currentSaveGame;
+        public MapStats currentMap;
 
         private void Awake()
         {
             DontDestroyOnLoad(this);
-        }
-
-        public ref SaveGame GetSaveGameRef()
-        {
-            return ref currentSaveGame;
         }
 
         public void NewGame(string saveName)

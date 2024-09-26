@@ -15,7 +15,7 @@ namespace GameState
                 var stateObject = new GameObject("Game State");
                 var stateComponent = stateObject.AddComponent<GameStateManager>();
                 stateComponent.LoadGame(defaultSave);
-                stateComponent.GetSaveGameRef().SaveName = "Dev Game";
+                stateComponent.currentSaveGame.SaveName = "Dev Game";
             }
             DestroyImmediate(gameObject);
         }

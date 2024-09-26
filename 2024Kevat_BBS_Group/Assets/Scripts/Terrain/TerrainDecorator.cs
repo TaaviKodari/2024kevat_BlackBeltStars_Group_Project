@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using GameState;
 using Pathfinding;
 using UnityEngine;
 using Random = Unity.Mathematics.Random;
@@ -12,11 +14,8 @@ public class TerrainDecorator : MonoBehaviour
     [SerializeField]
     [Tooltip("The size of the chunks in which things are generated")]
     private Vector2Int regionSize = new(100, 100);
-    [SerializeField]
     private int worldSeed = 1;
-    [SerializeField]
-    [Tooltip("A list of objects to place")]
-    private List<Placement> placements;
+    private readonly List<Placement> placements = new();
 
     private readonly ISet<Vector2Int> generatedRegions = new HashSet<Vector2Int>();
     private Vector2Int prevRegion;
@@ -28,6 +27,25 @@ public class TerrainDecorator : MonoBehaviour
         // Set the region to a bogus value to ensure it gets updated next frame
         prevRegion = new Vector2Int(int.MaxValue, int.MaxValue);
         pathfindingManager = FindObjectOfType<PathfindingManager>();
+    }
+
+    private void Start()
+    {
+        var map = FindObjectOfType<GameStateManager>().currentMap;
+        worldSeed = map.seed;
+        if (worldSeed == 0) worldSeed = 1; // The RNG doesn't like the seed 0
+        
+        placements.Clear();
+        foreach (var obstacle in VariantManager.Instance.TerrainObstacles.Values)
+        {
+            var modifier = map.modifiers.OfType<ObstacleCountMapModifier>()
+                .Where(modifier => modifier.obstacleType == obstacle.id)
+                .Select(modifier => modifier.factor)
+                .Aggregate(1f, (a, b) => a*b);
+            var placement = obstacle.defaultPlacement;
+            placement.gridSize = (int)(placement.gridSize * Mathf.Sqrt(modifier));
+            placements.Add(placement);
+        }
     }
 
     private void Update()

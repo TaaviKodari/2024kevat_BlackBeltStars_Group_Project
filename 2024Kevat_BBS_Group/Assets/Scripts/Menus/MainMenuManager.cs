@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 
 public class MainMenuManager : MonoBehaviour
@@ -26,15 +21,14 @@ public class MainMenuManager : MonoBehaviour
 
         // In the Editor, you can stop playing with this line (only works in the Editor):
         #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+        EditorApplication.isPlaying = false;
         #endif
     
     }
 
     private void OnPlayButtonClicked()
     {
-        SceneManager.LoadScene("Game");
-        
+        SceneManager.LoadScene("WorldSelect");
     }
 
     void Update()
