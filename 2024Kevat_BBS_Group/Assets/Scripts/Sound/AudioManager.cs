@@ -1,12 +1,14 @@
 using UnityEngine.Audio;
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
     [SerializeField] private AudioMixerGroup musicMixerGroup;
-    [SerializeField] private AudioMixerGroup SFXMixerGroup;
+    [FormerlySerializedAs("SFXMixerGroup")]
+    [SerializeField] private AudioMixerGroup sfxMixerGroup;
     [SerializeField] private AudioMixerGroup masterMixerGroup;
     public Sound[] sounds;
     
@@ -24,7 +26,7 @@ public class AudioManager : MonoBehaviour
             switch(s.audioType)
             {
                 case Sound.AudioTypes.SFX:
-                    s.source.outputAudioMixerGroup = SFXMixerGroup;
+                    s.source.outputAudioMixerGroup = sfxMixerGroup;
                     break;
                 case Sound.AudioTypes.Music:
                     s.source.outputAudioMixerGroup = musicMixerGroup;
@@ -77,8 +79,8 @@ public class AudioManager : MonoBehaviour
     //template for sound clips
     public void UpdateMixervolume()
     {
-        musicMixerGroup.audioMixer.SetFloat("MusicVol", Mathf.Log10(AudioOptionsManager.MusicVol)*20);
-        SFXMixerGroup.audioMixer.SetFloat("SFXVol", Mathf.Log10(AudioOptionsManager.SFXVol)*20);
-        masterMixerGroup.audioMixer.SetFloat("MasterVol", Mathf.Log10(AudioOptionsManager.MasterVol)*20);
+        musicMixerGroup.audioMixer.SetFloat("MusicVol", Mathf.Log10(AudioOptionsManager.Options.musicVolume)*20);
+        sfxMixerGroup.audioMixer.SetFloat("SFXVol", Mathf.Log10(AudioOptionsManager.Options.sfxVolume)*20);
+        masterMixerGroup.audioMixer.SetFloat("MasterVol", Mathf.Log10(AudioOptionsManager.Options.masterVolume)*20);
     }
 }

@@ -1,30 +1,77 @@
+using System;
+using System.IO;
 using UnityEngine;
-using TMPro;
+using Object = UnityEngine.Object;
 
-public class AudioOptionsManager : MonoBehaviour
+public static class AudioOptionsManager
 {
-    public static float MusicVol { get; private set; }
-    public static float SFXVol { get; private set; }
-    public static float MasterVol { get; private set; }
-    [SerializeField] private TextMeshProUGUI musicvalue;
-    [SerializeField] private TextMeshProUGUI SFXvalue;
-    [SerializeField] private TextMeshProUGUI mastervalue;
-    public void OnMusicSliderValueChange(float value)
+    public static AudioOptions Options { get; private set; }
+
+    public static void SetChannel(Channel channel, float value)
     {
-        MusicVol = value;
-        musicvalue.text = ((int)(value * 100)).ToString();
-        AudioManager.Instance.UpdateMixervolume();
+        var options = Options;
+        switch (channel)
+        {
+            case Channel.Master:
+                options.masterVolume = value;
+                break;
+            case Channel.Sfx:
+                options.sfxVolume = value;
+                break;
+            case Channel.Music:
+                options.musicVolume = value;
+                break;
+        }
+        Options = options;
+        Save();
     }
-    public void OnSFXSliderValueChange(float value)
+
+    public static float GetChannel(Channel channel)
     {
-        SFXVol = value;
-        SFXvalue.text = ((int)(value * 100)).ToString();
-        AudioManager.Instance.UpdateMixervolume();
+        return channel switch
+        {
+            Channel.Master => Options.masterVolume,
+            Channel.Sfx => Options.sfxVolume,
+            Channel.Music => Options.musicVolume,
+            _ => 1
+        };
     }
-    public void OnMasterSliderValueChange(float value)
+
+    private static void Save()
     {
-        MasterVol = value;
-        mastervalue.text = ((int)(value * 100)).ToString();
-        AudioManager.Instance.UpdateMixervolume();
+        var audioManager = Object.FindObjectOfType<AudioManager>();
+        if (audioManager != null) audioManager.UpdateMixervolume();
+        
+        Directory.CreateDirectory("options");
+        File.WriteAllText("options/audio.json", JsonUtility.ToJson(Options));
+    }
+
+    [RuntimeInitializeOnLoadMethod]
+    private static void Load()
+    {
+        if (File.Exists("options/audio.json"))
+        {
+            Options = JsonUtility.FromJson<AudioOptions>(File.ReadAllText("options/audio.json"));
+        }
+        else
+        {
+            Options = new AudioOptions
+            {
+                musicVolume = 1, sfxVolume = 1, masterVolume = 1
+            };
+        }
+    }
+    
+    public enum Channel
+    {
+        Master, Sfx, Music
+    }
+
+    [Serializable]
+    public struct AudioOptions
+    {
+        public float musicVolume;
+        public float sfxVolume;
+        public float masterVolume;
     }
 }

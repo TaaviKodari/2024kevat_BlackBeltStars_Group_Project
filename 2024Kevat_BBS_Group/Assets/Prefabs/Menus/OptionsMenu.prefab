@@ -109,7 +109,6 @@ RectTransform:
   - {fileID: 4460686721070303139}
   - {fileID: 1225145476754909784}
   - {fileID: 4079370979146935992}
-  - {fileID: 9132148482959541679}
   m_Father: {fileID: 446667500432457985}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -391,6 +390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4460686721070303139}
   - component: {fileID: 8945783668053920002}
+  - component: {fileID: 6826299649597978762}
   m_Layer: 5
   m_Name: MasterVolumeSlider
   m_TagString: Untagged
@@ -471,19 +471,21 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8918796389877755373}
-        m_TargetAssemblyTypeName: AudioOptionsManager, Assembly-CSharp
-        m_MethodName: OnMasterSliderValueChange
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &6826299649597978762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3208499474435115581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6059bdb828ce4c17a7eb69150f3e6ccc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  channel: 0
+  valueLabel: {fileID: 2631734686845570254}
 --- !u!1 &3320093115950810257
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,53 +1013,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!1 &5347410705667531942
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9132148482959541679}
-  - component: {fileID: 8918796389877755373}
-  m_Layer: 5
-  m_Name: AudioOptionsManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9132148482959541679
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5347410705667531942}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8452920370042225419}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8918796389877755373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5347410705667531942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a93cb256f779a14894a222c5dd1b6f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicvalue: {fileID: 4127951570589049096}
-  SFXvalue: {fileID: 3609910142905461473}
-  mastervalue: {fileID: 2631734686845570254}
 --- !u!1 &5655876729863388945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1835,6 +1790,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4079370979146935992}
   - component: {fileID: 3254748730471732776}
+  - component: {fileID: 2687090272224189406}
   m_Layer: 5
   m_Name: MusicSlider
   m_TagString: Untagged
@@ -1915,19 +1871,21 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8918796389877755373}
-        m_TargetAssemblyTypeName: AudioOptionsManager, Assembly-CSharp
-        m_MethodName: OnMusicSliderValueChange
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &2687090272224189406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8364249605206365810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6059bdb828ce4c17a7eb69150f3e6ccc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  channel: 2
+  valueLabel: {fileID: 4127951570589049096}
 --- !u!1 &8581941105688754342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1938,6 +1896,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1225145476754909784}
   - component: {fileID: 5976229143196890573}
+  - component: {fileID: 412541162678238997}
   m_Layer: 5
   m_Name: SFXSlider
   m_TagString: Untagged
@@ -2018,19 +1977,21 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8918796389877755373}
-        m_TargetAssemblyTypeName: AudioOptionsManager, Assembly-CSharp
-        m_MethodName: OnSFXSliderValueChange
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &412541162678238997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8581941105688754342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6059bdb828ce4c17a7eb69150f3e6ccc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  channel: 1
+  valueLabel: {fileID: 3609910142905461473}
 --- !u!1 &8603166727263750264
 GameObject:
   m_ObjectHideFlags: 0
