@@ -38,7 +38,7 @@ public class TerrainDecorator : MonoBehaviour
         placements.Clear();
         foreach (var obstacle in VariantManager.Instance.TerrainObstacles.Values)
         {
-            var modifier = map.modifiers.OfType<ObstacleCountMapModifier>()
+            var modifier = (map.modifiers ?? new List<IMapModifier>()).OfType<ObstacleCountMapModifier>()
                 .Where(modifier => modifier.obstacleType == obstacle.id)
                 .Select(modifier => modifier.factor)
                 .Aggregate(1f, (a, b) => a*b);
