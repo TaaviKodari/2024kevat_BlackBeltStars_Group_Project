@@ -8,6 +8,8 @@ public class Building : MonoBehaviour
     public BuildingData data;
     private BuildingManager manager;
     private float durability;
+    public bool isVertical;
+    private Vector2Int Size { get { return isVertical ? data.verticalSize : data.size; } }
 
     private void Awake()
     {
@@ -17,13 +19,13 @@ public class Building : MonoBehaviour
     private void Start()
     {
         durability = data.durability;
-        FindObjectOfType<PathfindingManager>().UpdateChunks((Vector2) transform.position - data.offset, data.size);
+        FindObjectOfType<PathfindingManager>().UpdateChunks((Vector2) transform.position - data.offset, Size);
     }
     
     private void OnDestroy()
     {
         manager.RemoveBuilding(this);
-        FindObjectOfType<PathfindingManager>().UpdateChunks((Vector2) transform.position - data.offset, data.size);
+        FindObjectOfType<PathfindingManager>().UpdateChunks((Vector2) transform.position - data.offset, Size);
     }
     
     // Gets the position in the center of this building. Can be off by 0.5 for buildings with an even size
@@ -36,10 +38,10 @@ public class Building : MonoBehaviour
     public HashSet<Vector2Int> GetUsedPositions()
     {
         var positions = new HashSet<Vector2Int>();
-        var basePos = GetPosition() - data.size / 2;
-        for (var x = 0; x < data.size.x; x++)
+        var basePos = GetPosition() - Size / 2;
+        for (var x = 0; x < Size.x; x++)
         {
-            for (var y = 0; y < data.size.y; y++)
+            for (var y = 0; y < Size.y; y++)
             {
                 positions.Add(new Vector2Int(x + basePos.x, y + basePos.y));
             }

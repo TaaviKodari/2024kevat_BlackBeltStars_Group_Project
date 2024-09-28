@@ -112,4 +112,13 @@ public class BuildingManager : MonoBehaviour
         buildings.Remove(building);
         buildingPositions.ToList().ForEach(p => positionToBuilding.Remove(p));
     }
+
+    public static bool IsVertical(Vector3 pos)
+    {
+        GameObject player = EnemyManager.instance.player;
+        Vector3 distance = pos - player.transform.position;
+        float xDiff = Mathf.Abs(distance.x);
+        float yDiff = Mathf.Abs(distance.y);
+        return xDiff > yDiff;
+    }
 }

@@ -86,7 +86,7 @@ public class BuildingPlacer : MonoBehaviour
     private void PlaceBuilding()
     {
         var pos = GetPlacementPos();
-        var building = Instantiate(selectedBuilding.prefab, pos, Quaternion.identity, transform).GetComponent<Building>();
+        var building = Instantiate(GetPrefab(pos), pos, Quaternion.identity, transform).GetComponent<Building>();
         building.data = selectedBuilding;
         building.name = selectedBuilding.name;
         // Apply normal material to placed buildings to ensure that they look the same even after hovering
@@ -134,13 +134,13 @@ public class BuildingPlacer : MonoBehaviour
     private void CreatePreview()
     {
         var pos = GetPlacementPos();
-        var preview = Instantiate(selectedBuilding.prefab, pos, Quaternion.identity, transform);
+        var preview = Instantiate(GetPrefab(pos), pos, Quaternion.identity, transform);
         preview.GetComponent<Building>().data = selectedBuilding;
-        
+
         // Remove all scripts from the preview. This is a way to prevent the preview from doing anything.
         foreach (var script in preview.GetComponentsInChildren<MonoBehaviour>(true))
         {
-            if (script is Building) continue; 
+            if (script is Building) continue;
             Destroy(script);
         }
         // Remove all colliders from the preview. This is a way to prevent the preview from colliding with anything.
@@ -157,7 +157,16 @@ public class BuildingPlacer : MonoBehaviour
     private void UpdatePreview()
     {
         if (buildingPreview == null) return;
-        buildingPreview.transform.position = GetPlacementPos();
+        Vector3 pos = GetPlacementPos();
+        buildingPreview.transform.position = pos;
+
+        Building script = buildingPreview.GetComponent<Building>();
+        if (script.isVertical != BuildingManager.IsVertical(pos))
+        {
+            Destroy(buildingPreview);
+            CreatePreview();
+        }
+
         // Sets the material of the preview
         var material = manager.CanPlace(buildingPreview.GetComponent<Building>()) ? previewMaterial : invalidPreviewMaterial;
         SetMaterial(buildingPreview, material);
@@ -174,5 +183,11 @@ public class BuildingPlacer : MonoBehaviour
     public BuildingData GetBuilding()
     {
         return selectedBuilding;
+    }
+
+    private GameObject GetPrefab(Vector3 pos)
+    {
+        return selectedBuilding.verticalPrefab != null && BuildingManager.IsVertical(pos)
+                    ? selectedBuilding.verticalPrefab : selectedBuilding.prefab;
     }
 }
