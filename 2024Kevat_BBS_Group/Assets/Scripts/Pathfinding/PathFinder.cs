@@ -116,7 +116,7 @@ namespace Pathfinding
         private readonly PathfindingManager manager;
         public readonly IList<NodePos> Nodes;
 
-        internal Path(IList<NodePos> nodes, PathfindingManager manager)
+        public Path(IList<NodePos> nodes, PathfindingManager manager)
         {
             Nodes = nodes;
             this.manager = manager;

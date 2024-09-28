@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Pathfinding
@@ -151,7 +152,6 @@ namespace Pathfinding
             }
 
             // Walk towards the point between the next two nodes for a smoother path.
-            // TODO: A better interpolation would be nice
             var nearPos = manager.GetNodePos(pathNodes[pathIndex]);
             var farPos = manager.GetNodePos(pathNodes[pathIndex + 1]);
             return new Vector2((nearPos.x + farPos.x) / 2, (nearPos.y + farPos.y) / 2);
@@ -164,12 +164,41 @@ namespace Pathfinding
             pathTarget = target;
             var start = GetNavPos();
 
-            path = manager.FindPath(start, target, maxDistance);
-            if (path == null)
-            {
-                Debug.Log("Failed to compute path", this);
-            }
+            path = manager.FindPath(start, target, maxDistance) ?? FindAltPath();
             pathIndex = 0;
+        }
+
+        // Finds an alternative path if pathfinding to the target fails
+        private Path FindAltPath()
+        {
+            var navPos = GetNavPos();
+            var nodePos = manager.GetClosestNode(navPos);
+            var currentNode = manager.GetNode(nodePos);
+            
+            // If we're stuck inside something, pick a random direction and walk a few nodes that way
+            // This should unstick us in many cases
+            if (currentNode.Type == NodeType.Blocked)
+            {
+                var direction = Random.Range(0, 4) switch
+                {
+                    0 => Vector2Int.up,
+                    1 => Vector2Int.down,
+                    2 => Vector2Int.left,
+                    _ => Vector2Int.right
+                };
+                var list = new List<NodePos>
+                {
+                    new(nodePos.Pos + direction, manager),
+                    new(nodePos.Pos + direction * 2, manager),
+                    new(nodePos.Pos + direction * 3, manager),
+                    new(nodePos.Pos + direction * 4, manager)
+                };
+                return new Path(list, manager);
+            }
+            
+            // Otherwise we're probably too far away from the target, so we can pick a spot somewhere nearer and walk there.
+            var targetPos = navPos + (target - navPos).normalized * (maxDistance / 2);
+            return manager.FindPath(navPos, targetPos, maxDistance);
         }
 
         // Updates which node along the path we are walking to
