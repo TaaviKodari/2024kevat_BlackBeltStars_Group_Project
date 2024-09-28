@@ -9,8 +9,7 @@ public class BuildingPlacer : MonoBehaviour
     [SerializeField]
     private PlayerController player;
     private BuildingManager manager;
-    private PathfindingManager pathfindingManager;
-    
+
     [SerializeField]
     private Material normalMaterial;
     [SerializeField]
@@ -27,7 +26,7 @@ public class BuildingPlacer : MonoBehaviour
     private void Awake()
     {
         manager = FindObjectOfType<BuildingManager>();
-        pathfindingManager = FindObjectOfType<PathfindingManager>();
+        FindObjectOfType<PathfindingManager>();
     }
 
     private void Update()
@@ -65,7 +64,7 @@ public class BuildingPlacer : MonoBehaviour
     private Vector3 GetPlacementPos()
     {
         if (selectedBuilding == null) return Vector3.zero;
-        var size = selectedBuilding.size;
+        var size = selectedBuilding.GetSize(IsPlacingVertical());
         return manager.BuildingPosToWorldPos(GetSelectedTile(size)) + new Vector2(math.frac(size.x / 2f), math.frac(size.y / 2f)) + selectedBuilding.offset;
     }
     
@@ -86,7 +85,7 @@ public class BuildingPlacer : MonoBehaviour
     private void PlaceBuilding()
     {
         var pos = GetPlacementPos();
-        var building = Instantiate(GetPrefab(pos), pos, Quaternion.identity, transform).GetComponent<Building>();
+        var building = Instantiate(selectedBuilding.GetPrefab(IsPlacingVertical()), pos, Quaternion.identity, transform).GetComponent<Building>();
         building.data = selectedBuilding;
         building.name = selectedBuilding.name;
         // Apply normal material to placed buildings to ensure that they look the same even after hovering
@@ -134,7 +133,7 @@ public class BuildingPlacer : MonoBehaviour
     private void CreatePreview()
     {
         var pos = GetPlacementPos();
-        var preview = Instantiate(GetPrefab(pos), pos, Quaternion.identity, transform);
+        var preview = Instantiate(selectedBuilding.GetPrefab(IsPlacingVertical()), pos, Quaternion.identity, transform);
         preview.GetComponent<Building>().data = selectedBuilding;
 
         // Remove all scripts from the preview. This is a way to prevent the preview from doing anything.
@@ -157,11 +156,11 @@ public class BuildingPlacer : MonoBehaviour
     private void UpdatePreview()
     {
         if (buildingPreview == null) return;
-        Vector3 pos = GetPlacementPos();
+        var pos = GetPlacementPos();
         buildingPreview.transform.position = pos;
 
-        Building script = buildingPreview.GetComponent<Building>();
-        if (script.isVertical != BuildingManager.IsVertical(pos))
+        var building = buildingPreview.GetComponent<Building>();
+        if (building.data.HasSplitPrefab() && building.isVertical != IsPlacingVertical())
         {
             Destroy(buildingPreview);
             CreatePreview();
@@ -185,9 +184,8 @@ public class BuildingPlacer : MonoBehaviour
         return selectedBuilding;
     }
 
-    private GameObject GetPrefab(Vector3 pos)
+    private bool IsPlacingVertical()
     {
-        return selectedBuilding.verticalPrefab != null && BuildingManager.IsVertical(pos)
-                    ? selectedBuilding.verticalPrefab : selectedBuilding.prefab;
+        return manager.IsVertical(manager.BuildingPosToWorldPos(GetSelectedTile(Vector2Int.one)));
     }
 }

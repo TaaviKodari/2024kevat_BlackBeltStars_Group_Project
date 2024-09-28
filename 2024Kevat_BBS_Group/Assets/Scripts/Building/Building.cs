@@ -9,7 +9,7 @@ public class Building : MonoBehaviour
     private BuildingManager manager;
     private float durability;
     public bool isVertical;
-    private Vector2Int Size { get { return isVertical ? data.verticalSize : data.size; } }
+    private Vector2Int Size => data.GetSize(isVertical);
 
     private void Awake()
     {

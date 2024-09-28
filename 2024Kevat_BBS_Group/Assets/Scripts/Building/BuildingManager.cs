@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -29,6 +30,15 @@ public class BuildingManager : MonoBehaviour
         buildingPlacementLayerMask = ~LayerMask.GetMask("Buildings", "Ignore Raycast");
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.white;
+        foreach (var usedPosition in usedPositions)
+        {
+            Gizmos.DrawCube(BuildingPosToWorldPos(usedPosition) + new Vector2(0.5f, 0.5f), Vector3.one);
+        }
+    }
+    
     public bool HasBuildingAt(Vector2Int pos)
     {
         return usedPositions.Contains(pos);
@@ -113,12 +123,11 @@ public class BuildingManager : MonoBehaviour
         buildingPositions.ToList().ForEach(p => positionToBuilding.Remove(p));
     }
 
-    public static bool IsVertical(Vector3 pos)
+    public bool IsVertical(Vector3 pos)
     {
-        GameObject player = EnemyManager.instance.player;
-        Vector3 distance = pos - player.transform.position;
-        float xDiff = Mathf.Abs(distance.x);
-        float yDiff = Mathf.Abs(distance.y);
+        var distance = pos - player.transform.position;
+        var xDiff = Mathf.Abs(distance.x);
+        var yDiff = Mathf.Abs(distance.y);
         return xDiff > yDiff;
     }
 }
