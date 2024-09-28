@@ -20,8 +20,9 @@ public class Enemy : Entity
     
     // Reference to the EnemyManager that handles this enemy
     public EnemyManager manager;
-
     private EntityPathfinder pathfinder;
+
+    private Vector2 prevMoveDirections;
 
     private void Start()
     {
@@ -34,7 +35,7 @@ public class Enemy : Entity
     }
 
     // Override of the abstract GetMoveDirection method from the Entity class
-    // Returns the direction towards the player, normalized for consistent speed
+    // Passes on the direction from the pathfinder
     protected override Vector2 GetMoveDirection()
     {
         return pathfinder.GetDirection();

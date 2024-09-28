@@ -16,6 +16,9 @@ namespace Pathfinding
         [Tooltip("Offset from object origin for the pathfinding position. Rendered as a gray box gizmo")]
         [SerializeField]
         private Vector2 navPosOffset = new(0, 0);
+        [Tooltip("The maximum speed that the movement direction can change at in degrees per second.")]
+        [SerializeField]
+        private float rotationSpeed = 90;
 
         private float recalculationTimer = 2;
         private Vector2 pathTarget;
@@ -23,6 +26,8 @@ namespace Pathfinding
         private Path path;
         private int pathIndex;
         private bool hasTarget;
+        
+        private Vector2 moveDirection;
         
         private void Start()
         {
@@ -40,6 +45,7 @@ namespace Pathfinding
                 recalculationTimer = Random.Range(1.5f, 2.5f);
             }
             UpdatePath();
+            UpdateDirection();
         }
 
         // Renders lines and boxes that help with debugging pathfinding
@@ -64,6 +70,8 @@ namespace Pathfinding
                 Gizmos.DrawCube(manager.GetNodePos(path.Nodes[0]), new Vector3(0.1f, 0.1f, 0.1f));
                 Gizmos.DrawCube(manager.GetNodePos(path.Nodes[^1]), new Vector3(0.1f, 0.1f, 0.1f));
             }
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawLine(GetNavPos(), GetNavPos() + moveDirection);
         }
 
         // Sets the pathfinding target. If it differs enough from the precious target, then the path will be recomputed.
@@ -90,18 +98,46 @@ namespace Pathfinding
             pathIndex = 0;
         }
 
-        // Gets the direction the pathfinder wants to move in
-        public Vector2 GetDirection()
+        private void UpdateDirection()
         {
             // Make sure there is a path to walk along
-            if (!hasTarget || path == null) return Vector2.zero;
+            if (!hasTarget || path == null)
+            {
+                moveDirection = Vector2.zero;
+                return;
+            }
+
             var pathNodes = path.Nodes;
-            if (pathIndex >= pathNodes.Count) return Vector2.zero;
+            if (pathIndex >= pathNodes.Count)
+            {
+                moveDirection = Vector2.zero;
+                return;
+            }
 
             // Calculate direction
             var aimPos = GetAimPos();
             var currentPos = GetNavPos();
-            return (aimPos - currentPos).normalized;
+            var targetDirection = (aimPos - currentPos).normalized;
+            
+            // If we're still, instantly change direction
+            if (moveDirection.sqrMagnitude < 0.01f)
+            {
+                moveDirection = targetDirection;
+                return;
+            }
+
+            // Calculate how much we are allowed to rotate and limit the amount we want to rotate to that.
+            var allowedAngle = rotationSpeed * Time.deltaTime;
+            var angle = Mathf.Clamp(Vector2.SignedAngle(moveDirection, targetDirection), -allowedAngle, allowedAngle);
+
+            // Rotate the movement direction
+            moveDirection = Quaternion.AngleAxis(angle, Vector3.forward) * moveDirection;
+        }
+
+        // Gets the direction the pathfinder wants to move in
+        public Vector2 GetDirection()
+        {
+            return moveDirection;
         }
 
         // Gets the point we are currently walking towards

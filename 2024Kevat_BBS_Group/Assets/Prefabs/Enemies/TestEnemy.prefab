@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxDistance: 100
   navPosOffset: {x: 0, y: 0.5}
+  rotationSpeed: 90
 --- !u!1001 &5223635474971765568
 PrefabInstance:
   m_ObjectHideFlags: 0
