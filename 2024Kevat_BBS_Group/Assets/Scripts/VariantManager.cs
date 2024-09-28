@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [Tooltip("Contains lists of all instances of some objects")]
@@ -18,8 +19,9 @@ public class VariantManager : ScriptableObject
     [NonSerialized]
     public readonly Dictionary<string, TerrainObstacle> TerrainObstacles = new();
 
-    private void OnEnable()
+    public void Init()
     {
+        if (Instance != null) return; 
         Instance = this;
         foreach (var resourceType in resourceTypes)
         {

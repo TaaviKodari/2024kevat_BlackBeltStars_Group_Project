@@ -13,6 +13,11 @@ public class ResourceManager : MonoBehaviour
     {
         Instance = this;
         player = FindObjectOfType<PlayerController>();
+    }
+
+    private void Start()
+    {
+        // We do this in start because the variant manager might not be ready in awake yet
         foreach (var resource in VariantManager.Instance.ResourceTypes.Values)
         {
             resources[resource] = 0;

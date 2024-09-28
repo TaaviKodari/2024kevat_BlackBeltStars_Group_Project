@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8505989028246320586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1861167939824059892}
+  - component: {fileID: 5518962222089413915}
+  m_Layer: 0
+  m_Name: Game State Initializer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1861167939824059892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8505989028246320586}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5518962222089413915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8505989028246320586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a5cb44077a4da48d955f0a721f99ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultSave:
+    resources:
+      gold: 0
+      diamonds: 0
+    maps:
+      map1:
+        modifiers:
+        - rid: 8810048604771450880
+        - rid: 8810048604771450881
+        seed: 0
+      map2:
+        modifiers:
+        - rid: 8810048604771450882
+        - rid: 8810048604771450883
+        seed: 0
+      map3:
+        modifiers: []
+        seed: 0
+  variantManager: {fileID: 11400000, guid: 23103b04bfd608b4db4f565fcef40e90, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 8810048604771450880
+      type: {class: ObstacleCountMapModifier, ns: GameState, asm: Assembly-CSharp}
+      data:
+        obstacleType: rock
+        factor: 0
+    - rid: 8810048604771450881
+      type: {class: GoldAmountMapModifier, ns: GameState, asm: Assembly-CSharp}
+      data:
+        factor: 1.5
+    - rid: 8810048604771450882
+      type: {class: ObstacleCountMapModifier, ns: GameState, asm: Assembly-CSharp}
+      data:
+        obstacleType: tree
+        factor: 10
+    - rid: 8810048604771450883
+      type: {class: GoldAmountMapModifier, ns: GameState, asm: Assembly-CSharp}
+      data:
+        factor: 1.1
