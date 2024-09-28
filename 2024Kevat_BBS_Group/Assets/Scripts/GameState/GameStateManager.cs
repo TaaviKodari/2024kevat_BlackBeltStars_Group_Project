@@ -2,6 +2,8 @@
 
 namespace GameState
 {
+    // Stores the current savegame and map
+    // Is placed in a DontDestroyOnLoad object
     public class GameStateManager : MonoBehaviour
     {
         public SaveGame currentSaveGame;
@@ -15,6 +17,7 @@ namespace GameState
         public void NewGame(string saveName)
         {
             currentSaveGame = default;
+            currentMap = default;
             currentSaveGame.SaveName = saveName;
         }
 

@@ -6,8 +6,9 @@ using Object = UnityEngine.Object;
 public static class AudioOptionsManager
 {
     public static AudioOptions Options { get; private set; }
-
-    public static void SetChannel(Channel channel, float value)
+    
+    // Sets the volume of a specific audio channel
+    public static void SetChannelVolume(Channel channel, float value)
     {
         var options = Options;
         switch (channel)
@@ -25,8 +26,9 @@ public static class AudioOptionsManager
         Options = options;
         Save();
     }
-
-    public static float GetChannel(Channel channel)
+    
+    // Gets the volume of a specific audio channel
+    public static float GetChannelVolume(Channel channel)
     {
         return channel switch
         {

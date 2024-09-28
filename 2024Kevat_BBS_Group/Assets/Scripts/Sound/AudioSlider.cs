@@ -2,10 +2,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+// Links a slider to audio options
+[RequireComponent(typeof(Slider))]
 public class AudioSlider : MonoBehaviour
 {
     [SerializeField]
     private AudioOptionsManager.Channel channel;
+    [Tooltip("A TMP text that's used to show the value of the slider")]
     [SerializeField]
     private TextMeshProUGUI valueLabel;
     private Slider slider;
@@ -15,19 +18,19 @@ public class AudioSlider : MonoBehaviour
         slider = GetComponent<Slider>();
         slider.onValueChanged.AddListener(sliderValue =>
         {
-            AudioOptionsManager.SetChannel(channel, sliderValue);
-            SetValue(sliderValue);
+            AudioOptionsManager.SetChannelVolume(channel, sliderValue);
+            SetLabelText(sliderValue);
         });
     }
 
     private void OnEnable()
     {
-        var value = AudioOptionsManager.GetChannel(channel);
+        var value = AudioOptionsManager.GetChannelVolume(channel);
         slider.value = value;
-        SetValue(value);
+        SetLabelText(value);
     }
 
-    private void SetValue(float value)
+    private void SetLabelText(float value)
     {
         valueLabel.text = ((int)(value * 100)).ToString();
     }
