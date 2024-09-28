@@ -82,7 +82,7 @@ public class Enemy : Entity
         }
         else if (other.gameObject.TryGetComponent<Building>(out var building))
         {
-            building.DoDamage(1);
+            building.DoDamage(damage);
             rb.velocity += ((Vector2)(other.transform.position - transform.position)).normalized * 2;
         }
     }
