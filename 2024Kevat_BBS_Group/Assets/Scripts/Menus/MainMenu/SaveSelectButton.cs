@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace MainMenu
 {
     [RequireComponent(typeof(Button))]
-    public class GameSelectButton : MonoBehaviour
+    public class SaveSelectButton : MonoBehaviour
     {
         internal LoadGameDialog Dialog;
         internal string SaveName;

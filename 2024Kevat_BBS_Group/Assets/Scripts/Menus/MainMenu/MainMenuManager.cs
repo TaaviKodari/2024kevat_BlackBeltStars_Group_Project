@@ -1,6 +1,5 @@
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Button = UnityEngine.UI.Button;
 
 namespace MainMenu

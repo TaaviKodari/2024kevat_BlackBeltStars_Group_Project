@@ -2,22 +2,25 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace MainMenu
 {
+    // Manages the new game popup
     public class NewGameDialog : MonoBehaviour
     {
         [SerializeField]
         private TMP_InputField nameField;
+        [FormerlySerializedAs("button")]
         [SerializeField]
-        private Button button;
+        private Button startButton;
 
         private void Start()
         {
-            button.onClick.AddListener(Begin);
-            button.interactable = false;
-            nameField.onValueChanged.AddListener(value => button.interactable = value.Trim() != "");
+            startButton.onClick.AddListener(Begin);
+            startButton.interactable = false;
+            nameField.onValueChanged.AddListener(value => startButton.interactable = value.Trim() != "");
         }
 
         private void Begin()

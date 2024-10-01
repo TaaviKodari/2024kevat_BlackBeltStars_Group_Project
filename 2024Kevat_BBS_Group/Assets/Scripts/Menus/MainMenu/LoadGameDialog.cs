@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using GameState;
 using UnityEngine;
@@ -7,10 +6,11 @@ using UnityEngine.UI;
 
 namespace MainMenu
 {
+    // Manages the load game popup
     public class LoadGameDialog : MonoBehaviour
     {
         [SerializeField]
-        private GameSelectButton buttonPrefab;
+        private SaveSelectButton buttonPrefab;
         [SerializeField]
         private Button loadButton;
         [SerializeField]
@@ -29,6 +29,8 @@ namespace MainMenu
             selectedSave = -1;
             loadButton.interactable = false;
             games = SaveManager.LoadGames();
+            
+            // Destroy old buttons and create new ones
             foreach (Transform child in buttonHolder)
             {
                 Destroy(child.gameObject);
