@@ -22,7 +22,7 @@ namespace GameState
             {
                 var text = File.ReadAllText(saveFile);
                 var save = JsonUtility.FromJson<SaveGame>(text);
-                save.SaveName = saveFile.Remove(saveFile.Length - 5);
+                save.SaveName = saveFile.Remove(saveFile.Length - 5).Remove(0, 6);
                 saves.Add(save);
             }
 

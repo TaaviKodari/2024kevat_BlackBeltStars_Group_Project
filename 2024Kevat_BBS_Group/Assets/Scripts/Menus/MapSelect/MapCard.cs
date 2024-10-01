@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using GameState;
 using TMPro;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace MapSelect
         public void Populate(MapStats mapStats)
         {
             var textBuilder = new StringBuilder();
-            foreach (var modifier in mapStats.modifiers)
+            foreach (var modifier in mapStats.modifiers ?? Enumerable.Empty<IMapModifier>())
             {
                 modifier.Describe(textBuilder);
                 textBuilder.Append('\n');

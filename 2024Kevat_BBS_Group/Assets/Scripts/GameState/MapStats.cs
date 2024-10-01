@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace GameState
@@ -16,7 +17,7 @@ namespace GameState
     [Serializable]
     public struct MapStats
     {
-        [SerializeReference, SubclassSelector]
+        [SerializeReference, SubclassSelector, CanBeNull]
         public List<IMapModifier> modifiers;
         public int seed;
     }

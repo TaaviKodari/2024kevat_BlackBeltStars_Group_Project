@@ -16,12 +16,18 @@ namespace GameState
             variantManager.Init();
             if (FindObjectOfType<GameStateManager>() == null)
             {
-                var stateObject = new GameObject("Game State");
-                var stateComponent = stateObject.AddComponent<GameStateManager>();
-                stateComponent.LoadGame(defaultSave);
-                stateComponent.currentSaveGame.SaveName = "Dev Game";
+                var manager = CreateStateManager(defaultSave);
+                manager.currentSaveGame.SaveName = "Dev Game";
             }
             DestroyImmediate(gameObject);
+        }
+
+        public static GameStateManager CreateStateManager(SaveGame saveGame)
+        {
+            var stateObject = new GameObject("Game State");
+            var stateComponent = stateObject.AddComponent<GameStateManager>();
+            stateComponent.LoadGame(saveGame);
+            return stateComponent;
         }
     }
 }
