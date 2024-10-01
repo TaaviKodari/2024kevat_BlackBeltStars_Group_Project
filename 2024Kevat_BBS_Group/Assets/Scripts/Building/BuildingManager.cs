@@ -32,7 +32,7 @@ public class BuildingManager : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.white;
+        Gizmos.color = new Color(1, 1, 1, 0.5f);
         foreach (var usedPosition in usedPositions)
         {
             Gizmos.DrawCube(BuildingPosToWorldPos(usedPosition) + new Vector2(0.5f, 0.5f), Vector3.one);
