@@ -1,15 +1,19 @@
-using UnityEngine.Audio;
+using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-[System.Serializable]
+[Serializable]
 public class Sound
 {
     public string name;
-    public enum AudioTypes{SFX, Music, Master}
-    public AudioTypes audioType;
-    public AudioClip clip; [Range(0f, 1f)]
-    public float volume; [Range(0.1f, 3f)]
+    [FormerlySerializedAs("audioType")]
+    public AudioChannel channel;
+    public AudioClip clip; 
+    [Range(0f, 1f)]
+    public float volume; 
+    [Range(0.1f, 3f)]
     public float pitch;
     public bool loop;
-    [HideInInspector] public AudioSource source;
+    [NonSerialized]
+    public AudioSource Source;
 }

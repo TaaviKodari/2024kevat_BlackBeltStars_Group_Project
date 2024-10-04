@@ -76,9 +76,6 @@ public class PlayerController : Entity
         {
             AudioManager.Instance.PlayFull("WalkSound");
         }
-
-        // Play the main theme on every update (this should likely be moved elsewhere for optimization)
-        AudioManager.Instance.PlayFull("MainTheme");
     }
 
     // Update the aiming state based on player input

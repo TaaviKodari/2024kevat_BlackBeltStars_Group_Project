@@ -8,18 +8,18 @@ public static class AudioOptionsManager
     public static AudioOptions Options { get; private set; }
     
     // Sets the volume of a specific audio channel
-    public static void SetChannelVolume(Channel channel, float value)
+    public static void SetChannelVolume(AudioChannel channel, float value)
     {
         var options = Options;
         switch (channel)
         {
-            case Channel.Master:
+            case AudioChannel.Master:
                 options.masterVolume = value;
                 break;
-            case Channel.Sfx:
+            case AudioChannel.Sfx:
                 options.sfxVolume = value;
                 break;
-            case Channel.Music:
+            case AudioChannel.Music:
                 options.musicVolume = value;
                 break;
         }
@@ -28,13 +28,13 @@ public static class AudioOptionsManager
     }
     
     // Gets the volume of a specific audio channel
-    public static float GetChannelVolume(Channel channel)
+    public static float GetChannelVolume(AudioChannel channel)
     {
         return channel switch
         {
-            Channel.Master => Options.masterVolume,
-            Channel.Sfx => Options.sfxVolume,
-            Channel.Music => Options.musicVolume,
+            AudioChannel.Master => Options.masterVolume,
+            AudioChannel.Sfx => Options.sfxVolume,
+            AudioChannel.Music => Options.musicVolume,
             _ => 1
         };
     }
@@ -42,7 +42,7 @@ public static class AudioOptionsManager
     private static void Save()
     {
         var audioManager = Object.FindObjectOfType<AudioManager>();
-        if (audioManager != null) audioManager.UpdateMixervolume();
+        if (audioManager != null) audioManager.UpdateMixerVolumes();
         
         Directory.CreateDirectory("options");
         File.WriteAllText("options/audio.json", JsonUtility.ToJson(Options));
@@ -63,11 +63,6 @@ public static class AudioOptionsManager
             };
         }
     }
-    
-    public enum Channel
-    {
-        Master, Sfx, Music
-    }
 
     [Serializable]
     public struct AudioOptions
@@ -76,4 +71,9 @@ public static class AudioOptionsManager
         public float sfxVolume;
         public float masterVolume;
     }
+}
+
+public enum AudioChannel
+{
+    Master, Sfx, Music
 }

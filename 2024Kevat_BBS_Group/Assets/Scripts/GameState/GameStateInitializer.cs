@@ -7,18 +7,29 @@ namespace GameState
     public class GameStateInitializer : MonoBehaviour
     {
         [SerializeField]
+        private bool startGame = true;
+        [SerializeField]
         private SaveGame defaultSave;
+        [SerializeField]
+        private AudioManager audioManagerPrefab;
         [SerializeField]
         private VariantManager variantManager;
         
         public void Awake()
         {
             variantManager.Init();
-            if (FindObjectOfType<GameStateManager>() == null)
+            if (startGame && FindObjectOfType<GameStateManager>() == null)
             {
                 var manager = CreateStateManager(defaultSave);
                 manager.currentSaveGame.SaveName = "Dev Game";
             }
+            if (FindObjectOfType<AudioManager>() == null)
+            {
+                var manager = Instantiate(audioManagerPrefab);
+                manager.name = audioManagerPrefab.name;
+                DontDestroyOnLoad(manager);
+            }
+            
             DestroyImmediate(gameObject);
         }
 

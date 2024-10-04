@@ -3427,6 +3427,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 909070482}
   m_CullTransparentMesh: 1
+--- !u!1 &922803815
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 922803817}
+  - component: {fileID: 922803816}
+  m_Layer: 0
+  m_Name: MusicPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &922803816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922803815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 748c1f4c7ee24fd7a3af83f1eee8381e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: MainTheme
+--- !u!4 &922803817
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922803815}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1014.96783, y: 578.33655, z: 4.2813272}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &941740056
 GameObject:
   m_ObjectHideFlags: 0
@@ -4722,82 +4767,71 @@ MonoBehaviour:
   masterMixerGroup: {fileID: 24300002, guid: 9e903c507d694a341b3476149eae1123, type: 2}
   sounds:
   - name: MainTheme
-    audioType: 1
+    channel: 1
     clip: {fileID: 8300000, guid: 29f75d133872cca4186e99c03551f377, type: 3}
     volume: 1
     pitch: 1
     loop: 0
-    source: {fileID: 0}
   - name: MainMenu
-    audioType: 1
+    channel: 1
     clip: {fileID: 8300000, guid: a655eb39a554ee442845165554175a10, type: 3}
     volume: 1
     pitch: 1
     loop: 0
-    source: {fileID: 0}
   - name: PlayerShoot
-    audioType: 0
+    channel: 0
     clip: {fileID: 8300000, guid: 65370dde612d14c4a80c5fc49a9f1f4b, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
-    source: {fileID: 0}
   - name: EnemyDamaged
-    audioType: 0
+    channel: 0
     clip: {fileID: 8300000, guid: 4cfe2348b52ed3543b8013aba173d26c, type: 3}
     volume: 1
     pitch: 1
     loop: 0
-    source: {fileID: 0}
   - name: EnemyDie
-    audioType: 0
+    channel: 0
     clip: {fileID: 8300000, guid: b8448830e89742b448a3e33c0db4b484, type: 3}
     volume: 1
     pitch: 1
     loop: 0
-    source: {fileID: 0}
   - name: ItemPickup
-    audioType: 0
+    channel: 0
     clip: {fileID: 8300000, guid: b3c3119e7c5e84944ac1561447bc9b05, type: 3}
     volume: 1
     pitch: 1
     loop: 0
-    source: {fileID: 0}
   - name: WalkSound
-    audioType: 0
+    channel: 0
     clip: {fileID: 8300000, guid: 93004f534429764418a5470f2b619f6d, type: 3}
     volume: 1
     pitch: 1
     loop: 0
-    source: {fileID: 0}
   - name: CantPlace
-    audioType: 0
+    channel: 0
     clip: {fileID: 8300000, guid: f492f6560ed3b874e8f99005809d5618, type: 3}
     volume: 1
     pitch: 1
     loop: 0
-    source: {fileID: 0}
   - name: PlaceSound
-    audioType: 0
+    channel: 0
     clip: {fileID: 8300000, guid: 6006d3cfcf383424789d8e120d16031b, type: 3}
     volume: 1
     pitch: 1
     loop: 0
-    source: {fileID: 0}
   - name: MineSound
-    audioType: 0
+    channel: 0
     clip: {fileID: 8300000, guid: 8720ed8841917ba4dbf2769a937bf645, type: 3}
     volume: 1
     pitch: 1
     loop: 0
-    source: {fileID: 0}
   - name: MineDestroySound
-    audioType: 0
+    channel: 0
     clip: {fileID: 8300000, guid: 08143276c5015dd45a48377046551b53, type: 3}
     volume: 1
     pitch: 1
     loop: 0
-    source: {fileID: 0}
 --- !u!1 &1482703107
 GameObject:
   m_ObjectHideFlags: 0
@@ -7262,3 +7296,4 @@ SceneRoots:
   - {fileID: 78882056}
   - {fileID: 729909874}
   - {fileID: 1178405693}
+  - {fileID: 922803817}

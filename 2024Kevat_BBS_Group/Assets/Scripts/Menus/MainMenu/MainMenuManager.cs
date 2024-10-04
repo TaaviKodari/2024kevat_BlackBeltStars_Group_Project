@@ -22,10 +22,5 @@ namespace MainMenu
             EditorApplication.isPlaying = false;
 #endif
         }
-
-        void Update()
-        {
-            AudioManager.Instance.PlayFull("MainMenu");
-        }
     }
 }

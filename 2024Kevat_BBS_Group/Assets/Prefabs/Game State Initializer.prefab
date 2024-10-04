@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81a5cb44077a4da48d955f0a721f99ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startGame: 1
   defaultSave:
     resources:
       gold: 0
@@ -62,6 +63,7 @@ MonoBehaviour:
       map3:
         modifiers: []
         seed: 0
+  audioManagerPrefab: {fileID: 4946955332691368084, guid: 4fe311bcd36e8bb4a9bb472ce2c7cbe2, type: 3}
   variantManager: {fileID: 11400000, guid: 23103b04bfd608b4db4f565fcef40e90, type: 2}
   references:
     version: 2

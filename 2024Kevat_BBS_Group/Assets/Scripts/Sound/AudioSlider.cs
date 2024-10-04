@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class AudioSlider : MonoBehaviour
 {
     [SerializeField]
-    private AudioOptionsManager.Channel channel;
+    private AudioChannel channel;
     [Tooltip("A TMP text that's used to show the value of the slider")]
     [SerializeField]
     private TextMeshProUGUI valueLabel;
