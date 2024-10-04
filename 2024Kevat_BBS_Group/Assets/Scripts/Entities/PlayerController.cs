@@ -22,6 +22,7 @@ public class PlayerController : Entity
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private BuildingPlacer buildingPlacer;
+    private LineRenderer aimLine;
 
     // State variables to track whether the player is aiming and how long they've been aiming
     private bool aiming;
@@ -38,12 +39,13 @@ public class PlayerController : Entity
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         buildingPlacer = FindObjectOfType<BuildingPlacer>();
+        aimLine = GetComponent<LineRenderer>();
     }
 
     // Enable the input system when the player is enabled
     private void OnEnable()
     {
-         input.Enable();
+        input.Enable();
     }
 
     // Disable the input system when the player is disabled
@@ -101,6 +103,17 @@ public class PlayerController : Entity
 
         // Update the animator to reflect the aiming state
         animator.SetBool("Aiming", aiming);
+
+        // Update the line
+        if (!aiming)
+        {
+            aimLine.enabled = false;
+        }
+        else
+        {
+            aimLine.enabled = true;
+            aimLine.SetPositions(new Vector3[]{shootPoint.localPosition, GetMousePosition() - transform.position});
+        }
     }
 
     // Handle shooting an arrow
@@ -163,12 +176,17 @@ public class PlayerController : Entity
     // Get the direction to aim based on the mouse position
     private Vector2 GetAimDirection()
     {
+        Vector3 worldPosition = GetMousePosition();
+        // Return the direction from the shoot point to the mouse position
+        return worldPosition - shootPoint.position;
+    }
+
+    private static Vector3 GetMousePosition()
+    {
         if (Camera.main == null) return Vector2.zero;
         // Get the mouse position in world space
         var mousePosition = Mouse.current.position.ReadValue();
-        var worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        // Return the direction from the shoot point to the mouse position
-        return worldPosition - shootPoint.position;
+        return Camera.main.ScreenToWorldPoint(mousePosition);
     }
 
     // Override GetMoveDirection to return movement input from the player
