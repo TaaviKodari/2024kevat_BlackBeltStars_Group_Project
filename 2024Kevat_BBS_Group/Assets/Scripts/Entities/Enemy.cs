@@ -9,7 +9,13 @@ public class Enemy : Entity
     public List<ResourceDrop> drops;
     // Flag to ensure resources are dropped only once when the enemy dies
     private bool resourcesDropped;
-
+    
+    // minimum time between attacks 
+    public float attackCooldown;
+    
+    // when the enemy has attacked last time
+    private float lastAttackTime = 0f;
+    
     // Serializable class representing a resource drop, including its type and amount
     [Serializable]
     public class ResourceDrop
@@ -33,7 +39,14 @@ public class Enemy : Entity
     {
         pathfinder.SetTarget(EnemyManager.instance.player.transform.position);
     }
-
+    
+    // check if the enemy can attack
+    private bool CanAttack()
+    {
+        // the enemy can attack, if it has been "attackCooldown" seconds since the last attack
+        return Time.time >= lastAttackTime + attackCooldown;
+    }
+    
     // Override of the abstract GetMoveDirection method from the Entity class
     // Passes on the direction from the pathfinder
     protected override Vector2 GetMoveDirection()
@@ -74,11 +87,14 @@ public class Enemy : Entity
     // Unity method called when this object collides with another 2D object
     void OnCollisionEnter2D(Collision2D other)
     {
-        // If the collided object is tagged as "Player", attack the player entity
-        if (other.gameObject.CompareTag("Player")) 
+        // If the collided object is tagged as "Player" and it has been
+        // "attackCooldown" seconds since the last attack, attack the player entity
+        if (other.gameObject.CompareTag("Player") && CanAttack()) 
         {
             // Call the Attack method inherited from the Entity class
             Attack(other.gameObject.GetComponent<Entity>());
+            lastAttackTime = Time.time;
+
         }
         else if (other.gameObject.TryGetComponent<Building>(out var building))
         {
