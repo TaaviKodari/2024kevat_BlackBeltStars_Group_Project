@@ -105,14 +105,11 @@ public class PlayerController : Entity
         animator.SetBool("Aiming", aiming);
 
         // Update the line
-        if (!aiming)
+        if (aiming)
         {
-            aimLine.enabled = false;
-        }
-        else
-        {
-            aimLine.enabled = true;
-            aimLine.SetPositions(new Vector3[]{shootPoint.localPosition, GetMousePosition() - transform.position});
+            var shootPointPos = shootPoint.localPosition;
+            var dir = GetAimDirection();
+            aimLine.SetPositions(new Vector3[] { shootPointPos, dir * 100 - (Vector2)transform.position });
         }
     }
 
