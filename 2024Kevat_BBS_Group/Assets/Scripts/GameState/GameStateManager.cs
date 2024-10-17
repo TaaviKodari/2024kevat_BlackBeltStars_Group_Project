@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using Random = Unity.Mathematics.Random;
 
 namespace GameState
 {
@@ -29,6 +32,43 @@ namespace GameState
         public void Save()
         {
             SaveManager.SaveGame(currentSaveGame);
+        }
+
+        public void GenerateMaps()
+        {
+            currentSaveGame.maps.map1 = GenerateMap();
+            currentSaveGame.maps.map2 = GenerateMap();
+            currentSaveGame.maps.map3 = GenerateMap();
+            Save();
+        }
+
+        private static MapStats GenerateMap()
+        {
+            var random = new Random((uint) UnityEngine.Random.Range(int.MinValue, int.MaxValue));
+            
+            var modifiers = new List<IMapModifier>();
+            for (var i = 0; i < random.NextInt(1, 5); i++)
+            {
+                var value = random.NextFloat();
+                if (value < 2)
+                {
+                    if (modifiers.OfType<GoldAmountMapModifier>().Any()) continue;
+                    modifiers.Add(new GoldAmountMapModifier(random.NextFloat(2)));
+                }
+                else
+                {
+                    var types = VariantManager.Instance.TerrainObstacles.Values;
+                    var type = types.ElementAt(random.NextInt(types.Count));
+                    if (modifiers.OfType<ObstacleCountMapModifier>().Any(it => it.obstacleType == type.id)) continue;
+                    modifiers.Add(new ObstacleCountMapModifier(type.id, random.NextFloat(2)));
+                }
+            }
+
+            return new MapStats
+            {
+                modifiers = modifiers,
+                seed = random.NextInt()
+            };
         }
     }
 }

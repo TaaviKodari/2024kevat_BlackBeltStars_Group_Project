@@ -31,7 +31,8 @@ namespace MainMenu
             {
                 SaveName = name
             };
-            GameStateInitializer.CreateStateManager(saveGame);
+            var stateManager = GameStateInitializer.CreateStateManager(saveGame);
+            stateManager.GenerateMaps();
             SceneManager.LoadScene("WorldSelect");
         }
     }

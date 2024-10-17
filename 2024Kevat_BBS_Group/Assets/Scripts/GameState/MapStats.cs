@@ -33,6 +33,12 @@ namespace GameState
         public string obstacleType;
         public float factor;
 
+        public ObstacleCountMapModifier(string obstacleType, float factor)
+        {
+            this.obstacleType = obstacleType;
+            this.factor = factor;
+        }
+
         public void Describe(StringBuilder builder)
         {
             var color = factor > 1 ? "468232" : "a53030";
@@ -45,6 +51,11 @@ namespace GameState
     public class GoldAmountMapModifier : IMapModifier
     {
         public float factor;
+
+        public GoldAmountMapModifier(float factor)
+        {
+            this.factor = factor;
+        }
 
         public void Describe(StringBuilder builder)
         {
