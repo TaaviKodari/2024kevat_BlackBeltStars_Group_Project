@@ -9,6 +9,7 @@ namespace GameState
         public static void SaveGame(SaveGame saveGame)
         {
             var path = $"saves/{saveGame.SaveName}.json";
+            Directory.CreateDirectory("saves");
 
             var writer = File.CreateText(path);
             writer.Write(JsonUtility.ToJson(saveGame));
@@ -18,12 +19,15 @@ namespace GameState
         public static List<SaveGame> LoadGames()
         {
             var saves = new List<SaveGame>();
-            foreach (var saveFile in Directory.EnumerateFiles("saves", "*.json", SearchOption.AllDirectories))
+            if (Directory.Exists("saves"))
             {
-                var text = File.ReadAllText(saveFile);
-                var save = JsonUtility.FromJson<SaveGame>(text);
-                save.SaveName = saveFile.Remove(saveFile.Length - 5).Remove(0, 6);
-                saves.Add(save);
+                foreach (var saveFile in Directory.EnumerateFiles("saves", "*.json", SearchOption.AllDirectories))
+                {
+                    var text = File.ReadAllText(saveFile);
+                    var save = JsonUtility.FromJson<SaveGame>(text);
+                    save.SaveName = saveFile.Remove(saveFile.Length - 5).Remove(0, 6);
+                    saves.Add(save);
+                }
             }
 
             return saves;
