@@ -50,7 +50,7 @@ namespace GameState
             for (var i = 0; i < random.NextInt(1, 5); i++)
             {
                 var value = random.NextFloat();
-                if (value < 2)
+                if (value < 0.2f)
                 {
                     if (modifiers.OfType<GoldAmountMapModifier>().Any()) continue;
                     modifiers.Add(new GoldAmountMapModifier(random.NextFloat(2)));
@@ -64,9 +64,21 @@ namespace GameState
                 }
             }
 
+            var goalChooser = random.NextFloat();
+            IMapGoal goal;
+            if (goalChooser < 0.5f)
+            {
+                goal = new KillAntsMapGoal(random.NextInt(2, 5) * 10);
+            }
+            else
+            {
+                goal = new SurviveWavesMapGoal(random.NextInt(5, 10));
+            }
+
             return new MapStats
             {
                 modifiers = modifiers,
+                goal = goal,
                 seed = random.NextInt()
             };
         }

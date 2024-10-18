@@ -24,6 +24,7 @@ namespace MapSelect
             }
 
             stats.text = textBuilder.ToString();
+            title.text = mapStats.goal?.Describe() ?? "<color:#ff0000>Missing goal";
         }
     }
 }

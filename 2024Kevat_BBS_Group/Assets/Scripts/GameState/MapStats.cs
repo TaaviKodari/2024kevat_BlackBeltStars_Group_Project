@@ -19,6 +19,8 @@ namespace GameState
     {
         [SerializeReference, SubclassSelector, CanBeNull]
         public List<IMapModifier> modifiers;
+        [SerializeReference, SubclassSelector]
+        public IMapGoal goal;
         public int seed;
     }
     
@@ -61,6 +63,43 @@ namespace GameState
         {
             var color = factor > 1 ? "468232" : "a53030";
             builder.AppendFormat("<color=#{0}>{1:0.##}x</color> Gold", color, factor);
+        }
+    }
+
+    public interface IMapGoal
+    {
+        string Describe();
+    }
+
+    [Serializable]
+    public class KillAntsMapGoal : IMapGoal
+    {
+        public int amount;
+
+        public KillAntsMapGoal(int amount)
+        {
+            this.amount = amount;
+        }
+
+        public string Describe()
+        {
+            return $"Kill {amount} ants";
+        }
+    }
+
+    [Serializable]
+    public class SurviveWavesMapGoal : IMapGoal
+    {
+        public int amount;
+
+        public SurviveWavesMapGoal(int amount)
+        {
+            this.amount = amount;
+        }
+
+        public string Describe()
+        {
+            return $"Survive {amount} waves";
         }
     }
 }
