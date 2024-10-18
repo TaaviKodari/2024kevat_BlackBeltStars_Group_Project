@@ -13,6 +13,15 @@ public class HealthBar : MonoBehaviour
     [Range(0, 1)]
     [SerializeField]
     private float value;
+    [SerializeField]
+    private bool autoHide = true;
+
+    private SpriteRenderer[] renderers;
+
+    private void Start()
+    {
+        renderers = GetComponentsInChildren<SpriteRenderer>();
+    }
 
     private void OnValidate()
     {
@@ -22,6 +31,13 @@ public class HealthBar : MonoBehaviour
     public void SetHealth(float health, float maxHealth)
     {
         value = health / maxHealth;
+        if (autoHide && renderers != null)
+        {
+            foreach (var spriteRenderer in renderers)
+            {
+                spriteRenderer.enabled = value < 1;
+            }
+        }
         UpdateBar();
     }
 

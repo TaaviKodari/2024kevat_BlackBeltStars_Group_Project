@@ -1,11 +1,13 @@
-using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Pathfinding;
 using UnityEngine;
 
 public class Building : MonoBehaviour
 {
     public BuildingData data;
+    [CanBeNull, SerializeField]
+    private HealthBar healthBar;
     private BuildingManager manager;
     private float durability;
     public bool isVertical;
@@ -20,6 +22,10 @@ public class Building : MonoBehaviour
     {
         durability = data.durability;
         FindObjectOfType<PathfindingManager>().UpdateChunks((Vector2) transform.position - data.offset, Size);
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(durability, data.durability);
+        }
     }
     
     private void OnDestroy()
@@ -52,6 +58,10 @@ public class Building : MonoBehaviour
     public void DoDamage(float amount)
     {
         durability = Mathf.Max(durability - amount, 0); // Prevent going below zero
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(durability, data.durability);
+        }
         if (durability == 0) Destroy(gameObject);
     }
 }
