@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class MineableObject : MonoBehaviour, IBuildingBlocker
 {
     private Animator animator;
     public List<ResourceDrop> drops;
+    [SerializeField, CanBeNull]
+    private HealthBar healthBar;
 
     [Serializable]
     public class ResourceDrop
@@ -22,6 +25,10 @@ public class MineableObject : MonoBehaviour, IBuildingBlocker
     {
         hitsLeft = hitsNeeded;
         animator = GetComponent<Animator>();
+        if (healthBar)
+        {
+            healthBar.SetHealth(hitsNeeded, hitsNeeded);
+        }
     }
 
     public void Mine()
@@ -37,6 +44,11 @@ public class MineableObject : MonoBehaviour, IBuildingBlocker
         else
         {
             animator.SetTrigger("Mine");
+        }
+        
+        if (healthBar)
+        {
+            healthBar.SetHealth(hitsLeft, hitsNeeded);
         }
     }
 

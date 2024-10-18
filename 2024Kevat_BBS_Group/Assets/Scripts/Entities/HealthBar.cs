@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 // Manages a health bar for something
@@ -18,7 +19,7 @@ public class HealthBar : MonoBehaviour
 
     private SpriteRenderer[] renderers;
 
-    private void Start()
+    private void Awake()
     {
         renderers = GetComponentsInChildren<SpriteRenderer>();
     }
@@ -28,9 +29,19 @@ public class HealthBar : MonoBehaviour
         UpdateBar();
     }
 
+    private void OnEnable()
+    {
+        UpdateBar();
+    }
+
     public void SetHealth(float health, float maxHealth)
     {
         value = health / maxHealth;
+        UpdateBar();
+    }
+
+    private void UpdateBar()
+    {
         if (autoHide && renderers != null)
         {
             foreach (var spriteRenderer in renderers)
@@ -38,11 +49,6 @@ public class HealthBar : MonoBehaviour
                 spriteRenderer.enabled = value < 1;
             }
         }
-        UpdateBar();
-    }
-
-    private void UpdateBar()
-    {
         barContainer.localScale = new Vector3(value, barContainer.localScale.y, barContainer.localScale.z);
         bar.color = gradient.Evaluate(value);
     }
