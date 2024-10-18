@@ -22,6 +22,7 @@ namespace MapSelect
             mapCard1.Populate(maps.map1);
             mapCard2.Populate(maps.map2);
             mapCard3.Populate(maps.map3);
+            Save();
         }
 
         public void PlayMap(int cardIndex)

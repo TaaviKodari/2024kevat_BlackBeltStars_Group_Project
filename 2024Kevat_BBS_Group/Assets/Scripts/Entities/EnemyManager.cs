@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameState;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -43,6 +44,7 @@ public class EnemyManager : MonoBehaviour
     {
         // Remove the enemy from the enemies list
         enemies.Remove(enemy);
+        LiveGameTracker.Instance.AddKilledAnt();
     }
 
     // Returns the number of enemies currently in the game

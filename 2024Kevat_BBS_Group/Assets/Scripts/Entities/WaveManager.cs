@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameState;
 using UnityEngine;
 using TMPro;
 
@@ -49,8 +50,11 @@ public class WaveManager : MonoBehaviour
     {
         currentWave++; // change the round 
         SpawnEnemies(enemyPrefab1); // in the future when there's more enemies, spawn a random prefab?
-        
-                
+
+        if (currentWave != 0)
+        {
+            LiveGameTracker.Instance.AddWaveSurvived();
+        }
     }
 
     // if round is n, spawn n enemies
