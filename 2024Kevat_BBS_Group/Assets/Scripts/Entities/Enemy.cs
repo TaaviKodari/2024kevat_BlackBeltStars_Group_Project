@@ -84,22 +84,21 @@ public class Enemy : Entity
         resourcesDropped = true;
     }
 
-    // Unity method called when this object collides with another 2D object
-    void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionStay2D(Collision2D other)
     {
+        if (!CanAttack()) return;
         // If the collided object is tagged as "Player" and it has been
         // "attackCooldown" seconds since the last attack, attack the player entity
-        if (other.gameObject.CompareTag("Player") && CanAttack()) 
+        if (other.gameObject.CompareTag("Player")) 
         {
             // Call the Attack method inherited from the Entity class
             Attack(other.gameObject.GetComponent<Entity>());
             lastAttackTime = Time.time;
-
         }
         else if (other.gameObject.TryGetComponent<Building>(out var building))
         {
             building.DoDamage(damage);
-            rb.velocity += ((Vector2)(other.transform.position - transform.position)).normalized * 2;
+            lastAttackTime = Time.time;
         }
     }
 }
