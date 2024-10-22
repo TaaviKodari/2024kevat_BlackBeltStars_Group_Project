@@ -18,6 +18,15 @@ public class BuildingPlacer : MonoBehaviour
     private Material invalidPreviewMaterial;
     [SerializeField] 
     private Material hoverMaterial;
+
+    [SerializeField]
+    private BuildingData wallBuildData;
+    [SerializeField]
+    private BuildingData gateBuildData;
+    [SerializeField]
+    private BuildingData trapBuildData;
+    [SerializeField]
+    private BuildingData campfireBuildData;
     
     private BuildingData selectedBuilding;
     private GameObject buildingPreview;
@@ -34,6 +43,7 @@ public class BuildingPlacer : MonoBehaviour
         HandleInput();
         UpdatePreview();
         UpdateHoveredBuilding();
+        HandleBuildingSelectionHotkeys();
     }
 
     private void HandleInput()
@@ -101,6 +111,43 @@ public class BuildingPlacer : MonoBehaviour
         selectedBuilding = building;
         if (selectedBuilding != null)
             CreatePreview();
+    }
+
+
+    // Allows the player to select a building by pressing the corresponding key
+    private void HandleBuildingSelectionHotkeys() {
+        if (player.input.Building.SelectWall.WasPressedThisFrame()) {
+            if (selectedBuilding == wallBuildData) {
+                /*
+                here you could do something like start building the wall if the player holds the button
+                down but I like deselecting the building more 
+                */
+                SelectBuilding(null);
+            } else {
+                SelectBuilding(wallBuildData);
+            }
+        }
+        if (player.input.Building.SelectGate.WasPressedThisFrame()) {
+            if (selectedBuilding == gateBuildData) {
+                SelectBuilding(null);
+            } else {
+                SelectBuilding(gateBuildData);
+            }
+        }
+        if (player.input.Building.SelectTrap.WasPressedThisFrame()) {
+            if (selectedBuilding == trapBuildData) {
+                SelectBuilding(null);
+            } else {
+                SelectBuilding(trapBuildData);
+            }
+        }
+        if (player.input.Building.SelectCampfire.WasPressedThisFrame()) {
+            if (selectedBuilding == campfireBuildData) {
+                SelectBuilding(null);
+            } else {
+                SelectBuilding(campfireBuildData);
+            }
+        }
     }
     
     private void UpdateHoveredBuilding()

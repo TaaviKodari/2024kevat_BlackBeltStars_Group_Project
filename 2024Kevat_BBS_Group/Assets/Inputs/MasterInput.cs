@@ -280,6 +280,42 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select Wall"",
+                    ""type"": ""Button"",
+                    ""id"": ""6cb093fa-a717-416d-a208-955246b51e64"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select Gate"",
+                    ""type"": ""Button"",
+                    ""id"": ""7b0068ef-ba25-4d3a-ad0d-1e54641a8383"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select Trap"",
+                    ""type"": ""Button"",
+                    ""id"": ""87eb87d6-262c-48fd-abc0-02520e7141a9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select Campfire"",
+                    ""type"": ""Button"",
+                    ""id"": ""95970c07-e4d2-45da-afca-55da5dac6ded"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -337,6 +373,50 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""action"": ""Toggle Building"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eaad1a84-11d8-4034-ab20-5053b392f749"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select Wall"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15079e89-de99-4c9d-ad87-ba239c39b9a2"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select Gate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0add4cb8-44b5-40c8-9c50-4428e3478697"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select Trap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c088a708-cb15-41fa-b084-980c9a77459b"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select Campfire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -356,6 +436,10 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         m_Building_Cancel = m_Building.FindAction("Cancel", throwIfNotFound: true);
         m_Building_MousePosition = m_Building.FindAction("Mouse Position", throwIfNotFound: true);
         m_Building_ToggleBuilding = m_Building.FindAction("Toggle Building", throwIfNotFound: true);
+        m_Building_SelectWall = m_Building.FindAction("Select Wall", throwIfNotFound: true);
+        m_Building_SelectGate = m_Building.FindAction("Select Gate", throwIfNotFound: true);
+        m_Building_SelectTrap = m_Building.FindAction("Select Trap", throwIfNotFound: true);
+        m_Building_SelectCampfire = m_Building.FindAction("Select Campfire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -492,6 +576,10 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Building_Cancel;
     private readonly InputAction m_Building_MousePosition;
     private readonly InputAction m_Building_ToggleBuilding;
+    private readonly InputAction m_Building_SelectWall;
+    private readonly InputAction m_Building_SelectGate;
+    private readonly InputAction m_Building_SelectTrap;
+    private readonly InputAction m_Building_SelectCampfire;
     public struct BuildingActions
     {
         private @MasterInput m_Wrapper;
@@ -501,6 +589,10 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         public InputAction @Cancel => m_Wrapper.m_Building_Cancel;
         public InputAction @MousePosition => m_Wrapper.m_Building_MousePosition;
         public InputAction @ToggleBuilding => m_Wrapper.m_Building_ToggleBuilding;
+        public InputAction @SelectWall => m_Wrapper.m_Building_SelectWall;
+        public InputAction @SelectGate => m_Wrapper.m_Building_SelectGate;
+        public InputAction @SelectTrap => m_Wrapper.m_Building_SelectTrap;
+        public InputAction @SelectCampfire => m_Wrapper.m_Building_SelectCampfire;
         public InputActionMap Get() { return m_Wrapper.m_Building; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -525,6 +617,18 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @ToggleBuilding.started += instance.OnToggleBuilding;
             @ToggleBuilding.performed += instance.OnToggleBuilding;
             @ToggleBuilding.canceled += instance.OnToggleBuilding;
+            @SelectWall.started += instance.OnSelectWall;
+            @SelectWall.performed += instance.OnSelectWall;
+            @SelectWall.canceled += instance.OnSelectWall;
+            @SelectGate.started += instance.OnSelectGate;
+            @SelectGate.performed += instance.OnSelectGate;
+            @SelectGate.canceled += instance.OnSelectGate;
+            @SelectTrap.started += instance.OnSelectTrap;
+            @SelectTrap.performed += instance.OnSelectTrap;
+            @SelectTrap.canceled += instance.OnSelectTrap;
+            @SelectCampfire.started += instance.OnSelectCampfire;
+            @SelectCampfire.performed += instance.OnSelectCampfire;
+            @SelectCampfire.canceled += instance.OnSelectCampfire;
         }
 
         private void UnregisterCallbacks(IBuildingActions instance)
@@ -544,6 +648,18 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @ToggleBuilding.started -= instance.OnToggleBuilding;
             @ToggleBuilding.performed -= instance.OnToggleBuilding;
             @ToggleBuilding.canceled -= instance.OnToggleBuilding;
+            @SelectWall.started -= instance.OnSelectWall;
+            @SelectWall.performed -= instance.OnSelectWall;
+            @SelectWall.canceled -= instance.OnSelectWall;
+            @SelectGate.started -= instance.OnSelectGate;
+            @SelectGate.performed -= instance.OnSelectGate;
+            @SelectGate.canceled -= instance.OnSelectGate;
+            @SelectTrap.started -= instance.OnSelectTrap;
+            @SelectTrap.performed -= instance.OnSelectTrap;
+            @SelectTrap.canceled -= instance.OnSelectTrap;
+            @SelectCampfire.started -= instance.OnSelectCampfire;
+            @SelectCampfire.performed -= instance.OnSelectCampfire;
+            @SelectCampfire.canceled -= instance.OnSelectCampfire;
         }
 
         public void RemoveCallbacks(IBuildingActions instance)
@@ -575,5 +691,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         void OnCancel(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
         void OnToggleBuilding(InputAction.CallbackContext context);
+        void OnSelectWall(InputAction.CallbackContext context);
+        void OnSelectGate(InputAction.CallbackContext context);
+        void OnSelectTrap(InputAction.CallbackContext context);
+        void OnSelectCampfire(InputAction.CallbackContext context);
     }
 }
