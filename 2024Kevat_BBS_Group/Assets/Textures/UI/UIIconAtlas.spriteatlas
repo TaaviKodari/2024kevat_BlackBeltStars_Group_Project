@@ -33,28 +33,41 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 2800000, guid: 6bb4aacabffa2c743866f60e7e2efb67, type: 3}
+    - {fileID: 102900000, guid: c134880259d0e40439e93d4b08814a39, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
+    - 61a82802b0940274bb4207e70bbdac5c: 21300000
+    - 5fcd809812b1b4949ba5b2f8f9be4ca6: 21300000
     - 6bb4aacabffa2c743866f60e7e2efb67: -7742461276724822292
     - 6bb4aacabffa2c743866f60e7e2efb67: -9184849575763380954
     - 6bb4aacabffa2c743866f60e7e2efb67: -7248506988745690217
     - 6bb4aacabffa2c743866f60e7e2efb67: 9013548742856534495
     - 6bb4aacabffa2c743866f60e7e2efb67: 3687651450805901432
+    - 66d256ec38447284aa62f7a602784008: 21300000
+    - 7dac6d7d1cd38aa49aabd9a5e752f559: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 61a82802b0940274bb4207e70bbdac5c, type: 3}
+  - {fileID: 21300000, guid: 5fcd809812b1b4949ba5b2f8f9be4ca6, type: 3}
   - {fileID: -7742461276724822292, guid: 6bb4aacabffa2c743866f60e7e2efb67, type: 3}
   - {fileID: -9184849575763380954, guid: 6bb4aacabffa2c743866f60e7e2efb67, type: 3}
   - {fileID: -7248506988745690217, guid: 6bb4aacabffa2c743866f60e7e2efb67, type: 3}
   - {fileID: 9013548742856534495, guid: 6bb4aacabffa2c743866f60e7e2efb67, type: 3}
   - {fileID: 3687651450805901432, guid: 6bb4aacabffa2c743866f60e7e2efb67, type: 3}
+  - {fileID: 21300000, guid: 66d256ec38447284aa62f7a602784008, type: 3}
+  - {fileID: 21300000, guid: 7dac6d7d1cd38aa49aabd9a5e752f559, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Campfire
+  - Gate
   - Iron
   - Diamond
   - Wood
   - Gold
   - Stone
+  - Trap
+  - Wall
   m_RenderDataMap: {}
   m_Tag: UIIconAtlas
   m_IsVariant: 0
