@@ -51,38 +51,24 @@ MonoBehaviour:
       diamonds: 0
     maps:
       map1:
-        modifiers:
-        - rid: 8810048604771450880
-        - rid: 8810048604771450881
+        modifiers: []
+        goal:
+          rid: -2
         seed: 0
       map2:
-        modifiers:
-        - rid: 8810048604771450882
-        - rid: 8810048604771450883
+        modifiers: []
+        goal:
+          rid: -2
         seed: 0
       map3:
         modifiers: []
+        goal:
+          rid: -2
         seed: 0
   audioManagerPrefab: {fileID: 4946955332691368084, guid: 4fe311bcd36e8bb4a9bb472ce2c7cbe2, type: 3}
   variantManager: {fileID: 11400000, guid: 23103b04bfd608b4db4f565fcef40e90, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 8810048604771450880
-      type: {class: ObstacleCountMapModifier, ns: GameState, asm: Assembly-CSharp}
-      data:
-        obstacleType: rock
-        factor: 0
-    - rid: 8810048604771450881
-      type: {class: GoldAmountMapModifier, ns: GameState, asm: Assembly-CSharp}
-      data:
-        factor: 1.5
-    - rid: 8810048604771450882
-      type: {class: ObstacleCountMapModifier, ns: GameState, asm: Assembly-CSharp}
-      data:
-        obstacleType: tree
-        factor: 10
-    - rid: 8810048604771450883
-      type: {class: GoldAmountMapModifier, ns: GameState, asm: Assembly-CSharp}
-      data:
-        factor: 1.1
+    - rid: -2
+      type: {class: , ns: , asm: }

@@ -72,14 +72,9 @@ namespace GameState
     }
 
     [Serializable]
-    public class KillAntsMapGoal : IMapGoal
+    public struct KillAntsMapGoal : IMapGoal
     {
         public int amount;
-
-        public KillAntsMapGoal(int amount)
-        {
-            this.amount = amount;
-        }
 
         public string Describe()
         {
@@ -88,14 +83,9 @@ namespace GameState
     }
 
     [Serializable]
-    public class SurviveWavesMapGoal : IMapGoal
+    public struct SurviveWavesMapGoal : IMapGoal
     {
         public int amount;
-
-        public SurviveWavesMapGoal(int amount)
-        {
-            this.amount = amount;
-        }
 
         public string Describe()
         {

@@ -68,11 +68,11 @@ namespace GameState
             IMapGoal goal;
             if (goalChooser < 0.5f)
             {
-                goal = new KillAntsMapGoal(random.NextInt(2, 5) * 10);
+                goal = new KillAntsMapGoal { amount = random.NextInt(2, 5) * 10 };
             }
             else
             {
-                goal = new SurviveWavesMapGoal(random.NextInt(5, 10));
+                goal = new SurviveWavesMapGoal { amount = random.NextInt(5, 10) };
             }
 
             return new MapStats

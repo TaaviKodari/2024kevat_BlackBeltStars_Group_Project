@@ -23,6 +23,7 @@ namespace GameState
                 var manager = CreateStateManager(defaultSave);
                 manager.currentSaveGame.SaveName = "Dev Game";
                 manager.GenerateMaps();
+                manager.currentMap = manager.currentSaveGame.maps.map1;
             }
             if (FindObjectOfType<AudioManager>() == null)
             {
