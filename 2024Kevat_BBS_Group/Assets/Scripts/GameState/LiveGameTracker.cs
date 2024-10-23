@@ -6,7 +6,10 @@ namespace GameState
     public class LiveGameTracker : MonoBehaviour
     {
         public static LiveGameTracker Instance { get; private set; }
-        
+
+        [SerializeField]
+        private SceneTransition transition;
+
         private int antsKilled;
         private int wavesSurvived;
         private GameStateManager manager;
@@ -37,13 +40,13 @@ namespace GameState
         {
             if (!HasWon()) return;
             manager.GenerateMaps();
-            SceneManager.LoadScene("WorldSelect");
+            transition.LoadScene("WorldSelect");
         }
 
         public void LoseGame()
         {
             manager.GenerateMaps();
-            SceneManager.LoadScene("WorldSelect");
+            transition.LoadScene("WorldSelect");
         }
 
         private bool HasWon()

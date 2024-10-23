@@ -15,6 +15,8 @@ namespace MainMenu
         private Button loadButton;
         [SerializeField]
         private Transform buttonHolder;
+        [SerializeField]
+        private SceneTransition transition;
         
         private int selectedSave;
         private List<SaveGame> games;
@@ -48,7 +50,7 @@ namespace MainMenu
         {
             if (selectedSave == -1) return;
             GameStateInitializer.CreateStateManager(games[selectedSave]);
-            SceneManager.LoadScene("WorldSelect");
+            transition.LoadScene("WorldSelect");
         }
 
         public void SelectSave(int index)

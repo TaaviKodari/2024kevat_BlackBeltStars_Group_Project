@@ -15,6 +15,8 @@ namespace MainMenu
         [FormerlySerializedAs("button")]
         [SerializeField]
         private Button startButton;
+        [SerializeField]
+        private SceneTransition transition;
 
         private void Start()
         {
@@ -33,7 +35,7 @@ namespace MainMenu
             };
             var stateManager = GameStateInitializer.CreateStateManager(saveGame);
             stateManager.GenerateMaps();
-            SceneManager.LoadScene("WorldSelect");
+            transition.LoadScene("WorldSelect");
         }
     }
 }
