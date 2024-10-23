@@ -18,6 +18,15 @@ public class BuildingPlacer : MonoBehaviour
     private Material invalidPreviewMaterial;
     [SerializeField] 
     private Material hoverMaterial;
+
+    [SerializeField]
+    private BuildingData wallBuildData;
+    [SerializeField]
+    private BuildingData gateBuildData;
+    [SerializeField]
+    private BuildingData trapBuildData;
+    [SerializeField]
+    private BuildingData campfireBuildData;
     
     private BuildingData selectedBuilding;
     private GameObject buildingPreview;
@@ -34,6 +43,7 @@ public class BuildingPlacer : MonoBehaviour
         HandleInput();
         UpdatePreview();
         UpdateHoveredBuilding();
+        HandleBuildingSelectionHotkeys();
     }
 
     private void HandleInput()
@@ -101,6 +111,27 @@ public class BuildingPlacer : MonoBehaviour
         selectedBuilding = building;
         if (selectedBuilding != null)
             CreatePreview();
+    }
+
+
+    // Allows the player to select a building by pressing the corresponding key
+    private void HandleBuildingSelectionHotkeys() {
+        var buildingHotkeys = new (bool wasPressed, BuildingData buildData)[] {
+            (player.input.Building.SelectWall.WasPressedThisFrame(), wallBuildData),
+            (player.input.Building.SelectGate.WasPressedThisFrame(), gateBuildData),
+            (player.input.Building.SelectTrap.WasPressedThisFrame(), trapBuildData),
+            (player.input.Building.SelectCampfire.WasPressedThisFrame(), campfireBuildData)
+        };
+
+        foreach (var (wasPressed, buildData) in buildingHotkeys) {
+            if (wasPressed) {
+                if (selectedBuilding == buildData) {
+                    SelectBuilding(null);
+                } else {
+                    SelectBuilding(buildData);
+                }
+            }
+        }
     }
     
     private void UpdateHoveredBuilding()

@@ -6102,6 +6102,10 @@ MonoBehaviour:
   previewMaterial: {fileID: 2100000, guid: 6a21579e202dcf246ae0af3d5f7489b4, type: 2}
   invalidPreviewMaterial: {fileID: 2100000, guid: 416023beaf58e364589f1d2fc63e5eff, type: 2}
   hoverMaterial: {fileID: 2100000, guid: 44108f0a5b9605f448602d6706768128, type: 2}
+  wallBuildData: {fileID: 11400000, guid: bf450d21a3bdab649aafa5b7ed1d96b2, type: 2}
+  gateBuildData: {fileID: 11400000, guid: e6026db4606954ec287335ec8c869b14, type: 2}
+  trapBuildData: {fileID: 11400000, guid: 27733d13cc4f88d4bb8d006d091e5a95, type: 2}
+  campfireBuildData: {fileID: 11400000, guid: 2ba507628c7b2ff478e0b222bbdf2a45, type: 2}
 --- !u!1 &1729201677
 GameObject:
   m_ObjectHideFlags: 0
