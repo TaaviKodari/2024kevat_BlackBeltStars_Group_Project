@@ -10,13 +10,14 @@ public class PlayerController : Entity
 
     // Prefab for the arrow that the player will shoot
     [SerializeField]
-    private GameObject arrowPrefab;
+    private Arrow arrowPrefab;
     // Force applied to the arrow when it's shot
     [SerializeField]
     private float arrowForce = 20;
     // Position from which the arrow will be shot
     [SerializeField]
     private Transform shootPoint;
+    [SerializeField]
 
     // References to animator, sprite renderer, and building placer
     private Animator animator;
@@ -122,7 +123,8 @@ public class PlayerController : Entity
 
         // Instantiate the arrow prefab at the shoot point with the correct rotation
         var arrow = Instantiate(arrowPrefab, shootPoint.position, Quaternion.AngleAxis(angle, Vector3.forward));
-        arrow.GetComponent<Arrow>().Owner = gameObject;
+        arrow.Owner = gameObject;
+        arrow.Damage = damage;
 
         // Apply force to the arrow to shoot it
         var arrowRb = arrow.GetComponent<Rigidbody2D>();

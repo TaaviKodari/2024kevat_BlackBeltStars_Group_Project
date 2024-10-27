@@ -576,13 +576,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  damage: 1
+  damage: 10
   knockback: 2
   speed: 2
   healthBar: {fileID: 1632042083}
-  arrowPrefab: {fileID: 1545547434760955733, guid: dc710691d353f3341ae442a26b50014c, type: 3}
+  arrowPrefab: {fileID: 6630246808432321123, guid: dc710691d353f3341ae442a26b50014c, type: 3}
   arrowForce: 15
   shootPoint: {fileID: 1095672918}
+  animator: {fileID: 0}
 --- !u!50 &78882053
 Rigidbody2D:
   serializedVersion: 4
@@ -5789,7 +5790,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 7.2708335
+  orthographic size: 8.4375
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

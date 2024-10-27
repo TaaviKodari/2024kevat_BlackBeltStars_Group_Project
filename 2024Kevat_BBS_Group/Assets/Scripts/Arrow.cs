@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    [SerializeField]
-    private int damage = 1;
+    public float Damage { private get; set; }
     [SerializeField]
     private float maxTime = 5;
 
@@ -34,7 +33,7 @@ public class Arrow : MonoBehaviour
         if (other.gameObject == Owner) return;
         if (other.TryGetComponent<Entity>(out var entity))
         {
-            entity.Damage(damage);
+            entity.Damage(Damage);
             hasHit = true;
             Destroy(gameObject);
         } 
