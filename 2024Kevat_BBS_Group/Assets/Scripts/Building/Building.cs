@@ -35,7 +35,7 @@ public class Building : MonoBehaviour
     }
     
     // Gets the position in the center of this building. Can be off by 0.5 for buildings with an even size
-    private Vector2Int GetPosition()
+    public Vector2Int GetPosition()
     {
         return manager.WorldPosToBuildingPos((Vector2) transform.position - data.offset);
     }

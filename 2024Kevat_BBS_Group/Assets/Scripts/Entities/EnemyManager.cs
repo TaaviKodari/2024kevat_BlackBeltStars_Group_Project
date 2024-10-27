@@ -87,4 +87,21 @@ public class EnemyManager : MonoBehaviour
         // Return Vector2.zero if no valid position is found after 10 tries
         return Vector2.zero;
     }
+
+    public Enemy GetNearestEnemy(Vector2 pos)
+    {
+        Enemy nearest = null;
+        float distance = float.MaxValue;
+        foreach (var enemy in enemies)
+        {
+            // We use sqrMagnitude because we don't need to know the distance
+            float dis = (new Vector2(enemy.transform.position.x, enemy.transform.position.y) - pos).sqrMagnitude;
+            if (dis < distance)
+            {
+                nearest = enemy;
+                distance = dis;
+            }
+        }
+        return nearest;
+    }
 }

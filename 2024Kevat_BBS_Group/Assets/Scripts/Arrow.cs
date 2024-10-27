@@ -21,7 +21,10 @@ public class Arrow : MonoBehaviour
     {
         var colliders = new List<Collider2D>();
         GetComponent<Collider2D>().OverlapCollider(new ContactFilter2D().NoFilter(), colliders);
-        if (colliders.Any(it => it.TryGetComponent<Building>(out var building) && building.data.blocksProjectiles))
+        if (colliders.Any(it =>
+            it.TryGetComponent<Building>(out var building)
+            && building.data.blocksProjectiles
+            && it.gameObject != Owner))
         {
             Destroy(gameObject);
         }
@@ -36,7 +39,7 @@ public class Arrow : MonoBehaviour
             entity.Damage(Damage);
             hasHit = true;
             Destroy(gameObject);
-        } 
+        }
         else if (other.TryGetComponent<Building>(out var building) && building.data.blocksProjectiles)
         {
             hasHit = true;
