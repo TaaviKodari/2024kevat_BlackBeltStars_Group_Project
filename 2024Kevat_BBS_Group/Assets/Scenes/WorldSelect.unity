@@ -288,7 +288,7 @@ MonoBehaviour:
   mapCard1: {fileID: 2052090670}
   mapCard2: {fileID: 1997258432}
   mapCard3: {fileID: 421632043}
-  transition: {fileID: 0}
+  transition: {fileID: 471945732}
 --- !u!4 &28626729
 Transform:
   m_ObjectHideFlags: 0
@@ -1284,6 +1284,17 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &471945732 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5437149867480799457, guid: cadfa144adf4b4342ae618e45ddeddd6, type: 3}
+  m_PrefabInstance: {fileID: 141602293}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286b0ee7c1a49c24eb4a756aa2099fc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &533842193
 GameObject:
   m_ObjectHideFlags: 0

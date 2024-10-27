@@ -36,6 +36,7 @@ public class FadeOverlayTransition : SceneTransition
             group.alpha = Mathf.Lerp(0, 1, (Time.time - fadeInStart) / fadeDuration * 2);
             yield return null;
         }
+        group.alpha = 1;
         
         var operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         if (operation == null)
@@ -60,6 +61,7 @@ public class FadeOverlayTransition : SceneTransition
             group.alpha = Mathf.Lerp(1, 0, (Time.time - fadeOutStart) / fadeDuration * 2);
             yield return null;
         }
+        group.alpha = 1;
         
         Destroy(this);
     }
