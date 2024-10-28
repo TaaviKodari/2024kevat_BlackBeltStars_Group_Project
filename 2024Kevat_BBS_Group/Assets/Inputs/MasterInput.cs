@@ -285,6 +285,15 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Line Placing"",
+                    ""type"": ""Button"",
+                    ""id"": ""d35516ff-f623-44d6-ae6c-63031a510f25"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -386,6 +395,17 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""action"": ""Select Arrow Tower"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7c9250e7-2828-4dac-9946-193618b6c718"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Line Placing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -447,6 +467,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         m_Building_SelectTrap = m_Building.FindAction("Select Trap", throwIfNotFound: true);
         m_Building_SelectCampfire = m_Building.FindAction("Select Campfire", throwIfNotFound: true);
         m_Building_SelectArrowTower = m_Building.FindAction("Select Arrow Tower", throwIfNotFound: true);
+        m_Building_LinePlacing = m_Building.FindAction("Line Placing", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Pause = m_Menu.FindAction("Pause", throwIfNotFound: true);
@@ -582,6 +603,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Building_SelectTrap;
     private readonly InputAction m_Building_SelectCampfire;
     private readonly InputAction m_Building_SelectArrowTower;
+    private readonly InputAction m_Building_LinePlacing;
     public struct BuildingActions
     {
         private @MasterInput m_Wrapper;
@@ -595,6 +617,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         public InputAction @SelectTrap => m_Wrapper.m_Building_SelectTrap;
         public InputAction @SelectCampfire => m_Wrapper.m_Building_SelectCampfire;
         public InputAction @SelectArrowTower => m_Wrapper.m_Building_SelectArrowTower;
+        public InputAction @LinePlacing => m_Wrapper.m_Building_LinePlacing;
         public InputActionMap Get() { return m_Wrapper.m_Building; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -631,6 +654,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @SelectArrowTower.started += instance.OnSelectArrowTower;
             @SelectArrowTower.performed += instance.OnSelectArrowTower;
             @SelectArrowTower.canceled += instance.OnSelectArrowTower;
+            @LinePlacing.started += instance.OnLinePlacing;
+            @LinePlacing.performed += instance.OnLinePlacing;
+            @LinePlacing.canceled += instance.OnLinePlacing;
         }
 
         private void UnregisterCallbacks(IBuildingActions instance)
@@ -662,6 +688,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @SelectArrowTower.started -= instance.OnSelectArrowTower;
             @SelectArrowTower.performed -= instance.OnSelectArrowTower;
             @SelectArrowTower.canceled -= instance.OnSelectArrowTower;
+            @LinePlacing.started -= instance.OnLinePlacing;
+            @LinePlacing.performed -= instance.OnLinePlacing;
+            @LinePlacing.canceled -= instance.OnLinePlacing;
         }
 
         public void RemoveCallbacks(IBuildingActions instance)
@@ -742,6 +771,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         void OnSelectTrap(InputAction.CallbackContext context);
         void OnSelectCampfire(InputAction.CallbackContext context);
         void OnSelectArrowTower(InputAction.CallbackContext context);
+        void OnLinePlacing(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

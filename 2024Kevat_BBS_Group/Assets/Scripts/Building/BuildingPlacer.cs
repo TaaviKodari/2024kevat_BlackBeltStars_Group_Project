@@ -72,7 +72,7 @@ public class BuildingPlacer : MonoBehaviour
         // If the mouse is over a UI element, don't do anything. (The method has a somewhat confusing name)
         if (EventSystem.current.IsPointerOverGameObject()) return;
         
-        bool isShiftPressed = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        bool isShiftPressed = gameManager.Input.Building.LinePlacing.IsPressed();
 
         if (gameManager.Input.Building.Place.WasPressedThisFrame() && selectedBuilding == wallBuildData && isShiftPressed)
         {
