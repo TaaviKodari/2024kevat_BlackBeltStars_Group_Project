@@ -27,6 +27,9 @@ public class BuildingPlacer : MonoBehaviour
     private BuildingData trapBuildData;
     [SerializeField]
     private BuildingData campfireBuildData;
+    [SerializeField]
+    private BuildingData arrowTowerBuildData;
+    
     
     private BuildingData selectedBuilding;
     private GameObject buildingPreview;
@@ -120,7 +123,8 @@ public class BuildingPlacer : MonoBehaviour
             (player.input.Building.SelectWall.WasPressedThisFrame(), wallBuildData),
             (player.input.Building.SelectGate.WasPressedThisFrame(), gateBuildData),
             (player.input.Building.SelectTrap.WasPressedThisFrame(), trapBuildData),
-            (player.input.Building.SelectCampfire.WasPressedThisFrame(), campfireBuildData)
+            (player.input.Building.SelectCampfire.WasPressedThisFrame(), campfireBuildData),
+            (player.input.Building.SelectArrowTower.WasPressedThisFrame(), arrowTowerBuildData)
         };
 
         foreach (var (wasPressed, buildData) in buildingHotkeys) {
