@@ -14,6 +14,10 @@ namespace GameState
         private int wavesSurvived;
         private GameStateManager manager;
 
+        public GameObject portalPrefab;
+        public Transform playerTransform;
+        private Vector2 PortalLocation;
+        private bool portalActive = false;
         private void Awake()
         {
             Instance = this;
@@ -24,6 +28,26 @@ namespace GameState
             manager = FindObjectOfType<GameStateManager>();
         }
 
+        public void PlayerTouchedPortal()
+        {
+            SendToLobby();
+        }
+        
+        private void SpawnPortal()
+        {
+            // Set adjustedPosition to player position with y increased by 10
+            Vector3 adjustedPosition = playerTransform.position;
+            adjustedPosition.y += 10;
+
+            // Instantiate the portalPrefab at the adjusted position
+            if (!portalActive)
+            {
+                portalActive = true;
+                Instantiate(portalPrefab, adjustedPosition, Quaternion.identity);
+            }
+        }
+
+        
         public void AddKilledAnt()
         {
             antsKilled++;
@@ -39,10 +63,15 @@ namespace GameState
         private void CheckWin()
         {
             if (!HasWon()) return;
+            SpawnPortal();
+        }
+
+        private void SendToLobby()
+        {
             manager.GenerateMaps();
             transition.LoadScene("WorldSelect");
         }
-
+        
         public void LoseGame()
         {
             manager.GenerateMaps();

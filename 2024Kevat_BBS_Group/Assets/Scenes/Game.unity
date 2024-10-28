@@ -3269,6 +3269,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transition: {fileID: 76030297}
+  portalPrefab: {fileID: 8286715576703908602, guid: 6f854282903419043b208f88dab762a2, type: 3}
+  playerTransform: {fileID: 78882056}
 --- !u!1 &909070482
 GameObject:
   m_ObjectHideFlags: 0
@@ -5799,7 +5801,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 8.4375
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6118,6 +6120,7 @@ MonoBehaviour:
   campfireBuildData: {fileID: 11400000, guid: 2ba507628c7b2ff478e0b222bbdf2a45, type: 2}
   arrowTowerBuildData: {fileID: 11400000, guid: 4719fda41062446cd8db4c82ec304a5b, type: 2}
   previewDotPrefab: {fileID: 2569240909789805386, guid: f9f36635500a73d27be41efa38c2602c, type: 3}
+  previewDotsLimit: 25
 --- !u!1 &1729201677
 GameObject:
   m_ObjectHideFlags: 0
