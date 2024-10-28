@@ -21,23 +21,23 @@ public class ArrowTower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Enemy nearest = EnemyManager.instance.GetNearestEnemy(building.GetPosition());
-        if (Time.time - lastShoot >= shootWait && nearest != null)
-        {
-            var angle = Mathf.Atan2(nearest.transform.position.y, nearest.transform.position.x) * Mathf.Rad2Deg;
+        var nearest = EnemyManager.instance.GetNearestEnemy(building.GetPosition());
+        if (!(Time.time - lastShoot >= shootWait) || nearest == null) return;
 
-            // Instantiate the arrow prefab at the shoot point with the correct rotation
-            var arrow = Instantiate(arrowPrefab, shootPoint.position, Quaternion.AngleAxis(angle, Vector3.forward));
-            arrow.Owner = gameObject;
-            arrow.Damage = damage;
+        var relativeTarget = nearest.transform.position - transform.position;
+        var angle = Mathf.Atan2(relativeTarget.y, relativeTarget.x) * Mathf.Rad2Deg;
 
-            // Apply force to the arrow to shoot it
-            var arrowRb = arrow.GetComponent<Rigidbody2D>();
-            arrowRb.AddForce(nearest.transform.position.normalized * arrowForce, ForceMode2D.Impulse);
+        // Instantiate the arrow prefab at the shoot point with the correct rotation
+        var arrow = Instantiate(arrowPrefab, shootPoint.position, Quaternion.AngleAxis(angle, Vector3.forward));
+        arrow.Owner = gameObject;
+        arrow.Damage = damage;
 
-            // Play the shooting sound effect
-            AudioManager.Instance.PlayStop("PlayerShoot");
-            lastShoot = Time.time;
-        }
+        // Apply force to the arrow to shoot it
+        var arrowRb = arrow.GetComponent<Rigidbody2D>();
+        arrowRb.AddForce(relativeTarget.normalized * arrowForce, ForceMode2D.Impulse);
+
+        // Play the shooting sound effect
+        AudioManager.Instance.PlayStop("PlayerShoot");
+        lastShoot = Time.time;
     }
 }
