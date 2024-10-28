@@ -9,11 +9,11 @@ using UnityEngine.SceneManagement;
 public class Portal : MonoBehaviour
 {
     private BuildingManager buildingManager;
-    private LiveGameTracker liveGameTracker;
+    private InGameManager inGameManager;
 
     private void Awake()
     {
-        liveGameTracker = FindObjectOfType<LiveGameTracker>();
+        inGameManager = FindObjectOfType<InGameManager>();
         buildingManager = FindObjectOfType<BuildingManager>();
     }
 
@@ -25,7 +25,7 @@ public class Portal : MonoBehaviour
         {
             // means that the current map has been "won"
             Debug.Log("Collided with GameObject with the TargetTag");
-            liveGameTracker.PlayerTouchedPortal();
+            inGameManager.PlayerTouchedPortal();
         }
     }
 }
