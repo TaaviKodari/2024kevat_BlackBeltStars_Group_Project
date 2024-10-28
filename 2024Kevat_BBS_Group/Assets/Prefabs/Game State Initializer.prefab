@@ -67,6 +67,7 @@ MonoBehaviour:
         seed: 0
   audioManagerPrefab: {fileID: 4946955332691368084, guid: 4fe311bcd36e8bb4a9bb472ce2c7cbe2, type: 3}
   variantManager: {fileID: 11400000, guid: 23103b04bfd608b4db4f565fcef40e90, type: 2}
+  consolePrefab: {fileID: 6016815126087948241, guid: 1358ac581ee358947ba9b3f77d4388ab, type: 3}
   references:
     version: 2
     RefIds:

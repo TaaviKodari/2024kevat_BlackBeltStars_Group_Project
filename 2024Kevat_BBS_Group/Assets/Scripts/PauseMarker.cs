@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using GameState;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class PauseMarker : MonoBehaviour
     {
         if (InGameManager.Instance != null)
         {
+            Debug.Log("Pausing game due to marker", this);
             InGameManager.Instance.Pause();
         }
     }
@@ -19,6 +21,7 @@ public class PauseMarker : MonoBehaviour
     {
         if (InGameManager.Instance != null && FindObjectsOfType<PauseMarker>().All(it => it == this))
         {
+            Debug.Log("Unpausing game due to marker", this);
             InGameManager.Instance.Unpause();
         }
     }
