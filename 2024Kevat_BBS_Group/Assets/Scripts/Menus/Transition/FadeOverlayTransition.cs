@@ -61,8 +61,8 @@ public class FadeOverlayTransition : SceneTransition
             group.alpha = Mathf.Lerp(1, 0, (Time.time - fadeOutStart) / fadeDuration * 2);
             yield return null;
         }
-        group.alpha = 1;
+        group.alpha = 0;
         
-        Destroy(this);
+        Destroy(gameObject);
     }
 }
