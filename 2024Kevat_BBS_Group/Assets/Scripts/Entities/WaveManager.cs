@@ -53,7 +53,7 @@ public class WaveManager : MonoBehaviour
 
         if (currentWave != 0)
         {
-            LiveGameTracker.Instance.AddWaveSurvived();
+            InGameManager.Instance.AddWaveSurvived();
         }
     }
 

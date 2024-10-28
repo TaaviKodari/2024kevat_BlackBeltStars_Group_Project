@@ -583,7 +583,6 @@ MonoBehaviour:
   arrowPrefab: {fileID: 6630246808432321123, guid: dc710691d353f3341ae442a26b50014c, type: 3}
   arrowForce: 15
   shootPoint: {fileID: 1095672918}
-  animator: {fileID: 0}
 --- !u!50 &78882053
 Rigidbody2D:
   serializedVersion: 4
@@ -2605,6 +2604,7 @@ GameObject:
   - component: {fileID: 729909871}
   - component: {fileID: 729909875}
   - component: {fileID: 729909876}
+  - component: {fileID: 729909877}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2726,7 +2726,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 158279a1e7875df41947c7414953d50f, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -2735,6 +2735,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &729909877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729909870}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6bafac83224f8489f38e2b76930b12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &761030583
 GameObject:
   m_ObjectHideFlags: 0
@@ -4878,16 +4890,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 729909875}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: Resume
-        m_Mode: 1
+      - m_Target: {fileID: 729909876}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: button/resume
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1399836340
@@ -5799,7 +5811,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 8.4375
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6107,7 +6119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70d885e8ed0c4367a790fbc6f53ad751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 78882052}
   normalMaterial: {fileID: 2100000, guid: dac42779e175b2d4eaa486f40469b64c, type: 2}
   previewMaterial: {fileID: 2100000, guid: 6a21579e202dcf246ae0af3d5f7489b4, type: 2}
   invalidPreviewMaterial: {fileID: 2100000, guid: 416023beaf58e364589f1d2fc63e5eff, type: 2}
@@ -6118,6 +6129,7 @@ MonoBehaviour:
   campfireBuildData: {fileID: 11400000, guid: 2ba507628c7b2ff478e0b222bbdf2a45, type: 2}
   arrowTowerBuildData: {fileID: 11400000, guid: 4719fda41062446cd8db4c82ec304a5b, type: 2}
   previewDotPrefab: {fileID: 2569240909789805386, guid: f9f36635500a73d27be41efa38c2602c, type: 3}
+  previewDotsLimit: 25
 --- !u!1 &1729201677
 GameObject:
   m_ObjectHideFlags: 0
@@ -7499,16 +7511,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 729909875}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: MenuOptions
-        m_Mode: 1
+      - m_Target: {fileID: 729909876}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: button/options
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1994458336
@@ -7653,9 +7665,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 729909874}
     m_Modifications:
     - target: {fileID: 444717769672301826, guid: 10fad8229a8a8bb4683299801f6c7099, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 444717769672301826, guid: 10fad8229a8a8bb4683299801f6c7099, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 729909875}
+      objectReference: {fileID: 729909876}
+    - target: {fileID: 444717769672301826, guid: 10fad8229a8a8bb4683299801f6c7099, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 444717769672301826, guid: 10fad8229a8a8bb4683299801f6c7099, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.Animator, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 444717769672301826, guid: 10fad8229a8a8bb4683299801f6c7099, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: button/back
+      objectReference: {fileID: 0}
     - target: {fileID: 446667500432457985, guid: 10fad8229a8a8bb4683299801f6c7099, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

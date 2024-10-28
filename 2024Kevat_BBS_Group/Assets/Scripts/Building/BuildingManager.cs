@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameState;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -13,19 +14,18 @@ public class BuildingManager : MonoBehaviour
     
     [SerializeField]
     private PlayerController player;
-
     [SerializeField]
-    private Vector2 tileSize = new Vector2(1, 1);
-
-    private MenuController menuController;
+    private Vector2 tileSize = new(1, 1);
     
-    private readonly HashSet<Vector2Int> usedPositions = new HashSet<Vector2Int>();
-    private readonly Dictionary<Vector2Int, Building> positionToBuilding = new Dictionary<Vector2Int, Building>();
-    private readonly HashSet<Building> buildings = new HashSet<Building>();
+    private InGameManager gameManager;
+    
+    private readonly HashSet<Vector2Int> usedPositions = new();
+    private readonly Dictionary<Vector2Int, Building> positionToBuilding = new();
+    private readonly HashSet<Building> buildings = new();
 
     private void Awake()
     {
-        menuController = GameObject.Find("Canvas").GetComponent<MenuController>();
+        gameManager = FindObjectOfType<InGameManager>();
         // Have to init this here, unity doesn't allow for layer masks to be created before awake
         buildingPlacementLayerMask = ~LayerMask.GetMask("Buildings", "Ignore Raycast");
     }
@@ -72,7 +72,7 @@ public class BuildingManager : MonoBehaviour
         if (!CanPlace(building))
         {
             Destroy(building.gameObject);
-            if(player.input.Building.Place.triggered)
+            if(gameManager.Input.Building.Place.triggered)
             {
                 AudioManager.Instance.PlayFull("CantPlace");
             }

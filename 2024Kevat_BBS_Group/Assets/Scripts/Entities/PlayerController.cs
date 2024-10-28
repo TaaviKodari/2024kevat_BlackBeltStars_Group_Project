@@ -1,13 +1,11 @@
 using System;
+using GameState;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerController : Entity
 {
-    // Input system for player controls, initialized in Awake
-    public MasterInput input { get; private set; }
-
     // Prefab for the arrow that the player will shoot
     [SerializeField]
     private Arrow arrowPrefab;
@@ -17,13 +15,13 @@ public class PlayerController : Entity
     // Position from which the arrow will be shot
     [SerializeField]
     private Transform shootPoint;
-    [SerializeField]
 
     // References to animator, sprite renderer, and building placer
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private BuildingPlacer buildingPlacer;
     private LineRenderer aimLine;
+    private InGameManager gameManager;
 
     // State variables to track whether the player is aiming and how long they've been aiming
     private bool aiming;
@@ -34,25 +32,12 @@ public class PlayerController : Entity
     {
         // Call the base class's Awake method (Entity)
         base.Awake();
-        // Initialize the input system
-        input = new MasterInput();
         // Get references to necessary components
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         buildingPlacer = FindObjectOfType<BuildingPlacer>();
         aimLine = GetComponent<LineRenderer>();
-    }
-
-    // Enable the input system when the player is enabled
-    private void OnEnable()
-    {
-        input.Enable();
-    }
-
-    // Disable the input system when the player is disabled
-    private void OnDisable()
-    {
-        input.Disable();
+        gameManager = FindObjectOfType<InGameManager>();
     }
 
     // Update is called once per frame
@@ -60,7 +45,7 @@ public class PlayerController : Entity
     {
         // Check if the player is trying to attack and is not interacting with the UI or building
         if (!EventSystem.current.IsPointerOverGameObject()
-            && input.Player.Attack.WasPerformedThisFrame()
+            && gameManager.Input.Player.Attack.WasPerformedThisFrame()
             && buildingPlacer.GetBuilding() == null)
         {
             aiming = true; // Start aiming
@@ -69,22 +54,22 @@ public class PlayerController : Entity
         UpdateAiming();
 
         // Check if the player is trying to mine
-        if (input.Player.Mine.WasPerformedThisFrame())
+        if (gameManager.Input.Player.Mine.WasPerformedThisFrame())
         {
             Mine();
         }
 
         // Check if the player is moving to play the walking sound
-        if(input.Player.Movement.IsPressed())
+        if(gameManager.Input.Player.Movement.IsPressed())
         {
             AudioManager.Instance.PlayFull("WalkSound");
         }
     }
 
-    // Update the aiming state based on player input
+    // Update the aiming state based on player gameManager.Input
     private void UpdateAiming()
     {
-        if (aiming && input.Player.Attack.IsPressed())
+        if (aiming && gameManager.Input.Player.Attack.IsPressed())
         {
             // Increase aim time while the attack button is pressed
             aimTime += Time.deltaTime;
@@ -188,10 +173,10 @@ public class PlayerController : Entity
         return Camera.main.ScreenToWorldPoint(mousePosition);
     }
 
-    // Override GetMoveDirection to return movement input from the player
+    // Override GetMoveDirection to return movement gameManager.Input from the player
     protected override Vector2 GetMoveDirection()
     {
-        return input.Player.Movement.ReadValue<Vector2>();
+        return gameManager.Input.Player.Movement.ReadValue<Vector2>();
     }
 
     // Override the Die method to handle player death (to be implemented)
