@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AtomicConsole.Engine;
+using UnityEngine;
 
 namespace GameState
 {
@@ -14,6 +15,8 @@ namespace GameState
         private AudioManager audioManagerPrefab;
         [SerializeField]
         private VariantManager variantManager;
+        [SerializeField]
+        private AtomicConsoleEngine consolePrefab;
         
         public void Awake()
         {
@@ -30,6 +33,11 @@ namespace GameState
                 var manager = Instantiate(audioManagerPrefab);
                 manager.name = audioManagerPrefab.name;
                 DontDestroyOnLoad(manager);
+            }
+
+            if (FindObjectOfType<AtomicConsoleEngine>() == null)
+            {
+                Instantiate(consolePrefab);
             }
             
             DestroyImmediate(gameObject);

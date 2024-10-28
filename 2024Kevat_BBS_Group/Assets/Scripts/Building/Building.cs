@@ -31,7 +31,11 @@ public class Building : MonoBehaviour
     private void OnDestroy()
     {
         manager.RemoveBuilding(this);
-        FindObjectOfType<PathfindingManager>().UpdateChunks((Vector2) transform.position - data.offset, Size);
+        var pathfindingManager = FindObjectOfType<PathfindingManager>();
+        if (pathfindingManager != null)
+        {
+            pathfindingManager.UpdateChunks((Vector2) transform.position - data.offset, Size);
+        }
     }
     
     // Gets the position in the center of this building. Can be off by 0.5 for buildings with an even size

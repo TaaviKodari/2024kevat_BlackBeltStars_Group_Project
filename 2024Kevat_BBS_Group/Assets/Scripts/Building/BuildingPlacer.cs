@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using System;
+using GameState;
 
 public class BuildingPlacer : MonoBehaviour
 {
-    [SerializeField]
-    private PlayerController player;
     private BuildingManager manager;
+    private InGameManager gameManager;
 
     [SerializeField]
     private Material normalMaterial;
@@ -49,8 +49,8 @@ public class BuildingPlacer : MonoBehaviour
     private void Awake()
     {
         manager = FindObjectOfType<BuildingManager>();
-        FindObjectOfType<PathfindingManager>();
-
+        gameManager = FindObjectOfType<InGameManager>();
+        
         previewDots = new GameObject[previewDotsLimit];
         for (int i = 0; i < previewDotsLimit; i++)
         {
@@ -72,14 +72,14 @@ public class BuildingPlacer : MonoBehaviour
         // If the mouse is over a UI element, don't do anything. (The method has a somewhat confusing name)
         if (EventSystem.current.IsPointerOverGameObject()) return;
         
-        bool isShiftPressed = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        bool isShiftPressed = gameManager.Input.Building.LinePlacing.IsPressed();
 
-        if (player.input.Building.Place.WasPressedThisFrame() && selectedBuilding == wallBuildData && isShiftPressed)
+        if (gameManager.Input.Building.Place.WasPressedThisFrame() && selectedBuilding == wallBuildData && isShiftPressed)
         {
             isLinePlacing = true;
             lineStartPos = GetSelectedTile(Vector2Int.one);
             UpdateLinePlacementPreview();
-        } else if (player.input.Building.Place.WasReleasedThisFrame() && isLinePlacing)
+        } else if (gameManager.Input.Building.Place.WasReleasedThisFrame() && isLinePlacing)
         {
             if (isShiftPressed)
             {
@@ -89,7 +89,7 @@ public class BuildingPlacer : MonoBehaviour
         } else if (!isShiftPressed && isLinePlacing)
         {
             CancelLinePlacement();
-        } else if (player.input.Building.Place.IsPressed() && selectedBuilding != null && !isLinePlacing)
+        } else if (gameManager.Input.Building.Place.IsPressed() && selectedBuilding != null && !isLinePlacing)
         {
             PlaceBuilding();
         }
@@ -99,11 +99,11 @@ public class BuildingPlacer : MonoBehaviour
             UpdateLinePlacementPreview();
         }
 
-        if (player.input.Building.Cancel.WasReleasedThisFrame() && selectedBuilding != null)
+        if (gameManager.Input.Building.Cancel.WasReleasedThisFrame() && selectedBuilding != null)
         {
             SelectBuilding(null);
         }
-        else if (player.input.Building.Destroy.IsPressed() && selectedBuilding == null)
+        else if (gameManager.Input.Building.Destroy.IsPressed() && selectedBuilding == null)
         {
             var buildingPlacementPos = GetSelectedTile(Vector2Int.one);
             var building = manager.GetBuildingAt(buildingPlacementPos);
@@ -211,7 +211,7 @@ public class BuildingPlacer : MonoBehaviour
             Debug.LogError("No main camera found");
             return Vector2Int.zero;
         }
-        var mousePos = camera.ScreenToWorldPoint(player.input.Building.MousePosition.ReadValue<Vector2>());
+        var mousePos = camera.ScreenToWorldPoint(gameManager.Input.Building.MousePosition.ReadValue<Vector2>());
         mousePos.x += math.frac(size.x / 2f + 0.5f);
         mousePos.y += math.frac(size.y / 2f + 0.5f);
         return manager.WorldPosToBuildingPos(mousePos);
@@ -242,11 +242,11 @@ public class BuildingPlacer : MonoBehaviour
     // Allows the player to select a building by pressing the corresponding key
     private void HandleBuildingSelectionHotkeys() {
         var buildingHotkeys = new (bool wasPressed, BuildingData buildData)[] {
-            (player.input.Building.SelectWall.WasPressedThisFrame(), wallBuildData),
-            (player.input.Building.SelectGate.WasPressedThisFrame(), gateBuildData),
-            (player.input.Building.SelectTrap.WasPressedThisFrame(), trapBuildData),
-            (player.input.Building.SelectCampfire.WasPressedThisFrame(), campfireBuildData),
-            (player.input.Building.SelectArrowTower.WasPressedThisFrame(), arrowTowerBuildData)
+            (gameManager.Input.Building.SelectWall.WasPressedThisFrame(), wallBuildData),
+            (gameManager.Input.Building.SelectGate.WasPressedThisFrame(), gateBuildData),
+            (gameManager.Input.Building.SelectTrap.WasPressedThisFrame(), trapBuildData),
+            (gameManager.Input.Building.SelectCampfire.WasPressedThisFrame(), campfireBuildData),
+            (gameManager.Input.Building.SelectArrowTower.WasPressedThisFrame(), arrowTowerBuildData)
         };
 
         foreach (var (wasPressed, buildData) in buildingHotkeys) {

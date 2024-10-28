@@ -46,15 +46,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Menu"",
-                    ""type"": ""Button"",
-                    ""id"": ""6c067a6b-04fb-4b7c-b302-8999a75b8f2e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Mine"",
                     ""type"": ""Button"",
                     ""id"": ""6bca154e-9aa1-4bf2-aae0-a8f77c85e033"",
@@ -199,28 +190,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e5920c8c-d542-4a2b-9e16-32898e45c4d5"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Menu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3f700a7d-c4bf-48be-af0b-ec501de1bacd"",
-                    ""path"": ""<Keyboard>/p"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Menu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""7c603072-05f7-491b-8271-a0f3ef97f133"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -273,15 +242,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Toggle Building"",
-                    ""type"": ""Button"",
-                    ""id"": ""3111ef5f-1a8a-418f-bef0-a4a43f7768b6"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Select Wall"",
                     ""type"": ""Button"",
                     ""id"": ""6cb093fa-a717-416d-a208-955246b51e64"",
@@ -321,6 +281,15 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""name"": ""Select Arrow Tower"",
                     ""type"": ""Button"",
                     ""id"": ""ca6f3e28-01b9-4e64-8ca7-61f21ae000b5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Line Placing"",
+                    ""type"": ""Button"",
+                    ""id"": ""d35516ff-f623-44d6-ae6c-63031a510f25"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -369,17 +338,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Destroy"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c91b8d75-74e5-4d10-a153-bdb4e44ba999"",
-                    ""path"": ""<Keyboard>/b"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Toggle Building"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -437,6 +395,56 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""action"": ""Select Arrow Tower"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7c9250e7-2828-4dac-9946-193618b6c718"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Line Placing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""ebfab0d6-ad22-4394-a5b3-c527f75d4740"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""cbbc4c26-0ac1-4e76-a316-9f5a916f04f2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""814b44d4-ab56-4b6d-a1bb-3764fc159958"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a97bf956-4a3b-467b-8e99-c1f2a7586802"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -447,7 +455,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
-        m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
         m_Player_Mine = m_Player.FindAction("Mine", throwIfNotFound: true);
         // Building
         m_Building = asset.FindActionMap("Building", throwIfNotFound: true);
@@ -455,12 +462,15 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         m_Building_Destroy = m_Building.FindAction("Destroy", throwIfNotFound: true);
         m_Building_Cancel = m_Building.FindAction("Cancel", throwIfNotFound: true);
         m_Building_MousePosition = m_Building.FindAction("Mouse Position", throwIfNotFound: true);
-        m_Building_ToggleBuilding = m_Building.FindAction("Toggle Building", throwIfNotFound: true);
         m_Building_SelectWall = m_Building.FindAction("Select Wall", throwIfNotFound: true);
         m_Building_SelectGate = m_Building.FindAction("Select Gate", throwIfNotFound: true);
         m_Building_SelectTrap = m_Building.FindAction("Select Trap", throwIfNotFound: true);
         m_Building_SelectCampfire = m_Building.FindAction("Select Campfire", throwIfNotFound: true);
         m_Building_SelectArrowTower = m_Building.FindAction("Select Arrow Tower", throwIfNotFound: true);
+        m_Building_LinePlacing = m_Building.FindAction("Line Placing", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_Pause = m_Menu.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -524,7 +534,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Attack;
-    private readonly InputAction m_Player_Menu;
     private readonly InputAction m_Player_Mine;
     public struct PlayerActions
     {
@@ -532,7 +541,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         public PlayerActions(@MasterInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
-        public InputAction @Menu => m_Wrapper.m_Player_Menu;
         public InputAction @Mine => m_Wrapper.m_Player_Mine;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -549,9 +557,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
-            @Menu.started += instance.OnMenu;
-            @Menu.performed += instance.OnMenu;
-            @Menu.canceled += instance.OnMenu;
             @Mine.started += instance.OnMine;
             @Mine.performed += instance.OnMine;
             @Mine.canceled += instance.OnMine;
@@ -565,9 +570,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
-            @Menu.started -= instance.OnMenu;
-            @Menu.performed -= instance.OnMenu;
-            @Menu.canceled -= instance.OnMenu;
             @Mine.started -= instance.OnMine;
             @Mine.performed -= instance.OnMine;
             @Mine.canceled -= instance.OnMine;
@@ -596,12 +598,12 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Building_Destroy;
     private readonly InputAction m_Building_Cancel;
     private readonly InputAction m_Building_MousePosition;
-    private readonly InputAction m_Building_ToggleBuilding;
     private readonly InputAction m_Building_SelectWall;
     private readonly InputAction m_Building_SelectGate;
     private readonly InputAction m_Building_SelectTrap;
     private readonly InputAction m_Building_SelectCampfire;
     private readonly InputAction m_Building_SelectArrowTower;
+    private readonly InputAction m_Building_LinePlacing;
     public struct BuildingActions
     {
         private @MasterInput m_Wrapper;
@@ -610,12 +612,12 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         public InputAction @Destroy => m_Wrapper.m_Building_Destroy;
         public InputAction @Cancel => m_Wrapper.m_Building_Cancel;
         public InputAction @MousePosition => m_Wrapper.m_Building_MousePosition;
-        public InputAction @ToggleBuilding => m_Wrapper.m_Building_ToggleBuilding;
         public InputAction @SelectWall => m_Wrapper.m_Building_SelectWall;
         public InputAction @SelectGate => m_Wrapper.m_Building_SelectGate;
         public InputAction @SelectTrap => m_Wrapper.m_Building_SelectTrap;
         public InputAction @SelectCampfire => m_Wrapper.m_Building_SelectCampfire;
         public InputAction @SelectArrowTower => m_Wrapper.m_Building_SelectArrowTower;
+        public InputAction @LinePlacing => m_Wrapper.m_Building_LinePlacing;
         public InputActionMap Get() { return m_Wrapper.m_Building; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -637,9 +639,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @MousePosition.started += instance.OnMousePosition;
             @MousePosition.performed += instance.OnMousePosition;
             @MousePosition.canceled += instance.OnMousePosition;
-            @ToggleBuilding.started += instance.OnToggleBuilding;
-            @ToggleBuilding.performed += instance.OnToggleBuilding;
-            @ToggleBuilding.canceled += instance.OnToggleBuilding;
             @SelectWall.started += instance.OnSelectWall;
             @SelectWall.performed += instance.OnSelectWall;
             @SelectWall.canceled += instance.OnSelectWall;
@@ -655,6 +654,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @SelectArrowTower.started += instance.OnSelectArrowTower;
             @SelectArrowTower.performed += instance.OnSelectArrowTower;
             @SelectArrowTower.canceled += instance.OnSelectArrowTower;
+            @LinePlacing.started += instance.OnLinePlacing;
+            @LinePlacing.performed += instance.OnLinePlacing;
+            @LinePlacing.canceled += instance.OnLinePlacing;
         }
 
         private void UnregisterCallbacks(IBuildingActions instance)
@@ -671,9 +673,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @MousePosition.started -= instance.OnMousePosition;
             @MousePosition.performed -= instance.OnMousePosition;
             @MousePosition.canceled -= instance.OnMousePosition;
-            @ToggleBuilding.started -= instance.OnToggleBuilding;
-            @ToggleBuilding.performed -= instance.OnToggleBuilding;
-            @ToggleBuilding.canceled -= instance.OnToggleBuilding;
             @SelectWall.started -= instance.OnSelectWall;
             @SelectWall.performed -= instance.OnSelectWall;
             @SelectWall.canceled -= instance.OnSelectWall;
@@ -689,6 +688,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @SelectArrowTower.started -= instance.OnSelectArrowTower;
             @SelectArrowTower.performed -= instance.OnSelectArrowTower;
             @SelectArrowTower.canceled -= instance.OnSelectArrowTower;
+            @LinePlacing.started -= instance.OnLinePlacing;
+            @LinePlacing.performed -= instance.OnLinePlacing;
+            @LinePlacing.canceled -= instance.OnLinePlacing;
         }
 
         public void RemoveCallbacks(IBuildingActions instance)
@@ -706,11 +708,56 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         }
     }
     public BuildingActions @Building => new BuildingActions(this);
+
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private List<IMenuActions> m_MenuActionsCallbackInterfaces = new List<IMenuActions>();
+    private readonly InputAction m_Menu_Pause;
+    public struct MenuActions
+    {
+        private @MasterInput m_Wrapper;
+        public MenuActions(@MasterInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Pause => m_Wrapper.m_Menu_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void AddCallbacks(IMenuActions instance)
+        {
+            if (instance == null || m_Wrapper.m_MenuActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Add(instance);
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+        }
+
+        private void UnregisterCallbacks(IMenuActions instance)
+        {
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+        }
+
+        public void RemoveCallbacks(IMenuActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IMenuActions instance)
+        {
+            foreach (var item in m_Wrapper.m_MenuActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public MenuActions @Menu => new MenuActions(this);
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
-        void OnMenu(InputAction.CallbackContext context);
         void OnMine(InputAction.CallbackContext context);
     }
     public interface IBuildingActions
@@ -719,11 +766,15 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         void OnDestroy(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
-        void OnToggleBuilding(InputAction.CallbackContext context);
         void OnSelectWall(InputAction.CallbackContext context);
         void OnSelectGate(InputAction.CallbackContext context);
         void OnSelectTrap(InputAction.CallbackContext context);
         void OnSelectCampfire(InputAction.CallbackContext context);
         void OnSelectArrowTower(InputAction.CallbackContext context);
+        void OnLinePlacing(InputAction.CallbackContext context);
+    }
+    public interface IMenuActions
+    {
+        void OnPause(InputAction.CallbackContext context);
     }
 }

@@ -1,14 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace GameState
 {
-    public class LiveGameTracker : MonoBehaviour
+    public class InGameManager : MonoBehaviour
     {
-        public static LiveGameTracker Instance { get; private set; }
+        public static InGameManager Instance { get; private set; }
 
         [SerializeField]
         private SceneTransition transition;
+
+        public MasterInput Input { get; private set; }
+        public bool Paused { get; private set; }
 
         private int antsKilled;
         private int wavesSurvived;
@@ -21,11 +25,31 @@ namespace GameState
         private void Awake()
         {
             Instance = this;
+            Input = new MasterInput();
+            Input.Enable();
         }
 
         private void Start()
         {
             manager = FindObjectOfType<GameStateManager>();
+        }
+
+        public void Pause()
+        {
+            if (Paused) return;
+            Input.Player.Disable();
+            Input.Building.Disable();
+            Time.timeScale = 0f;
+            Paused = true;
+        }
+
+        public void Unpause()
+        {
+            if (!Paused) return;
+            Input.Player.Enable();
+            Input.Building.Enable();
+            Time.timeScale = 1f;
+            Paused = false;
         }
 
         public void PlayerTouchedPortal()

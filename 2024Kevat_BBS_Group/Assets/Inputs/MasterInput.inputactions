@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Menu",
-                    "type": "Button",
-                    "id": "6c067a6b-04fb-4b7c-b302-8999a75b8f2e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Mine",
                     "type": "Button",
                     "id": "6bca154e-9aa1-4bf2-aae0-a8f77c85e033",
@@ -177,28 +168,6 @@
                 },
                 {
                     "name": "",
-                    "id": "e5920c8c-d542-4a2b-9e16-32898e45c4d5",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Menu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3f700a7d-c4bf-48be-af0b-ec501de1bacd",
-                    "path": "<Keyboard>/p",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Menu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "7c603072-05f7-491b-8271-a0f3ef97f133",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -251,15 +220,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Toggle Building",
-                    "type": "Button",
-                    "id": "3111ef5f-1a8a-418f-bef0-a4a43f7768b6",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Select Wall",
                     "type": "Button",
                     "id": "6cb093fa-a717-416d-a208-955246b51e64",
@@ -299,6 +259,15 @@
                     "name": "Select Arrow Tower",
                     "type": "Button",
                     "id": "ca6f3e28-01b9-4e64-8ca7-61f21ae000b5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Line Placing",
+                    "type": "Button",
+                    "id": "d35516ff-f623-44d6-ae6c-63031a510f25",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -347,17 +316,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Destroy",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c91b8d75-74e5-4d10-a153-bdb4e44ba999",
-                    "path": "<Keyboard>/b",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Toggle Building",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -413,6 +371,56 @@
                     "processors": "",
                     "groups": "",
                     "action": "Select Arrow Tower",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c9250e7-2828-4dac-9946-193618b6c718",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Line Placing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Menu",
+            "id": "ebfab0d6-ad22-4394-a5b3-c527f75d4740",
+            "actions": [
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "cbbc4c26-0ac1-4e76-a316-9f5a916f04f2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "814b44d4-ab56-4b6d-a1bb-3764fc159958",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a97bf956-4a3b-467b-8e99-c1f2a7586802",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
