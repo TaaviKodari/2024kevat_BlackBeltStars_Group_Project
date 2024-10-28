@@ -3,6 +3,8 @@ using Pathfinding;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
+using System;
 
 public class BuildingPlacer : MonoBehaviour
 {
@@ -27,15 +29,34 @@ public class BuildingPlacer : MonoBehaviour
     private BuildingData trapBuildData;
     [SerializeField]
     private BuildingData campfireBuildData;
+    [SerializeField]
+    private BuildingData arrowTowerBuildData;
+    
     
     private BuildingData selectedBuilding;
     private GameObject buildingPreview;
     private GameObject hoveredBuilding;
 
+    private bool isLinePlacing;
+    private Vector2Int lineStartPos;
+    private GameObject[] previewDots;
+
+    [SerializeField]
+    private GameObject previewDotPrefab;
+    [SerializeField]
+    private int previewDotsLimit = 25;
+
     private void Awake()
     {
         manager = FindObjectOfType<BuildingManager>();
         FindObjectOfType<PathfindingManager>();
+
+        previewDots = new GameObject[previewDotsLimit];
+        for (int i = 0; i < previewDotsLimit; i++)
+        {
+            previewDots[i] = Instantiate(previewDotPrefab, transform);
+            previewDots[i].SetActive(false);
+        }
     }
 
     private void Update()
@@ -51,10 +72,33 @@ public class BuildingPlacer : MonoBehaviour
         // If the mouse is over a UI element, don't do anything. (The method has a somewhat confusing name)
         if (EventSystem.current.IsPointerOverGameObject()) return;
         
-        if (player.input.Building.Place.IsPressed() && selectedBuilding != null)
+        bool isShiftPressed = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+
+        if (player.input.Building.Place.WasPressedThisFrame() && selectedBuilding == wallBuildData && isShiftPressed)
+        {
+            isLinePlacing = true;
+            lineStartPos = GetSelectedTile(Vector2Int.one);
+            UpdateLinePlacementPreview();
+        } else if (player.input.Building.Place.WasReleasedThisFrame() && isLinePlacing)
+        {
+            if (isShiftPressed)
+            {
+                PlaceWallLine();
+            }
+            CancelLinePlacement();
+        } else if (!isShiftPressed && isLinePlacing)
+        {
+            CancelLinePlacement();
+        } else if (player.input.Building.Place.IsPressed() && selectedBuilding != null && !isLinePlacing)
         {
             PlaceBuilding();
         }
+
+        if (isLinePlacing)
+        {
+            UpdateLinePlacementPreview();
+        }
+
         if (player.input.Building.Cancel.WasReleasedThisFrame() && selectedBuilding != null)
         {
             SelectBuilding(null);
@@ -71,6 +115,87 @@ public class BuildingPlacer : MonoBehaviour
         }
     }
     
+    private void CancelLinePlacement()
+    {
+        isLinePlacing = false;
+        foreach (var dot in previewDots)
+        {
+            dot.SetActive(false);
+        }
+    }
+
+    private void UpdateLinePlacementPreview()
+    {
+        if (!isLinePlacing) return;
+
+        var currentPos = GetSelectedTile(Vector2Int.one);
+        var (linePoints, _) = CalculateWallLine(lineStartPos, currentPos);
+
+        // update preview dots
+        for (int i = 0; i < previewDots.Length; i++)
+        {
+            if (i < linePoints.Count)
+            {
+                previewDots[i].SetActive(true);
+                previewDots[i].transform.position = manager.BuildingPosToWorldPos(linePoints[i]) + new Vector2(0.5f, 0.5f);
+            }
+            else
+            {
+                previewDots[i].SetActive(false);
+            }
+        }
+    }
+
+    private (List<Vector2Int> points, Vector2Int corner) CalculateWallLine(Vector2Int start, Vector2Int end)
+    {
+        var points = new List<Vector2Int>();
+        var corner = new Vector2Int(start.x, end.y);
+    
+        points.Capacity = Math.Abs(end.y - start.y) + Math.Abs(end.x - start.x);
+
+        int verticalStep = Math.Sign(end.y - start.y);
+        if (verticalStep != 0)
+        {
+            for (int y = start.y; y != end.y + verticalStep; y += verticalStep)
+            {
+                points.Add(new Vector2Int(start.x, y));
+            }
+        }
+        else
+        {
+            points.Add(start);
+        }
+
+        int horizontalStep = Math.Sign(end.x - start.x);
+        if (horizontalStep != 0)
+        {
+            for (int x = start.x + horizontalStep; x != end.x + horizontalStep; x += horizontalStep)
+            {
+                points.Add(new Vector2Int(x, end.y));
+            }
+        }
+
+        return (points, corner);
+    }
+
+    private void PlaceWallLine()
+    {
+        var currentPos = GetSelectedTile(Vector2Int.one);
+        var (linePoints, _) = CalculateWallLine(lineStartPos, currentPos);
+
+        foreach (var point in linePoints)
+        {
+            var worldPos = manager.BuildingPosToWorldPos(point) + new Vector2(0.5f, 0.5f);
+            var building = Instantiate(wallBuildData.GetPrefab(IsPlacingVertical()), worldPos, Quaternion.identity, transform)
+                .GetComponent<Building>();
+            
+            building.data = wallBuildData;
+            building.name = wallBuildData.name;
+            SetMaterial(building.gameObject, normalMaterial);
+            manager.TryAddBuilding(building);
+        }
+    }
+
     private Vector3 GetPlacementPos()
     {
         if (selectedBuilding == null) return Vector3.zero;
@@ -120,7 +245,8 @@ public class BuildingPlacer : MonoBehaviour
             (player.input.Building.SelectWall.WasPressedThisFrame(), wallBuildData),
             (player.input.Building.SelectGate.WasPressedThisFrame(), gateBuildData),
             (player.input.Building.SelectTrap.WasPressedThisFrame(), trapBuildData),
-            (player.input.Building.SelectCampfire.WasPressedThisFrame(), campfireBuildData)
+            (player.input.Building.SelectCampfire.WasPressedThisFrame(), campfireBuildData),
+            (player.input.Building.SelectArrowTower.WasPressedThisFrame(), arrowTowerBuildData)
         };
 
         foreach (var (wasPressed, buildData) in buildingHotkeys) {

@@ -316,6 +316,15 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select Arrow Tower"",
+                    ""type"": ""Button"",
+                    ""id"": ""ca6f3e28-01b9-4e64-8ca7-61f21ae000b5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -417,6 +426,17 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
                     ""action"": ""Select Campfire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8fa74645-3fe1-40eb-91bf-57e4009c2276"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select Arrow Tower"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -440,6 +460,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         m_Building_SelectGate = m_Building.FindAction("Select Gate", throwIfNotFound: true);
         m_Building_SelectTrap = m_Building.FindAction("Select Trap", throwIfNotFound: true);
         m_Building_SelectCampfire = m_Building.FindAction("Select Campfire", throwIfNotFound: true);
+        m_Building_SelectArrowTower = m_Building.FindAction("Select Arrow Tower", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -580,6 +601,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Building_SelectGate;
     private readonly InputAction m_Building_SelectTrap;
     private readonly InputAction m_Building_SelectCampfire;
+    private readonly InputAction m_Building_SelectArrowTower;
     public struct BuildingActions
     {
         private @MasterInput m_Wrapper;
@@ -593,6 +615,7 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         public InputAction @SelectGate => m_Wrapper.m_Building_SelectGate;
         public InputAction @SelectTrap => m_Wrapper.m_Building_SelectTrap;
         public InputAction @SelectCampfire => m_Wrapper.m_Building_SelectCampfire;
+        public InputAction @SelectArrowTower => m_Wrapper.m_Building_SelectArrowTower;
         public InputActionMap Get() { return m_Wrapper.m_Building; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -629,6 +652,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @SelectCampfire.started += instance.OnSelectCampfire;
             @SelectCampfire.performed += instance.OnSelectCampfire;
             @SelectCampfire.canceled += instance.OnSelectCampfire;
+            @SelectArrowTower.started += instance.OnSelectArrowTower;
+            @SelectArrowTower.performed += instance.OnSelectArrowTower;
+            @SelectArrowTower.canceled += instance.OnSelectArrowTower;
         }
 
         private void UnregisterCallbacks(IBuildingActions instance)
@@ -660,6 +686,9 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
             @SelectCampfire.started -= instance.OnSelectCampfire;
             @SelectCampfire.performed -= instance.OnSelectCampfire;
             @SelectCampfire.canceled -= instance.OnSelectCampfire;
+            @SelectArrowTower.started -= instance.OnSelectArrowTower;
+            @SelectArrowTower.performed -= instance.OnSelectArrowTower;
+            @SelectArrowTower.canceled -= instance.OnSelectArrowTower;
         }
 
         public void RemoveCallbacks(IBuildingActions instance)
@@ -695,5 +724,6 @@ public partial class @MasterInput: IInputActionCollection2, IDisposable
         void OnSelectGate(InputAction.CallbackContext context);
         void OnSelectTrap(InputAction.CallbackContext context);
         void OnSelectCampfire(InputAction.CallbackContext context);
+        void OnSelectArrowTower(InputAction.CallbackContext context);
     }
 }

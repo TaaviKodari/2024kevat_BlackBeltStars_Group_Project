@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    [SerializeField]
-    private int damage = 1;
+    public float Damage { private get; set; }
     [SerializeField]
     private float maxTime = 5;
 
@@ -22,7 +21,10 @@ public class Arrow : MonoBehaviour
     {
         var colliders = new List<Collider2D>();
         GetComponent<Collider2D>().OverlapCollider(new ContactFilter2D().NoFilter(), colliders);
-        if (colliders.Any(it => it.TryGetComponent<Building>(out var building) && building.data.blocksProjectiles))
+        if (colliders.Any(it =>
+            it.TryGetComponent<Building>(out var building)
+            && building.data.blocksProjectiles
+            && it.gameObject != Owner))
         {
             Destroy(gameObject);
         }
@@ -34,10 +36,10 @@ public class Arrow : MonoBehaviour
         if (other.gameObject == Owner) return;
         if (other.TryGetComponent<Entity>(out var entity))
         {
-            entity.Damage(damage);
+            entity.Damage(Damage);
             hasHit = true;
             Destroy(gameObject);
-        } 
+        }
         else if (other.TryGetComponent<Building>(out var building) && building.data.blocksProjectiles)
         {
             hasHit = true;
