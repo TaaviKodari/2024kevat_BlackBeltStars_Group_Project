@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AtomicConsole;
 using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
@@ -95,6 +96,7 @@ public class ResourceManager : MonoBehaviour
     }
 
     // Temporary method for use in UI. Button callbacks can't deal with enums
+    [AtomicCommand(name: "AddResources")]
     public void IncrementResources()
     {
         foreach (var resource in VariantManager.Instance.ResourceTypes.Values)

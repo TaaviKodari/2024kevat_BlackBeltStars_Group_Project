@@ -7,7 +7,8 @@ namespace AtomicAssembly.GeneratedCommands
     {
         public static List<MethodInfo> commandMethods = new List<MethodInfo>
         {
-            typeof(AtomicConsole.Engine.AtomicConsoleEngine).GetMethod("Close"),
+            typeof(ResourceManager).GetMethod("IncrementResources"),
+        typeof(AtomicConsole.Engine.AtomicConsoleEngine).GetMethod("Close"),
         typeof(AtomicConsole.Engine.AtomicConsoleEngine).GetMethod("ToggleFPS"),
         typeof(AtomicConsole.Engine.AtomicConsoleEngine).GetMethod("ProjectInfo"),
         typeof(AtomicConsole.Engine.AtomicConsoleEngine).GetMethod("Clear"),
