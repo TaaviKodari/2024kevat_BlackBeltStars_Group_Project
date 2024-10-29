@@ -39,24 +39,57 @@ public class BuildingPlacer : MonoBehaviour
 
     private bool isLinePlacing;
     private Vector2Int lineStartPos;
-    private GameObject[] previewDots;
 
-    [SerializeField]
-    private GameObject previewDotPrefab;
-    [SerializeField]
-    private int previewDotsLimit = 25;
+    private LineRenderer lineRenderer;
+    private List<LineRenderer> lineSegmentPool;
+    private int activeLineSegments;
+    private const int INITIAL_POOL_SIZE = 20;
+    private Vector2Int lastPreviewPosition;
+    private Building validationBuilding;
+    private readonly List<(LineRenderer renderer, bool isValid)> activeSegments = new List<(LineRenderer, bool)>();
 
     private void Awake()
     {
         manager = FindObjectOfType<BuildingManager>();
         gameManager = FindObjectOfType<InGameManager>();
+
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer.material = previewMaterial;
+        lineRenderer.startWidth = 0.2f;
+        lineRenderer.endWidth = 0.2f;
+        lineRenderer.positionCount = 0;
+        lineRenderer.enabled = false;
+
+        InitializeLineSegmentPool();
         
-        previewDots = new GameObject[previewDotsLimit];
-        for (int i = 0; i < previewDotsLimit; i++)
+        validationBuilding = Instantiate(wallBuildData.GetPrefab(true), Vector3.zero, Quaternion.identity, transform).GetComponent<Building>();
+        validationBuilding.gameObject.SetActive(false);
+        validationBuilding.data = wallBuildData;
+    }
+
+    private void InitializeLineSegmentPool()
+    {
+        lineSegmentPool = new List<LineRenderer>();
+        for (int i = 0; i < INITIAL_POOL_SIZE; i++)
         {
-            previewDots[i] = Instantiate(previewDotPrefab, transform);
-            previewDots[i].SetActive(false);
+            CreatePooledLineSegment();
         }
+        activeLineSegments = 0;
+    }
+
+    private LineRenderer CreatePooledLineSegment()
+    {
+        var lineSegment = new GameObject("LineSegment");
+        lineSegment.transform.parent = transform;
+        
+        var lineRendererSegment = lineSegment.AddComponent<LineRenderer>();
+        lineRendererSegment.positionCount = 2;
+        lineRendererSegment.startWidth = 0.2f;
+        lineRendererSegment.endWidth = 0.2f;
+        lineRendererSegment.enabled = false;
+        
+        lineSegmentPool.Add(lineRendererSegment);
+        return lineRendererSegment;
     }
 
     private void Update()
@@ -79,17 +112,20 @@ public class BuildingPlacer : MonoBehaviour
             isLinePlacing = true;
             lineStartPos = GetSelectedTile(Vector2Int.one);
             UpdateLinePlacementPreview();
-        } else if (gameManager.Input.Building.Place.WasReleasedThisFrame() && isLinePlacing)
+        } 
+        else if (gameManager.Input.Building.Place.WasReleasedThisFrame() && isLinePlacing)
         {
             if (isShiftPressed)
             {
                 PlaceWallLine();
             }
             CancelLinePlacement();
-        } else if (!isShiftPressed && isLinePlacing)
+        } 
+        else if (!isShiftPressed && isLinePlacing)
         {
             CancelLinePlacement();
-        } else if (gameManager.Input.Building.Place.IsPressed() && selectedBuilding != null && !isLinePlacing)
+        } 
+        else if (gameManager.Input.Building.Place.IsPressed() && selectedBuilding != null && !isLinePlacing)
         {
             PlaceBuilding();
         }
@@ -114,35 +150,70 @@ public class BuildingPlacer : MonoBehaviour
             }
         }
     }
-    
-    private void CancelLinePlacement()
-    {
-        isLinePlacing = false;
-        foreach (var dot in previewDots)
-        {
-            dot.SetActive(false);
-        }
-    }
 
     private void UpdateLinePlacementPreview()
     {
         if (!isLinePlacing) return;
 
         var currentPos = GetSelectedTile(Vector2Int.one);
+        
+        if (currentPos == lastPreviewPosition) return;
+        lastPreviewPosition = currentPos;
+
         var (linePoints, _) = CalculateWallLine(lineStartPos, currentPos);
 
-        // update preview dots
-        for (int i = 0; i < previewDots.Length; i++)
+        while (linePoints.Count - 1 > lineSegmentPool.Count)
         {
-            if (i < linePoints.Count)
-            {
-                previewDots[i].SetActive(true);
-                previewDots[i].transform.position = manager.BuildingPosToWorldPos(linePoints[i]) + new Vector2(0.5f, 0.5f);
-            }
-            else
-            {
-                previewDots[i].SetActive(false);
-            }
+            CreatePooledLineSegment();
+        }
+
+        foreach (var lineRenderer in lineSegmentPool)
+        {
+            lineRenderer.enabled = false;
+        }
+
+        activeSegments.Clear();
+
+        for (int i = 0; i < linePoints.Count - 1; i++)
+        {
+            var segmentStart = manager.BuildingPosToWorldPos(linePoints[i]) + new Vector2(0.5f, 0.5f);
+            var segmentEnd = manager.BuildingPosToWorldPos(linePoints[i + 1]) + new Vector2(0.5f, 0.5f);
+            
+            var lineRenderer = lineSegmentPool[i];
+            lineRenderer.SetPosition(0, segmentStart);
+            lineRenderer.SetPosition(1, segmentEnd);
+            lineRenderer.enabled = true;
+
+            validationBuilding.transform.position = segmentStart;
+            var isValid = manager.CanPlace(validationBuilding);
+
+            activeSegments.Add((lineRenderer, isValid));
+            lineRenderer.material = isValid ? previewMaterial : invalidPreviewMaterial;
+        }
+
+        activeLineSegments = linePoints.Count - 1;
+    }
+
+    private void CancelLinePlacement()
+    {
+        isLinePlacing = false;
+        lineRenderer.positionCount = 0;
+        lineRenderer.enabled = false;
+        
+        foreach (var lineRenderer in lineSegmentPool)
+        {
+            lineRenderer.enabled = false;
+        }
+        activeSegments.Clear();
+        activeLineSegments = 0;
+        lastPreviewPosition = new Vector2Int(int.MinValue, int.MinValue);
+    }
+
+    private void OnDestroy()
+    {
+        if (validationBuilding != null)
+        {
+            Destroy(validationBuilding.gameObject);
         }
     }
 
@@ -307,6 +378,7 @@ public class BuildingPlacer : MonoBehaviour
 
         buildingPreview = preview;
         buildingPreview.name = "BuildingPreview";
+
         UpdatePreview();
     }
 

@@ -19,7 +19,7 @@ public class PauseMarker : MonoBehaviour
 
     private void OnDisable()
     {
-        if (InGameManager.Instance != null && FindObjectsOfType<PauseMarker>().All(it => it == this))
+        if (InGameManager.Instance != null && FindObjectsOfType<PauseMarker>().All(it => it == this || !it.enabled))
         {
             Debug.Log("Unpausing game due to marker", this);
             InGameManager.Instance.Unpause();

@@ -47,6 +47,7 @@ SpriteAtlas:
     - 6bb4aacabffa2c743866f60e7e2efb67: 3687651450805901432
     - 66d256ec38447284aa62f7a602784008: 21300000
     - 7dac6d7d1cd38aa49aabd9a5e752f559: 21300000
+    - 8f5d78dd45e78d649abdc4c032f43e57: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 61a82802b0940274bb4207e70bbdac5c, type: 3}
@@ -58,16 +59,18 @@ SpriteAtlas:
   - {fileID: 3687651450805901432, guid: 6bb4aacabffa2c743866f60e7e2efb67, type: 3}
   - {fileID: 21300000, guid: 66d256ec38447284aa62f7a602784008, type: 3}
   - {fileID: 21300000, guid: 7dac6d7d1cd38aa49aabd9a5e752f559, type: 3}
+  - {fileID: 21300000, guid: 8f5d78dd45e78d649abdc4c032f43e57, type: 3}
   m_PackedSpriteNamesToIndex:
-  - campfire
-  - gate
+  - Campfire
+  - Gate
   - Iron
   - Diamond
   - Wood
   - Gold
   - Stone
-  - trap
-  - wall
+  - Trap
+  - Wall
+  - ArrowTower
   m_RenderDataMap: {}
   m_Tag: UIIconAtlas
   m_IsVariant: 0
