@@ -30,10 +30,12 @@ public class FadeOverlayTransition : SceneTransition
 
     private IEnumerator Fade(string sceneName)
     {
-        var fadeInStart = Time.time;
-        while (fadeInStart + fadeDuration / 2 > Time.time)
+        Time.timeScale = 0;
+        
+        var fadeInStart = Time.unscaledTime;
+        while (fadeInStart + fadeDuration / 2 > Time.unscaledTime)
         {
-            group.alpha = Mathf.Lerp(0, 1, (Time.time - fadeInStart) / fadeDuration * 2);
+            group.alpha = Mathf.Lerp(0, 1, (Time.unscaledTime - fadeInStart) / fadeDuration * 2);
             yield return null;
         }
         group.alpha = 1;
@@ -48,20 +50,22 @@ public class FadeOverlayTransition : SceneTransition
 
         while (!operation.isDone)
         {
-            if (fadeInStart + fadeDuration < Time.time && loadingText != null)
+            if (fadeInStart + fadeDuration < Time.unscaledTime && loadingText != null)
             {
                 loadingText.SetActive(true);
             }
             yield return null;
         }
 
-        var fadeOutStart = Time.time;
-        while (fadeOutStart + fadeDuration / 2 > Time.time)
+        var fadeOutStart = Time.unscaledTime;
+        while (fadeOutStart + fadeDuration / 2 > Time.unscaledTime)
         {
-            group.alpha = Mathf.Lerp(1, 0, (Time.time - fadeOutStart) / fadeDuration * 2);
+            group.alpha = Mathf.Lerp(1, 0, (Time.unscaledTime - fadeOutStart) / fadeDuration * 2);
             yield return null;
         }
         group.alpha = 0;
+
+        Time.timeScale = 1;
         
         Destroy(gameObject);
     }

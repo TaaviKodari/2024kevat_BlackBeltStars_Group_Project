@@ -22,6 +22,7 @@ namespace GameState
         public Transform playerTransform;
         private Vector2 PortalLocation;
         private bool portalActive = false;
+        
         private void Awake()
         {
             Instance = this;
