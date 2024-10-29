@@ -22,6 +22,8 @@ namespace GameState
         public Transform playerTransform;
         private Vector2 PortalLocation;
         private bool portalActive = false;
+        public GameObject portalPopUp;
+        public PopUpManager popUpManager;
         private void Awake()
         {
             Instance = this;
@@ -32,6 +34,7 @@ namespace GameState
         private void Start()
         {
             manager = FindObjectOfType<GameStateManager>();
+            popUpManager = FindObjectOfType<PopUpManager>();
         }
 
         public void Pause()
@@ -68,6 +71,7 @@ namespace GameState
             {
                 portalActive = true;
                 Instantiate(portalPrefab, adjustedPosition, Quaternion.identity);
+                popUpManager.SetActivePopUp(portalPopUp, true);
             }
         }
 
