@@ -61,15 +61,15 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7dac6d7d1cd38aa49aabd9a5e752f559, type: 3}
   - {fileID: 21300000, guid: 8f5d78dd45e78d649abdc4c032f43e57, type: 3}
   m_PackedSpriteNamesToIndex:
-  - Campfire
-  - Gate
+  - campfire
+  - gate
   - Iron
   - Diamond
   - Wood
   - Gold
   - Stone
-  - Trap
-  - Wall
+  - trap
+  - wall
   - ArrowTower
   m_RenderDataMap: {}
   m_Tag: UIIconAtlas
