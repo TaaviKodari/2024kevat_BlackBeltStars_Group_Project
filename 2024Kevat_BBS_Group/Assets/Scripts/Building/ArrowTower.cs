@@ -11,11 +11,13 @@ public class ArrowTower : MonoBehaviour
     public float arrowForce;
     private float lastShoot;
     private Building building;
+    private GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
         building = GetComponent<Building>();
+        player = EnemyManager.instance.player;
     }
 
     // Update is called once per frame
@@ -29,7 +31,7 @@ public class ArrowTower : MonoBehaviour
 
         // Instantiate the arrow prefab at the shoot point with the correct rotation
         var arrow = Instantiate(arrowPrefab, shootPoint.position, Quaternion.AngleAxis(angle, Vector3.forward));
-        arrow.Owner = gameObject;
+        arrow.Owner = player;
         arrow.Damage = damage;
 
         // Apply force to the arrow to shoot it

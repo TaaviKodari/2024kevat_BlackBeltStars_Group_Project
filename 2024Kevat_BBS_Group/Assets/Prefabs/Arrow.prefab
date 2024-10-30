@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8240472103483049512}
   - component: {fileID: 1168706969896417181}
   - component: {fileID: 6630246808432321123}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,5 +175,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251620ef87d20dd43a9b01452f574a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
   maxTime: 2
