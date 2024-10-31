@@ -27,8 +27,8 @@ namespace AtomicAssembly.GeneratedCommands
 
         public static List<FieldInfo> setFields = new List<FieldInfo>
         {
-            typeof(ResourceManager).GetField("resourceMultiplier")
-            typeof(WaveManager).GetField("currentWave")
+            typeof(WaveManager).GetField("currentWave"),
+        typeof(ResourceManager).GetField("resourceMultiplier")
         };
     }
 }

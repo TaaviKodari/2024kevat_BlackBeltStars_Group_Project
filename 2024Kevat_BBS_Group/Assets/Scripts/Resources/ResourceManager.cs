@@ -10,7 +10,7 @@ public class ResourceManager : MonoBehaviour
     public PlayerController player { get; private set; }
     public DroppedResource resourcePrefab;
     
-    [AtomicSet(name:"ResourceMultiplier",group:"Resources",description:"Multiplier of the output of AddResources command")] public int resourceMultiplier;
+    [AtomicSet(name:"ResourceMultiplier",group:"Resources",description:"Multiplier of the output of AddResources command, can't be zero")] public int resourceMultiplier=1;
     private void Awake()
     {
         Instance = this;
@@ -100,6 +100,8 @@ public class ResourceManager : MonoBehaviour
     [AtomicCommand(name: "AddResources",group:"Resources",description:"Adds resources to the player (default: 10, increase multiplier with ResourceMultiplier)")]
     public void IncrementResources()
     {
+        if(resourceMultiplier==0)
+        {resourceMultiplier=1; AtomicConsole.Engine.AtomicConsoleEngine.print("Resource multiplier was set to 1 because it was "+resourceMultiplier);}
         foreach (var resource in VariantManager.Instance.ResourceTypes.Values)
         {
             AddResource(resource, 10*resourceMultiplier);

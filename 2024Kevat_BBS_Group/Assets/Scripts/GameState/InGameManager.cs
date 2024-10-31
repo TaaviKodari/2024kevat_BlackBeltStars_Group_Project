@@ -73,6 +73,7 @@ namespace GameState
             {
                 portalActive = true;
                 Instantiate(portalPrefab, adjustedPosition, Quaternion.identity);
+                AtomicConsole.Engine.AtomicConsoleEngine.print($"Spawned the portal at {adjustedPosition}");
                 popUpManager.SetActivePopUp(portalPopUp, true);
             }
         }

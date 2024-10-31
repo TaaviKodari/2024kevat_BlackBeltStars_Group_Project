@@ -1,15 +1,15 @@
 {
     "Commands": [
         {
-            "Name": "AddResources",
+            "Name": "Resources.AddResources",
             "Description": "Adds resources to the player (default: 10, increase multiplier with ResourceMultiplier)",
             "TypeField": "",
             "Locked": false,
             "StaticMethod": false
         },
         {
-            "Name": "SpawnPortal",
-            "Description": "",
+            "Name": "world.SpawnPortal",
+            "Description": "Spawns the portal",
             "TypeField": "",
             "Locked": false,
             "StaticMethod": false
@@ -113,15 +113,15 @@
             "StaticMethod": true
         },
         {
-            "Name": "Resources.ResourceMultiplier",
-            "Description": "Multiplier of the output of AddResources command",
+            "Name": "SetWave",
+            "Description": "",
             "TypeField": "Int",
             "Locked": false,
             "StaticMethod": false
         },
         {
-            "Name": "SetWave",
-            "Description": "",
+            "Name": "Resources.ResourceMultiplier",
+            "Description": "Multiplier of the output of AddResources command, can't be zero",
             "TypeField": "Int",
             "Locked": false,
             "StaticMethod": false
