@@ -61,7 +61,7 @@ namespace GameState
             SendToLobby();
         }
         
-        [AtomicCommand(name:"SpawnPortal")]
+        [AtomicCommand(name:"SpawnPortal",group:"world",description:"Spawns the portal")]
         public void SpawnPortal()
         {
             // Set adjustedPosition to player position with y increased by 10
