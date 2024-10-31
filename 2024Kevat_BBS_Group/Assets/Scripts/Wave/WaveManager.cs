@@ -7,6 +7,8 @@ using AtomicConsole;
 
 public class WaveManager : MonoBehaviour
 {
+    public WaveConfig[] waves; // Array of wave configurations
+    
     [AtomicSet(name:"SetWave")]
     public int currentWave; // the current wave of the game
     
@@ -50,29 +52,58 @@ public class WaveManager : MonoBehaviour
     // begins spawning enemies and changes the wave number by 1
     void StartWave()
     {
-        currentWave++; // change the round 
-        SpawnEnemies(enemyPrefab1); // in the future when there's more enemies, spawn a random prefab?
-
-        if (currentWave != 0)
+        if (currentWave < waves.Length)
         {
-            InGameManager.Instance.AddWaveSurvived();
+            var currentConfig = waves[currentWave];
+            if (currentConfig.isMiniBossWave)
+            {
+                Debug.Log("MiniBossWave");
+                //TODO: SpawnMiniBoss();
+            }
+            else
+            {
+                SpawnEnemies(currentConfig);
+            }
+            currentWave++;
+        }
+        else
+        {
+            Debug.Log("No waves left, 'freeplay'");
+            GenerateScalingWave();
+
         }
     }
 
-    // if round is n, spawn n enemies
-    private void SpawnEnemies(Enemy prefab)
+    void GenerateScalingWave()
     {
-        for (int i = 1; i <= currentWave; i++) // untill i reaches the wave number, do the following
+        int additionalEnemies = currentWave + 1;
+        float healthMultiplier = 1 + currentWave * 0.1f;
+        float speedMultiplier = 1 + currentWave * 0.05f;
+
+        // Create a temporary WaveConfig for scaling waves
+        WaveConfig scalingConfig = ScriptableObject.CreateInstance<WaveConfig>();
+        scalingConfig.enemyTypes = new Enemy[] { enemyPrefab1 }; // using the test enemy prefab for now
+        scalingConfig.enemyCount = additionalEnemies;
+        scalingConfig.healthMultiplier = healthMultiplier;
+        scalingConfig.speedMultiplier = speedMultiplier;
+        scalingConfig.isMiniBossWave = false;
+
+        SpawnEnemies(scalingConfig);
+
+        currentWave++;
+    }
+    
+    private void SpawnEnemies(WaveConfig config)
+    {
+        foreach (var enemy in config.enemyTypes)
         {
-            if (enemyManager.GetEnemyCount() < enemyLimit) // if there isn't too many enemies already
+            for (int i = 0; i < config.enemyCount; i++)
             {
-                // Get a random position within the specified range from the player
-                Vector2 position =
-                    enemyManager.GetRandomPosition(enemyManager.player.transform.position, minRange, maxRange);
-                // If a valid position is found, spawn the enemy at that position
-                if (position != Vector2.zero)
-                    enemyManager.SpawnEnemy(prefab, position);
+                Vector2 position = enemyManager.GetRandomPosition(enemyManager.player.transform.position, minRange, maxRange);
+                enemyManager.SpawnEnemy(enemy, position, config.healthMultiplier, config.speedMultiplier);
             }
         }
+
+
     }
 }

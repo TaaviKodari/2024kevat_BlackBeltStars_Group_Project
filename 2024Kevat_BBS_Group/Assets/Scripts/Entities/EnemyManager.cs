@@ -28,12 +28,18 @@ public class EnemyManager : MonoBehaviour
     }
 
     // Spawns a new enemy at the given position
-    public void SpawnEnemy(Enemy enemyPrefab, Vector2 position)
+    public void SpawnEnemy(Enemy enemyPrefab, Vector2 position, float healthMultiplier, float speedMultiplier)
     {
         // Instantiate the enemy prefab at the given position with no rotation as a child of the manager
         var enemy = Instantiate(enemyPrefab, position, Quaternion.identity, transform);
+
+        // Set the enemy's health and speed using the new methods
+        enemy.SetHealth(healthMultiplier);
+        enemy.SetSpeed(speedMultiplier);
+
         // Add the new enemy to the list of enemies
         enemies.Add(enemy);
+
         // Set the enemy's manager reference to this instance of EnemyManager
         enemy.manager = this;
     }

@@ -49,7 +49,7 @@ public class EnemySpawner : MonoBehaviour
             Vector2 position = manager.GetRandomPosition(manager.player.transform.position, minRange, maxRange);
             // If a valid position is found, spawn the enemy at that position
             if (position != Vector2.zero)
-                manager.SpawnEnemy(prefab, position);
+                manager.SpawnEnemy(prefab, position, 1f, 1f);
         }
 
         // Schedule the next spawn attempt with a random delay

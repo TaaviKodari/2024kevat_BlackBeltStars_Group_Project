@@ -68,6 +68,20 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
     {
     }
 
+    // Method to set health based on a multiplier (for spawning "stronger enemies")
+    public void SetHealth(float healthMultiplier)
+    {
+        maxHealth *= healthMultiplier;
+        health = maxHealth;
+        healthBar.SetHealth(health, maxHealth);
+    }
+
+    // Method to set speed based on a multiplier (for spawning "stronger enemies")
+    public void SetSpeed(float speedMultiplier)
+    {
+        speed *= speedMultiplier;
+    }
+    
     // Method to apply damage to the entity
     public void Damage(float amount)
     {
