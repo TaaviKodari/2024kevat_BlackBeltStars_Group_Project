@@ -17,4 +17,4 @@ MonoBehaviour:
   - {fileID: 1453978197814258362, guid: d23034fe7ca4d264fbc9c5f731bb5492, type: 3}
   healthMultiplier: 5
   speedMultiplier: 5
-  isMiniBossWave: 1
+  isMiniBossWave: 0
