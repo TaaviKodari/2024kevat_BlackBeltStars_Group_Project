@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using GameState;
 using UnityEngine;
 using TMPro;
+using AtomicConsole;
 
 public class WaveManager : MonoBehaviour
 {
+    [AtomicSet(name:"SetWave")]
     public int currentWave; // the current wave of the game
     
     private float timer; // used to keep track of time between rounds
