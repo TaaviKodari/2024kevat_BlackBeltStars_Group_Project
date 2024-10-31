@@ -9,7 +9,8 @@ public class ResourceManager : MonoBehaviour
     private readonly Dictionary<ResourceType, int> resources = new();
     public PlayerController player { get; private set; }
     public DroppedResource resourcePrefab;
-
+    
+    [AtomicSet(name:"ResourceMultiplier",group:"Resources",description:"Multiplier of the output of AddResources command")] public int resourceMultiplier;
     private void Awake()
     {
         Instance = this;
@@ -96,12 +97,12 @@ public class ResourceManager : MonoBehaviour
     }
 
     // Temporary method for use in UI. Button callbacks can't deal with enums
-    [AtomicCommand(name: "AddResources")]
+    [AtomicCommand(name: "AddResources",group:"Resources",description:"Adds resources to the player (default: 10, increase multiplier with ResourceMultiplier)")]
     public void IncrementResources()
     {
         foreach (var resource in VariantManager.Instance.ResourceTypes.Values)
         {
-            AddResource(resource, 10);
+            AddResource(resource, 10*resourceMultiplier);
         }
     }
 }

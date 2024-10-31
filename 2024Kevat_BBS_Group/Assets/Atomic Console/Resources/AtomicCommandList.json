@@ -1,8 +1,8 @@
 {
     "Commands": [
         {
-            "Name": "AddResources",
-            "Description": "",
+            "Name": "Resources.AddResources",
+            "Description": "Adds resources to the player (default: 10, increase multiplier with ResourceMultiplier)",
             "TypeField": "",
             "Locked": false,
             "StaticMethod": false
@@ -111,6 +111,13 @@
             "TypeField": "Bool",
             "Locked": false,
             "StaticMethod": true
+        },
+        {
+            "Name": "Resources.ResourceMultiplier",
+            "Description": "Multiplier of the output of AddResources command",
+            "TypeField": "Int",
+            "Locked": false,
+            "StaticMethod": false
         }
     ]
 }
