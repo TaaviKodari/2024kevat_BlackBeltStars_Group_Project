@@ -8,6 +8,13 @@
             "StaticMethod": false
         },
         {
+            "Name": "SpawnPortal",
+            "Description": "",
+            "TypeField": "",
+            "Locked": false,
+            "StaticMethod": false
+        },
+        {
             "Name": "Close",
             "Description": "Close console",
             "TypeField": "",

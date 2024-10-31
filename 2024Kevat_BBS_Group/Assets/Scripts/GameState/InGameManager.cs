@@ -1,4 +1,5 @@
 ﻿using System;
+using AtomicConsole;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -60,7 +61,8 @@ namespace GameState
             SendToLobby();
         }
         
-        private void SpawnPortal()
+        [AtomicCommand(name:"SpawnPortal")]
+        public void SpawnPortal()
         {
             // Set adjustedPosition to player position with y increased by 10
             Vector3 adjustedPosition = playerTransform.position;

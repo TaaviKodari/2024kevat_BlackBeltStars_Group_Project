@@ -8,6 +8,7 @@ namespace AtomicAssembly.GeneratedCommands
         public static List<MethodInfo> commandMethods = new List<MethodInfo>
         {
             typeof(ResourceManager).GetMethod("IncrementResources"),
+        typeof(GameState.InGameManager).GetMethod("SpawnPortal"),
         typeof(AtomicConsole.Engine.AtomicConsoleEngine).GetMethod("Close"),
         typeof(AtomicConsole.Engine.AtomicConsoleEngine).GetMethod("ToggleFPS"),
         typeof(AtomicConsole.Engine.AtomicConsoleEngine).GetMethod("ProjectInfo"),
