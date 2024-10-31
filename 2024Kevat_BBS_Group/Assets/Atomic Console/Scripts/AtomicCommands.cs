@@ -27,7 +27,7 @@ namespace AtomicAssembly.GeneratedCommands
 
         public static List<FieldInfo> setFields = new List<FieldInfo>
         {
-            
+            typeof(WaveManager).GetField("currentWave")
         };
     }
 }

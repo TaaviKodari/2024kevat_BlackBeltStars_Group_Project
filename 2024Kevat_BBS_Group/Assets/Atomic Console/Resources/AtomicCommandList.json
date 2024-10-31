@@ -111,6 +111,13 @@
             "TypeField": "Bool",
             "Locked": false,
             "StaticMethod": true
+        },
+        {
+            "Name": "SetWave",
+            "Description": "",
+            "TypeField": "Int",
+            "Locked": false,
+            "StaticMethod": false
         }
     ]
 }
