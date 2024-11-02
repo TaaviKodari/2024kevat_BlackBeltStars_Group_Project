@@ -1,13 +1,14 @@
-﻿using System;
-using AtomicConsole;
+﻿using AtomicConsole;
+using AtomicConsole.Engine;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace GameState
 {
     public class InGameManager : MonoBehaviour
     {
         public static InGameManager Instance { get; private set; }
+        
+        private int portalPlacementLayerMask;
 
         [SerializeField]
         private SceneTransition transition;
@@ -25,6 +26,7 @@ namespace GameState
         private bool portalActive = false;
         public GameObject portalPopUp;
         public PopUpManager popUpManager;
+        
         private void Awake()
         {
             Instance = this;
@@ -36,6 +38,7 @@ namespace GameState
         {
             manager = FindObjectOfType<GameStateManager>();
             popUpManager = FindObjectOfType<PopUpManager>();
+            portalPlacementLayerMask = LayerMask.GetMask("Buildings", "Terrain Obstacles");
         }
 
         public void Pause()
@@ -64,20 +67,38 @@ namespace GameState
         [AtomicCommand(name:"SpawnPortal",group:"world",description:"Spawns the portal")]
         public void SpawnPortal()
         {
-            // Set adjustedPosition to player position with y increased by 10
-            Vector3 adjustedPosition = playerTransform.position;
-            adjustedPosition.y += 10;
+            if (portalActive) return;
+            portalActive = true;
 
-            // Instantiate the portalPrefab at the adjusted position
-            if (!portalActive)
+            var portalLocation = PickPortalLocation();
+            var portal = Instantiate(portalPrefab, portalLocation, Quaternion.identity);
+
+            for (var i = 0; i < 5; i++)
             {
-                portalActive = true;
-                Instantiate(portalPrefab, adjustedPosition, Quaternion.identity);
-                AtomicConsole.Engine.AtomicConsoleEngine.print($"Spawned the portal at {adjustedPosition}");
-                popUpManager.SetActivePopUp(portalPopUp, true);
+                if (Physics2D.OverlapBox(portalLocation, Vector2.one, 0, portalPlacementLayerMask))
+                {
+                    print($"Portal placement failed at ${portalLocation}, retrying");
+                    portalLocation = PickPortalLocation();
+                    portal.transform.position = portalLocation;
+                }
+                else
+                {
+                    break;
+                }
             }
+            
+            print($"Spawned the portal at {portalLocation}");
+            popUpManager.SetActivePopUp(portalPopUp, true);
         }
 
+        private Vector2 PickPortalLocation()
+        {
+            var playerPos = (Vector2)playerTransform.position;
+            var angle = Random.value * 2 * Mathf.PI;
+            var distance = 10 + (Random.value - 0.5f) * 5;
+
+            return playerPos + new Vector2(Mathf.Cos(angle) * distance, Mathf.Sin(angle) * distance);
+        }
         
         public void AddKilledAnt()
         {
