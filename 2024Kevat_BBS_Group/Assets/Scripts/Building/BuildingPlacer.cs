@@ -152,47 +152,45 @@ public class BuildingPlacer : MonoBehaviour
     }
 
     private void UpdateLinePlacementPreview()
+{
+    if (!isLinePlacing) return;
+
+    var currentPos = GetSelectedTile(Vector2Int.one);
+
+    if (currentPos == lastPreviewPosition) return;
+    lastPreviewPosition = currentPos;
+
+    var (linePoints, corner) = CalculateWallLine(lineStartPos, currentPos);
+
+    // Update the main line renderer
+    lineRenderer.positionCount = linePoints.Count;
+    for (int i = 0; i < linePoints.Count; i++)
     {
-        if (!isLinePlacing) return;
-
-        var currentPos = GetSelectedTile(Vector2Int.one);
-        
-        if (currentPos == lastPreviewPosition) return;
-        lastPreviewPosition = currentPos;
-
-        var (linePoints, _) = CalculateWallLine(lineStartPos, currentPos);
-
-        while (linePoints.Count - 1 > lineSegmentPool.Count)
-        {
-            CreatePooledLineSegment();
-        }
-
-        foreach (var lineRenderer in lineSegmentPool)
-        {
-            lineRenderer.enabled = false;
-        }
-
-        activeSegments.Clear();
-
-        for (int i = 0; i < linePoints.Count - 1; i++)
-        {
-            var segmentStart = manager.BuildingPosToWorldPos(linePoints[i]) + new Vector2(0.5f, 0.5f);
-            var segmentEnd = manager.BuildingPosToWorldPos(linePoints[i + 1]) + new Vector2(0.5f, 0.5f);
-            
-            var lineRenderer = lineSegmentPool[i];
-            lineRenderer.SetPosition(0, segmentStart);
-            lineRenderer.SetPosition(1, segmentEnd);
-            lineRenderer.enabled = true;
-
-            validationBuilding.transform.position = segmentStart;
-            var isValid = manager.CanPlace(validationBuilding);
-
-            activeSegments.Add((lineRenderer, isValid));
-            lineRenderer.material = isValid ? previewMaterial : invalidPreviewMaterial;
-        }
-
-        activeLineSegments = linePoints.Count - 1;
+        var worldPos = manager.BuildingPosToWorldPos(linePoints[i]) + new Vector2(0.5f, 0.5f);
+        lineRenderer.SetPosition(i, worldPos);
     }
+    lineRenderer.enabled = true;
+
+    // Update the corner line renderer
+    var cornerWorldPos = manager.BuildingPosToWorldPos(corner) + new Vector2(0.5f, 0.5f);
+    lineSegmentPool[0].SetPosition(0, lineRenderer.GetPosition(linePoints.Count - 1));
+    lineSegmentPool[0].SetPosition(1, cornerWorldPos);
+    lineSegmentPool[0].enabled = true;
+
+    // Disable unused line segments
+    for (int i = 1; i < activeLineSegments; i++)
+    {
+        lineSegmentPool[i].enabled = false;
+    }
+
+    // Update the material of the line segments based on validity
+    validationBuilding.transform.position = lineRenderer.GetPosition(0);
+    var isValid = manager.CanPlace(validationBuilding);
+    lineRenderer.material = isValid ? previewMaterial : invalidPreviewMaterial;
+    lineSegmentPool[0].material = isValid ? previewMaterial : invalidPreviewMaterial;
+
+    activeLineSegments = 1; // Only the main line and the corner segment are active
+}
 
     private void CancelLinePlacement()
     {
@@ -218,36 +216,35 @@ public class BuildingPlacer : MonoBehaviour
     }
 
     private (List<Vector2Int> points, Vector2Int corner) CalculateWallLine(Vector2Int start, Vector2Int end)
+{
+    var points = new List<Vector2Int>();
+    var corner = new Vector2Int(start.x, end.y);
+
+    int verticalStep = Math.Sign(end.y - start.y);
+    if (verticalStep != 0)
     {
-        var points = new List<Vector2Int>();
-        var corner = new Vector2Int(start.x, end.y);
-    
-        points.Capacity = Math.Abs(end.y - start.y) + Math.Abs(end.x - start.x);
-
-        int verticalStep = Math.Sign(end.y - start.y);
-        if (verticalStep != 0)
+        // Add the vertical segment
+        for (int y = start.y; y != end.y; y += verticalStep)
         {
-            for (int y = start.y; y != end.y + verticalStep; y += verticalStep)
-            {
-                points.Add(new Vector2Int(start.x, y));
-            }
+            points.Add(new Vector2Int(start.x, y));
         }
-        else
-        {
-            points.Add(start);
-        }
-
-        int horizontalStep = Math.Sign(end.x - start.x);
-        if (horizontalStep != 0)
-        {
-            for (int x = start.x + horizontalStep; x != end.x + horizontalStep; x += horizontalStep)
-            {
-                points.Add(new Vector2Int(x, end.y));
-            }
-        }
-
-        return (points, corner);
     }
+
+    int horizontalStep = Math.Sign(end.x - start.x);
+    if (horizontalStep != 0)
+    {
+        // Add the horizontal segment
+        for (int x = start.x; x != end.x; x += horizontalStep)
+        {
+            points.Add(new Vector2Int(x, end.y));
+        }
+    }
+
+    // Add the corner point
+    points.Add(corner);
+
+    return (points, corner);
+}
 
     private void PlaceWallLine()
     {
