@@ -50,5 +50,16 @@ namespace MapSelect
             Destroy(stateManager.gameObject);
             transition.LoadScene("MainMenu");
         }
+        
+        public void OpenShop()
+        {
+            Save();
+            transition.LoadScene("Shop");
+        }
+        
+        public void OpenWorldSelect()
+        {
+            transition.LoadScene("WorldSelect");
+        }
     }
 }
