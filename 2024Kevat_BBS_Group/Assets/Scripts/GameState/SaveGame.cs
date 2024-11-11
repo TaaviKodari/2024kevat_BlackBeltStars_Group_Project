@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using AtomicConsole;
 
 namespace GameState
 {
@@ -9,6 +11,7 @@ namespace GameState
         public string SaveName;
         public Resources resources;
         public Maps maps;
+        public Inventory inventory;
     }
 
     [Serializable]
@@ -16,5 +19,26 @@ namespace GameState
     {
         public int gold;
         public int diamonds;
+    }
+    
+    [Serializable]
+    public struct HealthBoost
+    {
+        public float multiplier;
+        public int duration;
+    }
+    
+    [Serializable]
+    public struct SpeedBoost
+    {
+        public float multiplier;
+        public int duration;
+    }
+    
+    [Serializable]
+    public struct Inventory
+    {
+        public List<SpeedBoost> speedBoosts;
+        public List<HealthBoost> healthBoosts;
     }
 }
