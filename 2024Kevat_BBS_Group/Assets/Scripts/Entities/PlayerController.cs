@@ -1,4 +1,5 @@
 using System;
+using AtomicConsole;
 using GameState;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -183,5 +184,11 @@ public class PlayerController : Entity
     protected override void Die()
     {
         // TODO: Implement game over screen or death logic
+    }
+
+    [AtomicCommand("Player", "Heal", "Heal the player to max health")]
+    public void HealCommandCallback()
+    {
+        Heal(float.PositiveInfinity);
     }
 }

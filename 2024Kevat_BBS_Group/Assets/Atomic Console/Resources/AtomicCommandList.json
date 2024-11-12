@@ -1,6 +1,13 @@
 {
     "Commands": [
         {
+            "Name": "Player.Heal",
+            "Description": "Heal the player to max health",
+            "TypeField": "",
+            "Locked": false,
+            "StaticMethod": false
+        },
+        {
             "Name": "Resources.AddResources",
             "Description": "Adds resources to the player (default: 10, increase multiplier with ResourceMultiplier)",
             "TypeField": "",
@@ -113,15 +120,15 @@
             "StaticMethod": true
         },
         {
-            "Name": "SetWave",
-            "Description": "",
+            "Name": "Resources.ResourceMultiplier",
+            "Description": "Multiplier of the output of AddResources command, can't be zero",
             "TypeField": "Int",
             "Locked": false,
             "StaticMethod": false
         },
         {
-            "Name": "Resources.ResourceMultiplier",
-            "Description": "Multiplier of the output of AddResources command, can't be zero",
+            "Name": "SetWave",
+            "Description": "",
             "TypeField": "Int",
             "Locked": false,
             "StaticMethod": false

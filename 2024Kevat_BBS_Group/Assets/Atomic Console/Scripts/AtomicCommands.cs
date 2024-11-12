@@ -7,7 +7,8 @@ namespace AtomicAssembly.GeneratedCommands
     {
         public static List<MethodInfo> commandMethods = new List<MethodInfo>
         {
-            typeof(ResourceManager).GetMethod("IncrementResources"),
+            typeof(PlayerController).GetMethod("HealCommandCallback"),
+        typeof(ResourceManager).GetMethod("IncrementResources"),
         typeof(GameState.InGameManager).GetMethod("SpawnPortal"),
         typeof(AtomicConsole.Engine.AtomicConsoleEngine).GetMethod("Close"),
         typeof(AtomicConsole.Engine.AtomicConsoleEngine).GetMethod("ToggleFPS"),
@@ -27,8 +28,8 @@ namespace AtomicAssembly.GeneratedCommands
 
         public static List<FieldInfo> setFields = new List<FieldInfo>
         {
-            typeof(WaveManager).GetField("currentWave"),
-        typeof(ResourceManager).GetField("resourceMultiplier")
+            typeof(ResourceManager).GetField("resourceMultiplier"),
+        typeof(WaveManager).GetField("currentWave")
         };
     }
 }
