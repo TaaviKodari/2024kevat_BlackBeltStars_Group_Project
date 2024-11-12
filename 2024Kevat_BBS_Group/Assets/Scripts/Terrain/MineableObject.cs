@@ -10,6 +10,9 @@ public class MineableObject : MonoBehaviour, IBuildingBlocker
     public List<ResourceDrop> drops;
     [SerializeField, CanBeNull]
     private HealthBar healthBar;
+    [SerializeField, CanBeNull]
+    private GameObject particlePrefab;
+
 
     [Serializable]
     public class ResourceDrop
@@ -38,6 +41,10 @@ public class MineableObject : MonoBehaviour, IBuildingBlocker
         if (hitsLeft <= 0)
         {
             DropLoot();
+            if (particlePrefab != null)
+            {
+                Instantiate(particlePrefab);
+            }
             AudioManager.Instance.PlayFull("MineDestroySound");
             Destroy(gameObject);
         }
