@@ -1,20 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using MapSelect;
-using GameState; // Add this line to access LiveGameTracker
+using GameState;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+// Add this line to access LiveGameTracker
 
 public class Portal : MonoBehaviour
 {
-    private BuildingManager buildingManager;
     private InGameManager inGameManager;
 
     private void Awake()
     {
         inGameManager = FindObjectOfType<InGameManager>();
-        buildingManager = FindObjectOfType<BuildingManager>();
     }
 
     // checks for collisions with the portal
