@@ -53,14 +53,13 @@ public class HealthBar : MonoBehaviour
         {
             alphaMultiplier -= Time.deltaTime / fadeTime;
             if (alphaMultiplier < 0) alphaMultiplier = 0;
-            UpdateBar();
         }
+        UpdateBar();
     }
 
     public void SetHealth(float health, float maxHealth)
     {
         value = health / maxHealth;
-        UpdateBar();
     }
 
     private void UpdateBar()
