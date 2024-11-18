@@ -15,8 +15,36 @@
             "StaticMethod": false
         },
         {
-            "Name": "world.SpawnPortal",
+            "Name": "GameState.FadeGameEnd",
+            "Description": "Fade to game end screen",
+            "TypeField": "Bool",
+            "Locked": false,
+            "StaticMethod": false
+        },
+        {
+            "Name": "GameState.SpawnPortal",
             "Description": "Spawns the portal",
+            "TypeField": "",
+            "Locked": false,
+            "StaticMethod": false
+        },
+        {
+            "Name": "GameState.NextRound",
+            "Description": "Open the map select screen for the next round",
+            "TypeField": "",
+            "Locked": false,
+            "StaticMethod": false
+        },
+        {
+            "Name": "GameState.RollBack",
+            "Description": "Load the last save with the same name",
+            "TypeField": "",
+            "Locked": false,
+            "StaticMethod": false
+        },
+        {
+            "Name": "GameState.AbandonGame",
+            "Description": "Return to main menu",
             "TypeField": "",
             "Locked": false,
             "StaticMethod": false

@@ -19,7 +19,7 @@ public class Portal : MonoBehaviour
         {
             // means that the current map has been "won"
             Debug.Log("Collided with GameObject with the TargetTag");
-            inGameManager.PlayerTouchedPortal();
+            inGameManager.EndGame(true);
         }
     }
 }

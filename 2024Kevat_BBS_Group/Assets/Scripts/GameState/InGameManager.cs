@@ -1,6 +1,7 @@
-﻿using AtomicConsole;
-using AtomicConsole.Engine;
+﻿using System.Linq;
+using AtomicConsole;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameState
 {
@@ -22,10 +23,14 @@ namespace GameState
 
         public GameObject portalPrefab;
         public Transform playerTransform;
-        private Vector2 PortalLocation;
         private bool portalActive = false;
         public GameObject portalPopUp;
         public PopUpManager popUpManager;
+
+        [SerializeField]
+        private UnityEvent onWin;
+        [SerializeField]
+        private UnityEvent onLose;
         
         private void Awake()
         {
@@ -59,12 +64,20 @@ namespace GameState
             Paused = false;
         }
 
-        public void PlayerTouchedPortal()
+        [AtomicCommand("GameState", "FadeGameEnd", "Fade to game end screen. Arguments: <won: bool>")]
+        public void EndGame(bool won)
         {
-            SendToLobby();
+            if (won)
+            {
+                onWin.Invoke();
+            }
+            else
+            {
+                onLose.Invoke();
+            }
         }
         
-        [AtomicCommand(name:"SpawnPortal",group:"world",description:"Spawns the portal")]
+        [AtomicCommand("GameState", "SpawnPortal", "Spawns the portal")]
         public void SpawnPortal()
         {
             if (portalActive) return;
@@ -118,18 +131,6 @@ namespace GameState
             SpawnPortal();
         }
 
-        private void SendToLobby()
-        {
-            manager.GenerateMaps();
-            transition.LoadScene("WorldSelect");
-        }
-        
-        public void LoseGame()
-        {
-            manager.GenerateMaps();
-            transition.LoadScene("WorldSelect");
-        }
-
         private bool HasWon()
         {
             return manager.currentMap.goal switch
@@ -138,6 +139,38 @@ namespace GameState
                 SurviveWavesMapGoal goal => wavesSurvived >= goal.amount,
                 _ => false
             };
+        }
+
+        [AtomicCommand("GameState", "NextRound", "Open the map select screen for the next round")]
+        public void PrepareNextRound()
+        {
+            manager.GenerateMaps();
+            transition.LoadScene("WorldSelect");
+        }
+
+        [AtomicCommand("GameState", "RollBack", "Load the last save with the same name")]
+        public void RollBackGame()
+        {
+            var saves = SaveManager.LoadGames().FindAll(game => game.SaveName == manager.currentSaveGame.SaveName);
+            if (saves.Count == 0)
+            {
+                Debug.LogError("Cannot load previous save (not found)", this);
+                AbandonGame();
+                return;
+            }
+            if (saves.Count > 0)
+            {
+                Debug.LogWarning("Multiple saves with the same name found, loading first", this);
+            }
+            manager.LoadGame(saves.First());
+            transition.LoadScene("WorldSelect");
+        }
+
+        [AtomicCommand("GameState", "AbandonGame", "Return to main menu")]
+        public void AbandonGame()
+        {
+            Destroy(manager.gameObject);
+            transition.LoadScene("MainMenu");
         }
     }
 }

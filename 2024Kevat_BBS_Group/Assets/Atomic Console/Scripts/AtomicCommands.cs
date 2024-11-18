@@ -9,7 +9,11 @@ namespace AtomicAssembly.GeneratedCommands
         {
             typeof(PlayerController).GetMethod("HealCommandCallback"),
         typeof(ResourceManager).GetMethod("IncrementResources"),
+        typeof(GameState.InGameManager).GetMethod("EndGame"),
         typeof(GameState.InGameManager).GetMethod("SpawnPortal"),
+        typeof(GameState.InGameManager).GetMethod("PrepareNextRound"),
+        typeof(GameState.InGameManager).GetMethod("RollBackGame"),
+        typeof(GameState.InGameManager).GetMethod("AbandonGame"),
         typeof(AtomicConsole.Engine.AtomicConsoleEngine).GetMethod("Close"),
         typeof(AtomicConsole.Engine.AtomicConsoleEngine).GetMethod("ToggleFPS"),
         typeof(AtomicConsole.Engine.AtomicConsoleEngine).GetMethod("ProjectInfo"),

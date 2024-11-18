@@ -183,7 +183,7 @@ public class PlayerController : Entity
     // Override the Die method to handle player death (to be implemented)
     protected override void Die()
     {
-        // TODO: Implement game over screen or death logic
+        InGameManager.Instance.EndGame(false);
     }
 
     [AtomicCommand("Player", "Heal", "Heal the player to max health")]
