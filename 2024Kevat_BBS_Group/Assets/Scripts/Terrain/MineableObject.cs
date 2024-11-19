@@ -43,7 +43,7 @@ public class MineableObject : MonoBehaviour, IBuildingBlocker
             DropLoot();
             if (particlePrefab != null)
             {
-                Instantiate(particlePrefab);
+                Instantiate(particlePrefab, transform.position, Quaternion.identity);
             }
             AudioManager.Instance.PlayFull("MineDestroySound");
             Destroy(gameObject);

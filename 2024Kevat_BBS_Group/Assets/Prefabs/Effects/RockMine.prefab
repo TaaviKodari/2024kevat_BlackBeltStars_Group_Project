@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 990047860495954691}
   - component: {fileID: 7963001423380804499}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: RockMine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
