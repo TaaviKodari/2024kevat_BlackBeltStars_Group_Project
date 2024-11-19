@@ -15,6 +15,9 @@ public class Enemy : Entity
     
     // when the enemy has attacked last time
     private float lastAttackTime = 0f;
+
+    [SerializeField]
+    private GameObject killParticle;
     
     // Serializable class representing a resource drop, including its type and amount
     [Serializable]
@@ -58,12 +61,16 @@ public class Enemy : Entity
     // Handles the enemy's death by dropping loot, notifying the manager, and playing a sound
     protected override void Die()
     {
+        // Play the kill particle effect
+        GameObject particle = Instantiate(killParticle, transform.position, Quaternion.identity);
+        Destroy(particle, particle.GetComponent<ParticleSystem>().main.duration);
         // Drop the loot upon death
         DropLoot();
         // Notify the EnemyManager that this enemy has died
         manager.EnemyDie(this);
         // Call the base class's Die method to handle destruction
         base.Die();
+        
         // Play the "EnemyDie" sound effect
         AudioManager.Instance.PlayFull("EnemyDie");
     }
