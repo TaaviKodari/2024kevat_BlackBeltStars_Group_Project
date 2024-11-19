@@ -192,7 +192,8 @@ namespace AtomicConsole.Engine
                     instance = FindObjectOfType(methodInfo.ReflectedType);
                     if (instance == null)
                     {
-                        Debug.LogWarning($"No instance found for non-static method {methodInfo.Name} in type {methodInfo.ReflectedType.FullName}");
+                        // Antack: Disable this as we regularly have singletons only in game
+                        // Debug.LogWarning($"No instance found for non-static method {methodInfo.Name} in type {methodInfo.ReflectedType.FullName}");
                         continue;
                     }
                 }
