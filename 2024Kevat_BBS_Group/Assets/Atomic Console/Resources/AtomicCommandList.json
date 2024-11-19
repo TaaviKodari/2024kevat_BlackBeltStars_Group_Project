@@ -16,7 +16,7 @@
         },
         {
             "Name": "GameState.FadeGameEnd",
-            "Description": "Fade to game end screen",
+            "Description": "Fade to game end screen. Arguments: <won: bool>",
             "TypeField": "Bool",
             "Locked": false,
             "StaticMethod": false
