@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Pathfinding;
 using UnityEngine;
+using Attribute = Attributes.Attribute;
 
 public class Enemy : Entity
 {
@@ -9,9 +10,6 @@ public class Enemy : Entity
     public List<ResourceDrop> drops;
     // Flag to ensure resources are dropped only once when the enemy dies
     private bool resourcesDropped;
-    
-    // minimum time between attacks 
-    public float attackCooldown;
     
     // when the enemy has attacked last time
     private float lastAttackTime = 0f;
@@ -47,7 +45,7 @@ public class Enemy : Entity
     private bool CanAttack()
     {
         // the enemy can attack, if it has been "attackCooldown" seconds since the last attack
-        return Time.time >= lastAttackTime + attackCooldown;
+        return Time.time >= lastAttackTime + AttributeHolder.GetValue(Attribute.AttackCooldown);
     }
     
     // Override of the abstract GetMoveDirection method from the Entity class
@@ -104,7 +102,7 @@ public class Enemy : Entity
         }
         else if (other.gameObject.TryGetComponent<Building>(out var building))
         {
-            building.DoDamage(damage);
+            building.DoDamage(AttackDamage);
             lastAttackTime = Time.time;
         }
     }

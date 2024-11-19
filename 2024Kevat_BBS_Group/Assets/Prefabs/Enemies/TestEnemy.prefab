@@ -128,17 +128,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de069942f458bb9469aa867713232aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 25
-  damage: 5
-  knockback: 20
-  speed: 1
+  defaultAttributes:
+    serializedEntries:
+    - attribute: speed
+      value: 1
+    - attribute: max_health
+      value: 25
+    - attribute: damage
+      value: 5
+    - attribute: attack_speed
+      value: 2
+    - attribute: knockback
+      value: 2
   healthBar: {fileID: 5248273694673526953}
   drops:
   - type: {fileID: 11400000, guid: a4d3e6967337a444dbacf4787edc2a2d, type: 2}
     amount: 3
   - type: {fileID: 11400000, guid: 7152db1e095851849baac84b8494c59c, type: 2}
     amount: 1
-  attackCooldown: 2
   killParticle: {fileID: 1720417163331193416, guid: 28d91257635b2b1a9955ac4daf03f940, type: 3}
   manager: {fileID: 0}
 --- !u!61 &4908577002335786849

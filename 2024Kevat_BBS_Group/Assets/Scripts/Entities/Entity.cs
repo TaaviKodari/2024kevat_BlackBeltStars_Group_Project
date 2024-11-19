@@ -1,20 +1,17 @@
-using System;
-using System.Collections.Generic;
+using Attributes;
 using UnityEngine;
+using Attribute = Attributes.Attribute;
 
 public abstract class Entity : MonoBehaviour, IBuildingBlocker
 {
     // Time during which the entity is invulnerable after taking damage (currently set to 0)
     private const float InvulnerabilityTime = 0;
-        
-    // Maximum health of the entity
-    [SerializeField] private float maxHealth = 2f;
-    // Amount of damage the entity can inflict
-    [SerializeField] protected float damage = 1f;
-    // Force applied to another entity when this one attacks (knockback effect)
-    [SerializeField] private float knockback = 2f;
-    // Movement speed of the entity
-    [SerializeField] protected float speed = 2f;
+
+    protected float MaxHealth => AttributeHolder.GetValue(Attribute.MaxHealth);
+    protected float AttackDamage => AttributeHolder.GetValue(Attribute.AttackDamage);
+
+    [SerializeField]
+    private DefaultAttributes defaultAttributes = new();
 
     // Current health of the entity
     private float health;
@@ -23,6 +20,8 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
     // Amount of damage taken in the last hit
     private float lastHitDamage;
 
+    public readonly AttributeHolder AttributeHolder;
+
     // Reference to the Rigidbody2D component used for physics-based movement
     protected Rigidbody2D rb;
 
@@ -30,16 +29,21 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
     [SerializeField]
     private HealthBar healthBar;
 
+    protected Entity()
+    {
+        AttributeHolder = new AttributeHolder(defaultAttributes.Attributes);
+    }
+
     // Awake is called when the script instance is being loaded
     protected virtual void Awake()
     {
         // Get the Rigidbody2D component attached to the entity
         rb = GetComponent<Rigidbody2D>();
         // Initialize health to the maximum health value
-        health = maxHealth;
+        health = MaxHealth;
 
         // Set up the health bar with the max health and current health
-        healthBar.SetHealth(maxHealth, maxHealth);
+        healthBar.SetHealth(MaxHealth, MaxHealth);
     }
 
     // FixedUpdate is called at a fixed interval and is used here for physics-related updates
@@ -58,7 +62,7 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
         // Get the movement direction from the derived class
         var dir = GetMoveDirection();
         // Apply movement based on direction, speed, and a scaling factor
-        rb.velocity += dir * (Time.fixedDeltaTime * speed * 50);
+        rb.velocity += dir * (Time.fixedDeltaTime * AttributeHolder.GetValue(Attribute.Speed) * 50);
         // Optional method to add additional behavior when moving
         OnMove(dir);
     }
@@ -71,15 +75,27 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
     // Method to set health based on a multiplier (for spawning "stronger enemies")
     public void SetHealth(float healthMultiplier)
     {
-        maxHealth *= healthMultiplier;
-        health = maxHealth;
-        healthBar.SetHealth(health, maxHealth);
+        AttributeHolder.AddModifier(new AttributeModifier
+        {
+            Tag = "SpawnBuff",
+            Attribute = Attribute.MaxHealth,
+            Type = AttributeModifierType.Multiply,
+            Amount = healthMultiplier
+        });
+        health = MaxHealth;
+        healthBar.SetHealth(health, MaxHealth);
     }
 
     // Method to set speed based on a multiplier (for spawning "stronger enemies")
     public void SetSpeed(float speedMultiplier)
     {
-        speed *= speedMultiplier;
+        AttributeHolder.AddModifier(new AttributeModifier
+        {
+            Tag = "SpawnBuff",
+            Attribute = Attribute.Speed,
+            Type = AttributeModifierType.Multiply,
+            Amount = speedMultiplier
+        });
     }
     
     // Method to apply damage to the entity
@@ -115,16 +131,16 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
         }
 
         // Update the health bar to reflect the new health value
-        healthBar.SetHealth(health, maxHealth);
+        healthBar.SetHealth(health, MaxHealth);
     }
 
     // Method to heal the entity by a specified amount
     public void Heal(float amount)
     {
         // Increase health by the amount healed, but don't exceed max health
-        health = Mathf.Min(health + amount, maxHealth);
+        health = Mathf.Min(health + amount, MaxHealth);
         // Update the health bar to reflect the new health value
-        healthBar.SetHealth(health, maxHealth);
+        healthBar.SetHealth(health, MaxHealth);
     }
 
     // Virtual method that can be overridden to define custom behavior when the entity dies
@@ -138,13 +154,13 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
     protected void Attack(Entity other)
     {
         // Inflict damage on the other entity
-        other.Damage(damage);
+        other.Damage(AttackDamage);
 
         // Apply knockback to the other entity if it has a Rigidbody2D component
         if (other.TryGetComponent<Rigidbody2D>(out var rb))
         {
             // Calculate and apply knockback force based on the direction from this entity to the other
-            rb.velocity += (Vector2)(other.transform.position - transform.position).normalized * knockback;
+            rb.velocity += (Vector2)(other.transform.position - transform.position).normalized * AttributeHolder.GetValue(Attribute.Knockback);
         }
     }
 }

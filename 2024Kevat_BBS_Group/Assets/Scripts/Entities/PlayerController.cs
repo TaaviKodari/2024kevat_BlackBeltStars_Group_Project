@@ -1,9 +1,9 @@
-using System;
 using AtomicConsole;
 using GameState;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Attribute = Attributes.Attribute;
 
 public class PlayerController : Entity
 {
@@ -75,7 +75,7 @@ public class PlayerController : Entity
             // Increase aim time while the attack button is pressed
             aimTime += Time.deltaTime;
         } 
-        else if (aiming && aimTime >= 1)
+        else if (aiming && aimTime >= AttributeHolder.GetValue(Attribute.AttackCooldown))
         {
             // Shoot the arrow if aiming time exceeds 1 second
             Shoot();
@@ -110,7 +110,7 @@ public class PlayerController : Entity
         // Instantiate the arrow prefab at the shoot point with the correct rotation
         var arrow = Instantiate(arrowPrefab, shootPoint.position, Quaternion.AngleAxis(angle, Vector3.forward));
         arrow.Owner = gameObject;
-        arrow.Damage = damage;
+        arrow.Damage = AttackDamage;
 
         // Apply force to the arrow to shoot it
         var arrowRb = arrow.GetComponent<Rigidbody2D>();

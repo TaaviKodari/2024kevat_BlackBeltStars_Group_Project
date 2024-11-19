@@ -936,10 +936,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb827b9066472854b9cfd4009023e65c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  damage: 10
   knockback: 2
-  speed: 2
+  defaultAttributes:
+    serializedEntries:
+    - attribute: max_health
+      value: 100
+    - attribute: speed
+      value: 2
+    - attribute: damage
+      value: 10
+    - attribute: attack_speed
+      value: 1
+    - attribute: knockback
+      value: 2
   healthBar: {fileID: 1632042083}
   arrowPrefab: {fileID: 6630246808432321123, guid: dc710691d353f3341ae442a26b50014c, type: 3}
   arrowForce: 29
@@ -7984,7 +7993,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 8.4375
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
