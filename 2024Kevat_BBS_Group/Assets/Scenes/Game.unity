@@ -942,7 +942,7 @@ MonoBehaviour:
   speed: 2
   healthBar: {fileID: 1632042083}
   arrowPrefab: {fileID: 6630246808432321123, guid: dc710691d353f3341ae442a26b50014c, type: 3}
-  arrowForce: 15
+  arrowForce: 29
   shootPoint: {fileID: 1095672918}
 --- !u!50 &78882053
 Rigidbody2D:

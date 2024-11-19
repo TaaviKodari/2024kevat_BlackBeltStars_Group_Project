@@ -139,6 +139,7 @@ MonoBehaviour:
   - type: {fileID: 11400000, guid: 7152db1e095851849baac84b8494c59c, type: 2}
     amount: 1
   attackCooldown: 2
+  killParticle: {fileID: 1720417163331193416, guid: 28d91257635b2b1a9955ac4daf03f940, type: 3}
   manager: {fileID: 0}
 --- !u!61 &4908577002335786849
 BoxCollider2D:
