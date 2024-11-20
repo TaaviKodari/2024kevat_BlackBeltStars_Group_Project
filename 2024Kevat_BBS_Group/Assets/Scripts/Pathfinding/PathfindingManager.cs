@@ -29,9 +29,10 @@ namespace Pathfinding
 
         private void OnDrawGizmosSelected()
         {
+            if (!debugOptions.enableGizmo) return;
             foreach (var chunk in chunks.Values)
             {
-                // chunk.RenderGizmos();
+                chunk.RenderGizmos();
             }
         }
 
@@ -86,11 +87,21 @@ namespace Pathfinding
         // Walks randomly to nodes around target in search of a valid one
         private NodePos FindValidNodeNear(NodePos pos)
         {
+            if (GetNode(pos).Type != NodeType.Blocked) return pos;
+
             var moves = 0;
             var candidate = pos;
-            while (GetNode(candidate).Type == NodeType.Blocked && moves < 5)
+            var dir = Random.Range(0, 4) switch
             {
-                candidate = new NodePos(pos.Pos + new Vector2Int(Random.Range(-1, 1), Random.Range(-1, 1)), this);
+                0 => Vector2Int.up,
+                1 => Vector2Int.down,
+                2 => Vector2Int.left,
+                _ => Vector2Int.right
+            };
+
+            while (GetNode(candidate).Type == NodeType.Blocked && moves < 10)
+            {
+                candidate = new NodePos(candidate.Pos + dir, this);
                 moves++;
             }
 
@@ -113,5 +124,6 @@ namespace Pathfinding
     internal class DebugOptions
     {
         public Gradient costGradient = new();
+        public bool enableGizmo;
     }
 }
