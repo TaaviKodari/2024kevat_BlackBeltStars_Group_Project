@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GameState;
 using JetBrains.Annotations;
+using Sound;
 using UnityEngine;
 
 public class BuildingManager : MonoBehaviour
@@ -74,14 +75,14 @@ public class BuildingManager : MonoBehaviour
             Destroy(building.gameObject);
             if(gameManager.Input.Building.Place.triggered)
             {
-                AudioManager.Instance.PlayFull("CantPlace");
+                AudioManager.Instance.PlaySfx("CantPlace");
             }
             return;
         }
         usedPositions.UnionWith(buildingPositions);
         buildings.Add(building);
         buildingPositions.ToList().ForEach(p => positionToBuilding.Add(p, building));
-        AudioManager.Instance.PlayOver("PlaceSound");
+        AudioManager.Instance.PlaySfx("PlaceSound");
         foreach (var cost in building.data.costs)
         {
             ResourceManager.Instance.RemoveResource(cost.type, cost.amount);

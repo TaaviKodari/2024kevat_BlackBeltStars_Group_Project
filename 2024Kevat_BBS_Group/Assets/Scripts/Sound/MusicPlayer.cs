@@ -1,18 +1,16 @@
 ﻿using UnityEngine;
 
 // Plays music for a scene without interrupting on scene transition if the same piece is already playing
-public class MusicPlayer : MonoBehaviour
+namespace Sound
 {
-    [SerializeField]
-    private string clip;
-
-    private void OnEnable()
+    public class MusicPlayer : MonoBehaviour
     {
-        AudioManager.Instance.SwitchMusic(clip);
-    }
+        [SerializeField]
+        private string clip;
 
-    private void Update()
-    {
-        AudioManager.Instance.PlayFull(clip);
+        private void OnEnable()
+        {
+            AudioManager.Instance.PlayMusic(clip);
+        }
     }
 }

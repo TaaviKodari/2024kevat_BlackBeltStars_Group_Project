@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Sound;
 using UnityEngine;
 
 public class MineableObject : MonoBehaviour, IBuildingBlocker
@@ -37,7 +38,7 @@ public class MineableObject : MonoBehaviour, IBuildingBlocker
     public void Mine()
     {
         hitsLeft -= 1;
-        AudioManager.Instance.PlayOver("MineSound");
+        AudioManager.Instance.PlaySfx("MineSound");
         if (hitsLeft <= 0)
         {
             DropLoot();
@@ -45,7 +46,8 @@ public class MineableObject : MonoBehaviour, IBuildingBlocker
             {
                 Instantiate(particlePrefab, transform.position, Quaternion.identity);
             }
-            AudioManager.Instance.PlayFull("MineDestroySound");
+
+            AudioManager.Instance.PlaySfx("MineDestroySound");
             Destroy(gameObject);
         }
         else

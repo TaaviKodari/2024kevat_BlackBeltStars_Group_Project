@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sound;
 using UnityEngine;
 
 public class ArrowTower : MonoBehaviour
@@ -39,7 +40,7 @@ public class ArrowTower : MonoBehaviour
         arrowRb.AddForce(relativeTarget.normalized * arrowForce, ForceMode2D.Impulse);
 
         // Play the shooting sound effect
-        AudioManager.Instance.PlayStop("PlayerShoot");
+        AudioManager.Instance.PlaySfx("PlayerShoot");
         lastShoot = Time.time;
     }
 }

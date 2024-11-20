@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Pathfinding;
+using Sound;
 using UnityEngine;
 using Attribute = Attributes.Attribute;
 
@@ -70,7 +71,7 @@ public class Enemy : Entity
         base.Die();
         
         // Play the "EnemyDie" sound effect
-        AudioManager.Instance.PlayFull("EnemyDie");
+        AudioManager.Instance.PlaySfx("EnemyDie");
     }
 
     // Method to drop loot when the enemy dies

@@ -1,5 +1,6 @@
 using AtomicConsole;
 using GameState;
+using Sound;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -61,9 +62,9 @@ public class PlayerController : Entity
         }
 
         // Check if the player is moving to play the walking sound
-        if(gameManager.Input.Player.Movement.IsPressed())
+        if(gameManager.Input.Player.Movement.IsPressed() && AudioManager.CheckPeriod(0.35f))
         {
-            AudioManager.Instance.PlayFull("WalkSound");
+            AudioManager.Instance.PlaySfx("WalkSound");
         }
     }
 
@@ -117,7 +118,7 @@ public class PlayerController : Entity
         arrowRb.AddForce(direction.normalized * arrowForce, ForceMode2D.Impulse);
 
         // Play the shooting sound effect
-        AudioManager.Instance.PlayStop("PlayerShoot");
+        AudioManager.Instance.PlaySfx("PlayerShoot");
     }
 
     // Handle mining objects within range

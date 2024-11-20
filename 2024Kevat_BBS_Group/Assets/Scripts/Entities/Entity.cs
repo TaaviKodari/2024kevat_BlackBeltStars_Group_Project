@@ -1,4 +1,5 @@
 using Attributes;
+using Sound;
 using UnityEngine;
 using Attribute = Attributes.Attribute;
 
@@ -118,7 +119,7 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
         // Subtract the damage from the entity's health
         health -= amount;
         // Play the "EnemyDamaged" sound effect using the AudioManager
-        AudioManager.Instance.PlayOver("EnemyDamaged");
+        AudioManager.Instance.PlaySfx("EnemyDamaged");
         // Record the time and amount of damage taken
         lastHitTime = Time.time;
         lastHitDamage = amount;

@@ -1,127 +1,95 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using Random = UnityEngine.Random;
 
-public class AudioManager : MonoBehaviour
+namespace Sound
 {
-    public static AudioManager Instance { get; private set; }
-    [SerializeField] 
-    private AudioMixerGroup musicMixerGroup;
-    [SerializeField] 
-    private AudioMixerGroup sfxMixerGroup;
-    [SerializeField] 
-    private AudioMixerGroup masterMixerGroup;
-    
-    [SerializeField]
-    private Sound[] sounds;
-    private readonly Dictionary<string, AudioSource> sources = new();
-    
-    private void Awake()
+    public class AudioManager : MonoBehaviour
     {
-        Instance = this;
-        
-        // Add audio source components to the manager for each sound
-        foreach (var sound in sounds) {
-            var source = gameObject.AddComponent<AudioSource>();
-            source.clip = sound.clip;
-            source.volume = sound.volume;
-            source.pitch = sound.pitch;
-            source.loop = sound.loop;
-            source.outputAudioMixerGroup = sound.channel switch
+        public static AudioManager Instance { get; private set; }
+
+        [SerializeField]
+        private AudioMixer mixer;
+        [SerializeField]
+        private AudioSource musicSource;
+        [SerializeField]
+        private AudioSource sfxSource;
+
+        [SerializeField]
+        private ConfiguredSound[] sounds;
+
+        private string currentMusic;
+        private readonly Dictionary<string, ConfiguredSound> soundLookup = new();
+
+        private void Awake()
+        {
+            Instance = this;
+
+            foreach (var sound in sounds)
             {
-                AudioChannel.Sfx => sfxMixerGroup,
-                AudioChannel.Music => musicMixerGroup,
-                AudioChannel.Master => masterMixerGroup,
-                _ => throw new InvalidOperationException($"Sound {sound.name} has unknown channel: {sound.channel}")
-            };
-            
-            sound.Source = source;
-            sources[sound.name] = source;
-        }
-        
-        UpdateMixerVolumes();
-    }
+                soundLookup[sound.name] = sound;
+            }
 
-    public void SwitchMusic(string clipName)
-    {
-        if (!sources.TryGetValue(clipName, out var newSource))
-        {
-            Debug.LogWarning("Sound: '" + clipName + "' not found!");
-            return;
+            UpdateMixerVolumes();
         }
 
-        foreach (var source in sources.Values)
+        public void PlayMusic(string clipName)
         {
-            if (source.outputAudioMixerGroup != musicMixerGroup) continue;
-            if (source == newSource) continue;
-            StartCoroutine(FadeOut(source, 1f));
-        }
-        
-        if(!newSource.isPlaying)
-        {
-            newSource.Play();
-        }
-    }
+            if (clipName == currentMusic) return;
+            currentMusic = clipName;
 
-    private static IEnumerator FadeOut(AudioSource source, float delay)
-    {
-        var normalVolume = source.volume;
+            if (!soundLookup.TryGetValue(clipName, out var sound))
+            {
+                Debug.LogWarning("Sound: '" + clipName + "' not found!");
+                return;
+            }
 
-        while (source.volume > 0)
-        {
-            source.volume -= normalVolume * Time.deltaTime / delay;
-            yield return null;
-        }
-        source.Stop();
-        source.volume = normalVolume;
-    }
-    
-    // Plays an audio clip unless it is already playing
-    public void PlayFull(string clipName)
-    {
-        if (!sources.TryGetValue(clipName, out var source))
-        {
-            Debug.LogWarning("Sound: '" + clipName + "' not found!");
-            return;
+            StartCoroutine(FadeMusic(sound.clip));
         }
 
-        if(!source.isPlaying)
+        private IEnumerator FadeMusic(AudioClip newClip)
         {
-            source.Play();
-        }
-    }
-    
-    // Plays an audio clip, stopping all previous instances of it
-    public void PlayStop(string clipName)
-    {
-        if (!sources.TryGetValue(clipName, out var source))
-        {
-            Debug.LogWarning("Sound: '" + clipName + "' not found!");
-            return;
+            const float normalVolume = 1f;
+            const float delay = 1f;
+
+            while (musicSource.volume > 0)
+            {
+                musicSource.volume -= normalVolume * Time.deltaTime / delay;
+                yield return null;
+            }
+            musicSource.Stop();
+            musicSource.volume = normalVolume;
+            musicSource.clip = newClip;
+            musicSource.Play();
         }
 
-        source.Stop();
-        source.Play();
-    }
-    
-    // Plays an audio clip, allowing the clip to overlap if played multiple timess
-    public void PlayOver(string clipName)
-    {
-        if (!sources.TryGetValue(clipName, out var source))
+        public void PlaySfx(string clipName)
         {
-            Debug.LogWarning("Sound: '" + clipName + "' not found!");
-            return;
+            if (!soundLookup.TryGetValue(clipName, out var sound))
+            {
+                Debug.LogWarning("Sound: '" + clipName + "' not found!");
+                return;
+            }
+
+            sfxSource.pitch = sound.pitch * Random.Range(0.85f, 1.15f);
+            sfxSource.PlayOneShot(sound.clip, sound.volume);
         }
 
-        source.Play();
-    }
-    
-    public void UpdateMixerVolumes()
-    {
-        musicMixerGroup.audioMixer.SetFloat("MusicVol", Mathf.Log10(AudioOptionsManager.Options.musicVolume)*20);
-        sfxMixerGroup.audioMixer.SetFloat("SFXVol", Mathf.Log10(AudioOptionsManager.Options.sfxVolume)*20);
-        masterMixerGroup.audioMixer.SetFloat("MasterVol", Mathf.Log10(AudioOptionsManager.Options.masterVolume)*20);
+        public void UpdateMixerVolumes()
+        {
+            mixer.SetFloat("MusicVol", Mathf.Log10(AudioOptionsManager.Options.musicVolume)*20);
+            mixer.SetFloat("SFXVol", Mathf.Log10(AudioOptionsManager.Options.sfxVolume)*20);
+            mixer.SetFloat("MasterVol", Mathf.Log10(AudioOptionsManager.Options.masterVolume)*20);
+        }
+
+        public static bool CheckPeriod(float delay)
+        {
+            var lastStep = (int)((Time.time - Time.deltaTime) / delay);
+            var step = (int)(Time.time / delay);
+
+            return step > lastStep;
+        }
     }
 }

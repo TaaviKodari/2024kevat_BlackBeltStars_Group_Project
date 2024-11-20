@@ -1,3 +1,4 @@
+using Sound;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -35,7 +36,7 @@ public class DroppedResource : MonoBehaviour
         if (distance.sqrMagnitude < 0.1)
         {
             ResourceManager.Instance.AddResource(type, amount);
-            AudioManager.Instance.PlayOver("ItemPickup");
+            AudioManager.Instance.PlaySfx("ItemPickup");
             Destroy(gameObject);
         }
     }
