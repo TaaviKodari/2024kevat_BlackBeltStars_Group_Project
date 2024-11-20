@@ -207,13 +207,21 @@ namespace Pathfinding
         {
             if (!hasTarget || path == null) return;
             var pathNodes = path.Nodes;
-            
+
             var nodePos = manager.GetNodePos(pathNodes[pathIndex]);
             var currentPos = GetNavPos();
             var sqrDistance = (nodePos - currentPos).sqrMagnitude;
+
+            // Allows the entity to jump ahead on its path, reducing needless backtracking
+            if (pathIndex + 1 < pathNodes.Count && CheckNextCloser(pathNodes, currentPos, sqrDistance))
+            {
+                pathIndex++;
+                return;
+            }
+
             if (sqrDistance > 25) RecomputePath();
             if (sqrDistance > 0.1) return;
-            
+
             if (pathIndex + 1 >= pathNodes.Count)
             {
                 ClearTarget();
@@ -222,6 +230,13 @@ namespace Pathfinding
             {
                 pathIndex++;
             }
+        }
+
+        // Returns true if the next node is closer than the one we're right now heading to
+        private bool CheckNextCloser(IList<NodePos> pathNodes, Vector2 currentPos, float sqrDistance)
+        {
+            var nextSqrDistance = (manager.GetNodePos(pathNodes[pathIndex + 1]) - currentPos).sqrMagnitude;
+            return nextSqrDistance < sqrDistance;
         }
 
         // Gets the position the pathfinding agent is currently at
