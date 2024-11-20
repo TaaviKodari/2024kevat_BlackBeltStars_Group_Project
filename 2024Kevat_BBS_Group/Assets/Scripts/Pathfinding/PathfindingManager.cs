@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Pathfinding
 {
@@ -38,7 +39,7 @@ namespace Pathfinding
         [CanBeNull]
         public Path FindPath(Vector2 from, Vector2 to, float maxDistance = 50)
         {
-            return pathFinder.FindPath(GetClosestNode(from), GetClosestNode(to), maxDistance);
+            return pathFinder.FindPath(GetClosestNode(from), FindValidNodeNear(GetClosestNode(to)), maxDistance);
         }
 
         // Updates the nodes in chunks within a certain area
@@ -58,7 +59,7 @@ namespace Pathfinding
                 }
             }
         }
-        
+
         private void UpdateChunk(Vector2Int chunkPos)
         {
             if (!chunks.TryGetValue(chunkPos, out var chunk))
@@ -80,6 +81,20 @@ namespace Pathfinding
         public NodePos GetClosestNode(Vector2 pos)
         {
             return new NodePos(new Vector2Int(Mathf.RoundToInt(pos.x / nodeDensity.x), Mathf.RoundToInt(pos.y / nodeDensity.y)), this);
+        }
+
+        // Walks randomly to nodes around target in search of a valid one
+        private NodePos FindValidNodeNear(NodePos pos)
+        {
+            var moves = 0;
+            var candidate = pos;
+            while (GetNode(candidate).Type == NodeType.Blocked && moves < 5)
+            {
+                candidate = new NodePos(pos.Pos + new Vector2Int(Random.Range(-1, 1), Random.Range(-1, 1)), this);
+                moves++;
+            }
+
+            return candidate;
         }
         
         // Gets the data of a node at a certain positon
