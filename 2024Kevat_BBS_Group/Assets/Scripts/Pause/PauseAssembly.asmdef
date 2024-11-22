@@ -1,0 +1,16 @@
+{
+    "name": "PauseAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c43250bb4c3eeae4fa0d01b92f8e9d91"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

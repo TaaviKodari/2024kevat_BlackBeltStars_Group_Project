@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AtomicConsole;
+using Pause;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 namespace GameState
 {
@@ -15,7 +18,6 @@ namespace GameState
         private SceneTransition transition;
 
         public MasterInput Input { get; private set; }
-        public bool Paused { get; private set; }
 
         private int antsKilled;
         private int wavesSurvived;
@@ -37,6 +39,8 @@ namespace GameState
             Instance = this;
             Input = new MasterInput();
             Input.Enable();
+            PauseManager.OnPause.AddListener(OnPause);
+            PauseManager.OnUnpause.AddListener(OnUnpause);
         }
 
         private void Start()
@@ -46,22 +50,22 @@ namespace GameState
             portalPlacementLayerMask = LayerMask.GetMask("Buildings", "Terrain Obstacles");
         }
 
-        public void Pause()
+        private void OnDestroy()
         {
-            if (Paused) return;
-            Input.Player.Disable();
-            Input.Building.Disable();
-            Time.timeScale = 0f;
-            Paused = true;
+            PauseManager.OnPause.RemoveListener(OnPause);
+            PauseManager.OnUnpause.RemoveListener(OnUnpause);
         }
 
-        public void Unpause()
+        private void OnPause()
         {
-            if (!Paused) return;
-            Input.Player.Enable();
+            Input.Building.Disable();
+            Input.Player.Disable();
+        }
+
+        private void OnUnpause()
+        {
             Input.Building.Enable();
-            Time.timeScale = 1f;
-            Paused = false;
+            Input.Player.Enable();
         }
 
         [AtomicCommand("GameState", "FadeGameEnd", "Fade to game end screen. Arguments: <won: bool>")]

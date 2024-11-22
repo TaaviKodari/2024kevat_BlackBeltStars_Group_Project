@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using Pause;
 using UnityEngine;
 
 namespace Overlay

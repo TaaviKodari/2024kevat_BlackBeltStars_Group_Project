@@ -1,5 +1,6 @@
 ﻿using AtomicConsole.Engine;
 using GameState;
+using Pause;
 using UnityEngine;
 
 [RequireComponent(typeof(AtomicConsoleEngine), typeof(PauseMarker))]
