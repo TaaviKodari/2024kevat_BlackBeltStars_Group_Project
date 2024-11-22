@@ -32,7 +32,8 @@ public class AtomicAssembly
                     if (Attribute.IsDefined(method, typeof(AtomicCommandAttribute)))
                     {
                         AtomicCommandAttribute attribute = method.GetCustomAttribute<AtomicCommandAttribute>();
-                        commandMethods.Add($"typeof({type.FullName}).GetMethod(\"{method.Name}\")");
+                        //commandMethods.Add($"typeof({type.FullName}).GetMethod(\"{method.Name}\")");
+                        commandMethods.Add($"Type.GetType(\"{type.AssemblyQualifiedName}\", true).GetMethod(\"{method.Name}\")");
 
                         // Get parameter types
                         ParameterInfo[] parameters = method.GetParameters();
@@ -53,7 +54,8 @@ public class AtomicAssembly
                 {
                     if (Attribute.IsDefined(field, typeof(AtomicSetAttribute)))
                     {
-                        setFields.Add($"typeof({type.FullName}).GetField(\"{field.Name}\")");
+                        //setFields.Add($"typeof({type.FullName}).GetField(\"{field.Name}\")");
+                        setFields.Add($"Type.GetType(\"{type.AssemblyQualifiedName}\", true).GetField(\"{field.Name}\")");
 
                         // Add field information to the list
                         AtomicSetAttribute attribute = field.GetCustomAttribute<AtomicSetAttribute>();
@@ -71,21 +73,22 @@ public class AtomicAssembly
             }
         }
 
-        string generatedCode = $@"using System.Collections.Generic;
+        string generatedCode = $@"using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace AtomicAssembly.GeneratedCommands
 {{
     public static class AtomicCommands
     {{
-        public static List<MethodInfo> commandMethods = new List<MethodInfo>
+        public static List<MethodInfo> commandMethods = new()
         {{
-            {string.Join(",\n        ", commandMethods)}
+            {string.Join(",\n            ", commandMethods)}
         }};
 
-        public static List<FieldInfo> setFields = new List<FieldInfo>
+        public static List<FieldInfo> setFields = new()
         {{
-            {string.Join(",\n        ", setFields)}
+            {string.Join(",\n            ", setFields)}
         }};
     }}
 }}";
@@ -97,11 +100,11 @@ namespace AtomicAssembly.GeneratedCommands
 
         // Generate JSON file
         string json = JsonUtility.ToJson(new CommandInfoList { Commands = combinedList }, true);
-        File.WriteAllText("Assets/Atomic Console/Resources/AtomicCommandList.json", json);
+        File.WriteAllText("Assets/ExternalAssets/Atomic Console/Resources/AtomicCommandList.json", json);
 
 
 
-        string path = "Assets/Atomic Console/Scripts/AtomicCommands.cs";
+        string path = "Assets/ExternalAssets/Atomic Console/Scripts/AtomicCommands.cs";
 
         // Delete the existing file if it exists
         if (File.Exists(path))
