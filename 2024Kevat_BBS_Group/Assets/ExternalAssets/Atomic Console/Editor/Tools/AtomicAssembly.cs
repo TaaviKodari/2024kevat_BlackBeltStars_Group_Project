@@ -31,6 +31,7 @@ public class AtomicAssembly
                 {
                     if (Attribute.IsDefined(method, typeof(AtomicCommandAttribute)))
                     {
+                        // Antack: Patch to support types from other assemblies
                         AtomicCommandAttribute attribute = method.GetCustomAttribute<AtomicCommandAttribute>();
                         //commandMethods.Add($"typeof({type.FullName}).GetMethod(\"{method.Name}\")");
                         commandMethods.Add($"Type.GetType(\"{type.AssemblyQualifiedName}\", true).GetMethod(\"{method.Name}\")");
@@ -54,6 +55,7 @@ public class AtomicAssembly
                 {
                     if (Attribute.IsDefined(field, typeof(AtomicSetAttribute)))
                     {
+                        // Antack: Patch to support types from other assemblies
                         //setFields.Add($"typeof({type.FullName}).GetField(\"{field.Name}\")");
                         setFields.Add($"Type.GetType(\"{type.AssemblyQualifiedName}\", true).GetField(\"{field.Name}\")");
 
@@ -73,6 +75,7 @@ public class AtomicAssembly
             }
         }
 
+        // Antack: Patch indent size and add import for System.Type
         string generatedCode = $@"using System;
 using System.Collections.Generic;
 using System.Reflection;

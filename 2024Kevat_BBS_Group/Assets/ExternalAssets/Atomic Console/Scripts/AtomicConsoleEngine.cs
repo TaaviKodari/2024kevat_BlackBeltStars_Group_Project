@@ -208,7 +208,8 @@ namespace AtomicConsole.Engine
                     instance = FindObjectOfType(fieldInfo.ReflectedType);
                     if (instance == null)
                     {
-                        Debug.LogWarning($"No instance found for non-static field {fieldInfo.Name} in type {fieldInfo.ReflectedType.FullName}");
+                        // Antack: Disable this as we regularly have singletons only in game
+                        // Debug.LogWarning($"No instance found for non-static field {fieldInfo.Name} in type {fieldInfo.ReflectedType.FullName}");
                         continue;
                     }
                 }
