@@ -137,11 +137,26 @@ namespace GameState
 
         private bool HasWon()
         {
+            return GetGoalProgress() >= GetGoalTarget();
+        }
+
+        public int GetGoalTarget()
+        {
             return manager.currentMap.goal switch
             {
-                KillAntsMapGoal goal => antsKilled >= goal.amount,
-                SurviveWavesMapGoal goal => wavesSurvived >= goal.amount,
-                _ => false
+                KillAntsMapGoal goal => goal.amount,
+                SurviveWavesMapGoal goal => goal.amount,
+                _ => int.MaxValue
+            };
+        }
+
+        public int GetGoalProgress()
+        {
+            return manager.currentMap.goal switch
+            {
+                KillAntsMapGoal => antsKilled,
+                SurviveWavesMapGoal => wavesSurvived,
+                _ => 0
             };
         }
 
