@@ -20,5 +20,7 @@ MonoBehaviour:
   verticalPrefab: {fileID: 0}
   costs:
   - type: {fileID: 11400000, guid: a4d3e6967337a444dbacf4787edc2a2d, type: 2}
-    amount: 2
+    amount: 1
+  - type: {fileID: 11400000, guid: 866fc108a0596c24e92eb8dfe5dd6d4c, type: 2}
+    amount: 1
   durability: 100

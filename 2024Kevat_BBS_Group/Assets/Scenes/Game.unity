@@ -7982,7 +7982,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d5d7b855ab3a9b9478740006a14118ec, type: 2}
   - {fileID: 11400000, guid: d064abbb219198c4a96d0748cea22a5e, type: 2}
   currentWave: 0
-  timeBetweenWaves: 10
+  timeBetweenWaves: 30
   enemyManager: {fileID: 374435712}
   enemyLimit: 20
   enemyPrefab1: {fileID: 1453978197814258362, guid: d23034fe7ca4d264fbc9c5f731bb5492, type: 3}

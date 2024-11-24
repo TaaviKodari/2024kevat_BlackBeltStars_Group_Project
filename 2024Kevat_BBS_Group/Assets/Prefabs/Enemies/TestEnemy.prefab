@@ -135,7 +135,7 @@ MonoBehaviour:
     - attribute: max_health
       value: 25
     - attribute: damage
-      value: 5
+      value: 15
     - attribute: attack_speed
       value: 2
     - attribute: knockback

@@ -150,7 +150,7 @@ MonoBehaviour:
     amount: 2
   healthBar: {fileID: 7194528630907600212}
   particlePrefab: {fileID: 3191131814185547201, guid: 94888187c91ac8447a02ba67ee2b186d, type: 3}
-  hitsNeeded: 10
+  hitsNeeded: 6
 --- !u!95 &1498470897874956919
 Animator:
   serializedVersion: 5

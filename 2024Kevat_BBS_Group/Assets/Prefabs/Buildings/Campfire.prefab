@@ -65,8 +65,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f633a473238974da67fcf10b48a8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healWait: 5
-  healAmount: 1
+  healWait: 1
+  healAmount: 10
 --- !u!61 &8414542537254542039
 BoxCollider2D:
   m_ObjectHideFlags: 0

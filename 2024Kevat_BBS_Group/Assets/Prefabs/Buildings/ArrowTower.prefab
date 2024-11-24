@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootWait: 1
-  damage: 10
+  damage: 8
   arrowPrefab: {fileID: 6630246808432321123, guid: dc710691d353f3341ae442a26b50014c, type: 3}
   shootPoint: {fileID: 2162781660879715553}
   arrowForce: 20

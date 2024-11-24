@@ -98,7 +98,7 @@ MonoBehaviour:
     amount: 2
   healthBar: {fileID: 7561974849354051034}
   particlePrefab: {fileID: 0}
-  hitsNeeded: 5
+  hitsNeeded: 8
 --- !u!212 &2601957921738291055
 SpriteRenderer:
   m_ObjectHideFlags: 0

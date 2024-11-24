@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b795f3ba243ecf4faf5b566022e839f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 3
   cooldownAmount: 2
 --- !u!61 &8414542537254542039
 BoxCollider2D:
