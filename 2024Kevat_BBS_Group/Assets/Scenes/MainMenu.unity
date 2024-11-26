@@ -313,7 +313,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<u>Code</u>\nVille Jokinen\nAaro Larjo \nMatias Koivikko\nLeevi Tulijoki"
+  m_text: "<u>Code</u>\nMatias Koivikko\nVille Jokinen\nAaro Larjo \nLeevi Tulijoki\n'Nuftuf'"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 376fb1b684988ce4e85fc092b0919df6, type: 2}
   m_sharedMaterial: {fileID: -5560292473983103567, guid: 376fb1b684988ce4e85fc092b0919df6, type: 2}
@@ -2439,7 +2439,9 @@ MonoBehaviour:
 
     Alex Zhang
 
-    Matias Koivikko'
+    Matias Koivikko
+
+    ''Nuftuf'''
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 376fb1b684988ce4e85fc092b0919df6, type: 2}
   m_sharedMaterial: {fileID: -5560292473983103567, guid: 376fb1b684988ce4e85fc092b0919df6, type: 2}
@@ -5965,7 +5967,7 @@ GameObject:
   - component: {fileID: 2008180205}
   - component: {fileID: 2008180204}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Support
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
