@@ -1,7 +1,9 @@
-﻿using GameState;
+﻿using System.Collections.Generic;
+using System.Linq;
+using GameState;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -12,17 +14,42 @@ namespace MainMenu
     {
         [SerializeField]
         private TMP_InputField nameField;
+        [SerializeField]
+        private TMP_Text errorText;
         [FormerlySerializedAs("button")]
         [SerializeField]
         private Button startButton;
         [SerializeField]
         private SceneTransition transition;
 
+        private HashSet<string> existingSaves;
+
         private void Start()
         {
+            existingSaves = SaveManager.LoadGames().Select(save => save.SaveName).ToHashSet();
+
             startButton.onClick.AddListener(Begin);
             startButton.interactable = false;
-            nameField.onValueChanged.AddListener(value => startButton.interactable = value.Trim() != "");
+            nameField.onValueChanged.AddListener(value =>
+            {
+                var trimmed = value.Trim();
+                var canStart = true;
+                if (trimmed == "")
+                {
+                    canStart = false;
+                    errorText.text = "Save name must not be empty";
+                } else if (existingSaves.Contains(value.ReplaceInvalidFileNameCharacters()))
+                {
+                    canStart = false;
+                    errorText.text = "A save with this name already exists";
+                }
+                else
+                {
+                    errorText.text = "";
+                }
+
+                startButton.interactable = canStart;
+            });
         }
 
         private void Begin()
@@ -31,7 +58,8 @@ namespace MainMenu
             if (name == "") return;
             var saveGame = new SaveGame
             {
-                SaveName = name
+                name = name,
+                SaveName = name.ReplaceInvalidFileNameCharacters()
             };
             var stateManager = GameStateInitializer.CreateStateManager(saveGame);
             stateManager.GenerateMaps();

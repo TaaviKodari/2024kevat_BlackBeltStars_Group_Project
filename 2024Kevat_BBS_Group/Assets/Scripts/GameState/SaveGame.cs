@@ -9,6 +9,7 @@ namespace GameState
     {
         [NonSerialized]
         public string SaveName;
+        public string name;
         public Resources resources;
         public Maps maps;
         public Inventory inventory;
