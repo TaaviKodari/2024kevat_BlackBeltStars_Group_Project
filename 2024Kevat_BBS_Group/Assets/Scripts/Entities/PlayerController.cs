@@ -61,26 +61,55 @@ public class PlayerController : Entity
     {
         for (var i = 0; i < gameStateManager.currentSaveGame.inventory.speedBoosts.Count; i++)
         {
-            AttributeHolder.AddModifier(new AttributeModifier
+            var speedBoost = gameStateManager.currentSaveGame.inventory.speedBoosts[i];
+            
+            if(speedBoost.duration >= 1)
             {
-                Tag = "speed",
-                Attribute = Attribute.Find("speed"),
-                Type = AttributeModifierType.Multiply,
-                Amount = gameStateManager.currentSaveGame.inventory.speedBoosts[i].multiplier
-            });
+                Debug.Log("Adding speed boost: "+speedBoost);
+                AttributeHolder.AddModifier(new AttributeModifier
+                {
+                    Tag = "speed",
+                    Attribute = Attribute.Find("speed"),
+                    Type = AttributeModifierType.Multiply,
+                    Amount = speedBoost.multiplier
+                });
+                speedBoost.duration--;
+                gameStateManager.currentSaveGame.inventory.speedBoosts[i] = speedBoost;
+            }
+            else
+            {
+                Debug.Log("Removing speed boost: "+speedBoost+" due to the duration running out");
+                gameStateManager.currentSaveGame.inventory.speedBoosts.RemoveAll(boost => boost.duration <= 0);
+            }
         }
+        
         for (var i = 0; i < gameStateManager.currentSaveGame.inventory.healthBoosts.Count; i++)
         {
-            AttributeHolder.AddModifier(new AttributeModifier
+            var healthBoost = gameStateManager.currentSaveGame.inventory.healthBoosts[i];
+            if (healthBoost.duration >= 1)
             {
-                Tag = "max_health",
-                Attribute = Attribute.Find("max_health"),
-                Type = AttributeModifierType.Multiply,
-                Amount = gameStateManager.currentSaveGame.inventory.healthBoosts[i].multiplier
-            });
-        }
-    }
+                Debug.Log("Adding health boost: '"+healthBoost+"'");
+                AttributeHolder.AddModifier(new AttributeModifier
+                {
+                    Tag = "max_health",
+                    Attribute = Attribute.Find("max_health"),
+                    Type = AttributeModifierType.Multiply,
+                    Amount = healthBoost.multiplier
+                });
+                healthBoost.duration--;
+                gameStateManager.currentSaveGame.inventory.healthBoosts[i] = healthBoost;
 
+            }
+            else
+            {
+                Debug.Log("Removing health boost: '"+healthBoost+"' due to the duration running out");
+                gameStateManager.currentSaveGame.inventory.healthBoosts.RemoveAll(boost => boost.duration <= 0);
+            }
+            
+        }
+        gameStateManager.Save();
+    }
+    
     // Update is called once per frame
     private void Update()
     {
@@ -114,7 +143,7 @@ public class PlayerController : Entity
         {
             // Increase aim time while the attack button is pressed
             aimTime += Time.deltaTime;
-        } 
+        }
         else if (aiming && aimTime >= AttributeHolder.GetValue(Attribute.AttackCooldown))
         {
             // Shoot the arrow if aiming time exceeds 1 second
