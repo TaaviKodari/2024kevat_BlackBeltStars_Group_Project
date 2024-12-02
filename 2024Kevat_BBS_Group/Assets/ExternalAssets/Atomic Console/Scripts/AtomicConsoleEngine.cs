@@ -14,6 +14,7 @@ using AtomicConsole.Skin.editor;
 using AtomicAssembly.GeneratedCommands;
 using AtomicAssembly;
 using System.Net;
+using Object = UnityEngine.Object;
 
 namespace AtomicConsole.Engine
 {
@@ -194,7 +195,8 @@ namespace AtomicConsole.Engine
                     {
                         // Antack: Disable this as we regularly have singletons only in game
                         // Debug.LogWarning($"No instance found for non-static method {methodInfo.Name} in type {methodInfo.ReflectedType.FullName}");
-                        continue;
+                        // Antack: Disable this to allow the command to pass through. We later try again for the owner
+                        // continue;
                     }
                 }
                 commandMethods.Add((methodInfo, instance));
@@ -210,7 +212,8 @@ namespace AtomicConsole.Engine
                     {
                         // Antack: Disable this as we regularly have singletons only in game
                         // Debug.LogWarning($"No instance found for non-static field {fieldInfo.Name} in type {fieldInfo.ReflectedType.FullName}");
-                        continue;
+                        // Antack: Disable this to allow the command to pass through. We later try again for the owner
+                        // continue;
                     }
                 }
                 setFields.Add((fieldInfo, instance));
@@ -2220,6 +2223,19 @@ namespace AtomicConsole.Engine
                         {
                             methodToExecute = method;
                             instanceToUse = instance;
+                            // begin antack patch
+                            // We search again as the available instances can vary
+                            if (!methodToExecute.IsStatic && (instanceToUse == null || (instanceToUse is Object unityObject && unityObject == null)))
+                            {
+                                instanceToUse = FindObjectOfType(methodToExecute.ReflectedType);
+                                if (instanceToUse == null || (instanceToUse is Object unityObject2 && unityObject2 == null))
+                                {
+                                    // Nicer error message
+                                    AtomicDebug.Error($"No instances of type {methodToExecute.ReflectedType.FullName} found in scene");
+                                    return;
+                                }
+                            }
+                            // end antack patch
                             commandFound = true;
                             break;
                         }
@@ -2314,7 +2330,21 @@ namespace AtomicConsole.Engine
                                         // Handle other types
                                         convertedValue = Convert.ChangeType(parameters[0], fieldType);
                                     }
-                                    field.SetValue(instance, convertedValue);
+                                    // begin antack patch
+                                    var activeInstance = instance;
+                                    if (!field.IsStatic && (activeInstance == null || (activeInstance is Object unityObject && unityObject == null)))
+                                    {
+                                        activeInstance = FindObjectOfType(field.DeclaringType);
+                                        if (activeInstance == null || (activeInstance is Object unityObject2 && unityObject2 == null))
+                                        {
+                                            // Nicer error message
+                                            AtomicDebug.Error($"No instances of type {methodToExecute.ReflectedType.FullName} found in scene");
+                                            return;
+                                        }
+                                    }
+                                    field.SetValue(activeInstance, convertedValue);
+                                    //field.SetValue(instance, convertedValue);
+                                    // end antack patch
                                     AtomicDebug.Command(commandName + " set: " + convertedValue);
                                 }
                                 catch (Exception ex)
