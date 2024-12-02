@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using GameState;
 using UnityEngine;
 using TMPro;
@@ -28,6 +29,9 @@ public class WaveManager : MonoBehaviour
     public TMP_Text waveTimerText; // value of the in-game text field for the time untill next wave
     public TMP_Text waveText; // value of the in-game text field for the current wave number
 
+    // Counter for alive enemies, used to mark waves as completed
+    private readonly Dictionary<int, int> enemiesAlive = new();
+
     void Awake()
     { 
         timer = 0f;                                     // in the beginning, set the timer to 0
@@ -37,8 +41,8 @@ public class WaveManager : MonoBehaviour
     void Update()
     {
         // update the in-game text boxes
-        waveTimerText.text = "Next wave in: "+((timeBetweenWaves - timer).ToString("F2"));
-        waveText.text = "Current wave: " + (currentWave).ToString();
+        waveTimerText.text = "Next wave in: " + (timeBetweenWaves - timer).ToString("F2");
+        waveText.text = "Current wave: " + currentWave;
         
         timer += Time.deltaTime; // update the timer
         
@@ -62,7 +66,7 @@ public class WaveManager : MonoBehaviour
             }
             else
             {
-                SpawnEnemies(currentConfig);
+                SpawnEnemies(currentConfig, currentWave);
             }
             currentWave++;
         }
@@ -88,22 +92,38 @@ public class WaveManager : MonoBehaviour
         scalingConfig.speedMultiplier = speedMultiplier;
         scalingConfig.isMiniBossWave = false;
 
-        SpawnEnemies(scalingConfig);
+        SpawnEnemies(scalingConfig, currentWave);
 
         currentWave++;
     }
-    
-    private void SpawnEnemies(WaveConfig config)
+
+    private void MarkEnemyKilled(int wave)
+    {
+        if (!enemiesAlive.ContainsKey(wave))
+        {
+            Debug.LogWarning("Somehow more enemies have died than were alive, not good", this);
+            return;
+        }
+
+        enemiesAlive[wave] -= 1;
+        if (enemiesAlive[wave] != 0) return;
+        enemiesAlive.Remove(wave);
+        InGameManager.Instance.AddWaveSurvived();
+    }
+
+    private void SpawnEnemies(WaveConfig config, int wave)
     {
         foreach (var enemy in config.enemyTypes)
         {
-            for (int i = 0; i < config.enemyCount; i++)
+            for (var i = 0; i < config.enemyCount; i++)
             {
-                Vector2 position = enemyManager.GetRandomPosition(enemyManager.player.transform.position, minRange, maxRange);
-                enemyManager.SpawnEnemy(enemy, position, config.healthMultiplier, config.speedMultiplier);
+                var position = enemyManager.GetRandomPosition(enemyManager.player.transform.position, minRange, maxRange);
+                var spawned = enemyManager.SpawnEnemy(enemy, position, config.healthMultiplier, config.speedMultiplier);
+                spawned.onKilled.AddListener(() => MarkEnemyKilled(wave));
+
+                enemiesAlive.TryAdd(wave, 0);
+                enemiesAlive[wave]++;
             }
         }
-
-
     }
 }

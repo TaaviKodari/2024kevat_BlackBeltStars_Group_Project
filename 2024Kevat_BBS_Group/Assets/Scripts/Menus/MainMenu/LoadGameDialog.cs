@@ -41,7 +41,7 @@ namespace MainMenu
             {
                 var button = Instantiate(buttonPrefab, buttonHolder);
                 button.Index = i;
-                button.SaveName = games[i].SaveName;
+                button.SaveName = games[i].name;
                 button.Dialog = this;
             }
         }

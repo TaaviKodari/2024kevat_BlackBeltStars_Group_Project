@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Building", menuName = "ScriptableObjects/BuildingData", order = 1)]
 public class BuildingData : ScriptableObject
 {
-    public bool blocksProjectiles = true;
     [SerializeField]
     private Vector2Int size = Vector2Int.one;
     [SerializeField]

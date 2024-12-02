@@ -357,7 +357,7 @@ public class BuildingPlacer : MonoBehaviour
         // Remove all scripts from the preview. This is a way to prevent the preview from doing anything.
         foreach (var script in preview.GetComponentsInChildren<MonoBehaviour>(true))
         {
-            if (script is Building) continue;
+            if (script is Building or IPreviewAware) continue;
             Destroy(script);
         }
         // Remove all colliders from the preview. This is a way to prevent the preview from colliding with anything.
@@ -368,6 +368,10 @@ public class BuildingPlacer : MonoBehaviour
 
         buildingPreview = preview;
         buildingPreview.name = "BuildingPreview";
+        foreach (var previewAware in buildingPreview.GetComponentsInChildren<IPreviewAware>())
+        {
+            previewAware.OnPreviewBegin();
+        }
 
         UpdatePreview();
     }
@@ -388,6 +392,10 @@ public class BuildingPlacer : MonoBehaviour
         // Sets the material of the preview
         var material = manager.CanPlace(buildingPreview.GetComponent<Building>()) ? previewMaterial : invalidPreviewMaterial;
         SetMaterial(buildingPreview, material);
+        foreach (var previewAware in buildingPreview.GetComponentsInChildren<IPreviewAware>())
+        {
+            previewAware.OnPreviewUpdate();
+        }
     }
 
     private static void SetMaterial(GameObject obj, Material mat)
