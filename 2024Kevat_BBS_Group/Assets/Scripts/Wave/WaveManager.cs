@@ -56,11 +56,6 @@ public class WaveManager : MonoBehaviour
     // begins spawning enemies and changes the wave number by 1
     void StartWave()
     {
-        if (currentWave != 0)
-        {
-            InGameManager.Instance.AddWaveSurvived();
-        }
-
         if (currentWave < waves.Length)
         {
             var currentConfig = waves[currentWave];
