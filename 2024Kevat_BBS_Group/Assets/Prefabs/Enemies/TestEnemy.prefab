@@ -148,6 +148,9 @@ MonoBehaviour:
     amount: 1
   killParticle: {fileID: 1720417163331193416, guid: 28d91257635b2b1a9955ac4daf03f940, type: 3}
   manager: {fileID: 0}
+  onKilled:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &4908577002335786849
 BoxCollider2D:
   m_ObjectHideFlags: 0
