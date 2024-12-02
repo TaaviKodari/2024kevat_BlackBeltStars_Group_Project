@@ -18,7 +18,7 @@ MonoBehaviour:
   description: Increases health 50% for 10 rounds
   currencyType: 0
   healthBoost:
-    multiplier: 1.5
+    multiplier: 10
     duration: 10
   speedBoost:
     multiplier: 0

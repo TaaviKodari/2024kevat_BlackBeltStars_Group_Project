@@ -4,6 +4,7 @@ using Sound;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Attributes;
 using Attribute = Attributes.Attribute;
 
 public class PlayerController : Entity
@@ -25,6 +26,9 @@ public class PlayerController : Entity
     private LineRenderer aimLine;
     private InGameManager gameManager;
 
+    // Reference to the GameStateManager
+    private GameStateManager gameStateManager;
+
     // State variables to track whether the player is aiming and how long they've been aiming
     private bool aiming;
     private float aimTime;
@@ -40,6 +44,41 @@ public class PlayerController : Entity
         buildingPlacer = FindObjectOfType<BuildingPlacer>();
         aimLine = GetComponent<LineRenderer>();
         gameManager = FindObjectOfType<InGameManager>();
+        gameStateManager = FindObjectOfType<GameStateManager>();
+    }
+
+    // Called when the object becomes enabled and active
+    private void OnEnable()
+    {
+        if (gameStateManager != null)
+        {
+            InitPlayerAttributes();
+        }
+    }
+
+    // Initialize player attributes based on the current save game
+    private void InitPlayerAttributes()
+    {
+        for (var i = 0; i < gameStateManager.currentSaveGame.inventory.speedBoosts.Count; i++)
+        {
+            AttributeHolder.AddModifier(new AttributeModifier
+            {
+                Tag = "speed",
+                Attribute = Attribute.Find("speed"),
+                Type = AttributeModifierType.Multiply,
+                Amount = gameStateManager.currentSaveGame.inventory.speedBoosts[i].multiplier
+            });
+        }
+        for (var i = 0; i < gameStateManager.currentSaveGame.inventory.healthBoosts.Count; i++)
+        {
+            AttributeHolder.AddModifier(new AttributeModifier
+            {
+                Tag = "max_health",
+                Attribute = Attribute.Find("max_health"),
+                Type = AttributeModifierType.Multiply,
+                Amount = gameStateManager.currentSaveGame.inventory.healthBoosts[i].multiplier
+            });
+        }
     }
 
     // Update is called once per frame

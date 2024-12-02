@@ -5872,6 +5872,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5518962222089413915, guid: b19e985e9fbd2c448840a33b8fc66059, type: 3}
+      propertyPath: defaultSave.inventory.speedBoosts.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518962222089413915, guid: b19e985e9fbd2c448840a33b8fc66059, type: 3}
+      propertyPath: defaultSave.inventory.speedBoosts.Array.data[0].duration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518962222089413915, guid: b19e985e9fbd2c448840a33b8fc66059, type: 3}
+      propertyPath: defaultSave.inventory.speedBoosts.Array.data[0].multiplier
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8505989028246320586, guid: b19e985e9fbd2c448840a33b8fc66059, type: 3}
       propertyPath: m_Name
       value: Game State Initializer
@@ -8088,7 +8100,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 8.4375
+  orthographic size: 9.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
