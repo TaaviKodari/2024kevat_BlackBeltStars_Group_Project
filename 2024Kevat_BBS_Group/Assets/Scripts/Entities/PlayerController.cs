@@ -65,7 +65,6 @@ public class PlayerController : Entity
             
             if(speedBoost.duration >= 1)
             {
-                Debug.Log("Adding speed boost: "+speedBoost);
                 AttributeHolder.AddModifier(new AttributeModifier
                 {
                     Tag = "speed",
@@ -88,7 +87,6 @@ public class PlayerController : Entity
             var healthBoost = gameStateManager.currentSaveGame.inventory.healthBoosts[i];
             if (healthBoost.duration >= 1)
             {
-                Debug.Log("Adding health boost: '"+healthBoost+"'");
                 AttributeHolder.AddModifier(new AttributeModifier
                 {
                     Tag = "max_health",
