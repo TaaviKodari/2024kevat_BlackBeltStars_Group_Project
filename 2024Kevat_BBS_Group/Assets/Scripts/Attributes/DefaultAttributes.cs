@@ -41,5 +41,11 @@ namespace Attributes
             }
             serializedEntries = null;
         }
+
+        // Add new attributes here
+        public void AddAttribute(Attribute attribute, float value)
+        {
+            Attributes[attribute] = value;
+        }
     }
 }
