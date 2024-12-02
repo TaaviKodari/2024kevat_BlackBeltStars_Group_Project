@@ -30,6 +30,7 @@ public class Enemy : Entity
     // Reference to the EnemyManager that handles this enemy
     public EnemyManager manager;
     private EntityPathfinder pathfinder;
+    private SpriteRenderer spriteRenderer;
     public UnityEvent onKilled = new();
 
     private Vector2 prevMoveDirections;
@@ -37,6 +38,7 @@ public class Enemy : Entity
     private void Start()
     {
         pathfinder = GetComponent<EntityPathfinder>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -91,6 +93,15 @@ public class Enemy : Entity
 
         // Mark resources as dropped to prevent dropping again
         resourcesDropped = true;
+    }
+
+    protected override void OnMove(Vector2 direction)
+    {
+        if (Mathf.Abs(direction.x) > 0.1)
+        {
+            // Flip the sprite if moving left, otherwise keep it facing right
+            spriteRenderer.flipX = direction.x < 0;
+        }
     }
 
     private void OnCollisionStay2D(Collision2D other)
