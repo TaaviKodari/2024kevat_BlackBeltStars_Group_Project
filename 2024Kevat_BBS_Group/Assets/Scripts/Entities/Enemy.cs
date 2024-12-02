@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Pathfinding;
 using Sound;
 using UnityEngine;
+using UnityEngine.Events;
 using Attribute = Attributes.Attribute;
 
 public class Enemy : Entity
@@ -29,6 +30,7 @@ public class Enemy : Entity
     // Reference to the EnemyManager that handles this enemy
     public EnemyManager manager;
     private EntityPathfinder pathfinder;
+    public UnityEvent onKilled = new();
 
     private Vector2 prevMoveDirections;
 
@@ -67,6 +69,7 @@ public class Enemy : Entity
         DropLoot();
         // Notify the EnemyManager that this enemy has died
         manager.EnemyDie(this);
+        onKilled.Invoke();
         // Call the base class's Die method to handle destruction
         base.Die();
         

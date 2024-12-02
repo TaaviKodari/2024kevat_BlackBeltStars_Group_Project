@@ -28,7 +28,7 @@ public class EnemyManager : MonoBehaviour
     }
 
     // Spawns a new enemy at the given position
-    public void SpawnEnemy(Enemy enemyPrefab, Vector2 position, float healthMultiplier, float speedMultiplier)
+    public Enemy SpawnEnemy(Enemy enemyPrefab, Vector2 position, float healthMultiplier, float speedMultiplier)
     {
         // Instantiate the enemy prefab at the given position with no rotation as a child of the manager
         var enemy = Instantiate(enemyPrefab, position, Quaternion.identity, transform);
@@ -42,6 +42,7 @@ public class EnemyManager : MonoBehaviour
 
         // Set the enemy's manager reference to this instance of EnemyManager
         enemy.manager = this;
+        return enemy;
     }
 
     // Removes the enemy from the list when it dies
