@@ -105,6 +105,41 @@ public class PlayerController : Entity
             }
             
         }
+
+        for (var i = 0; i < gameStateManager.currentSaveGame.inventory.damageBoosts.Count; i++)
+        {
+            var damageBoost = gameStateManager.currentSaveGame.inventory.damageBoosts[i];
+            if(damageBoost.duration >= 1)
+            {
+                if (damageBoost.multiplier != 0)
+                {
+                    AttributeHolder.AddModifier(new AttributeModifier
+                    {
+                        Tag = "damage",
+                        Attribute = Attribute.Find("damage"),
+                        Type = AttributeModifierType.Multiply,
+                        Amount = damageBoost.multiplier
+                    });
+                }
+                if (damageBoost.fixedAmount != 0)
+                {
+                    AttributeHolder.AddModifier(new AttributeModifier
+                    {
+                        Tag = "damage",
+                        Attribute = Attribute.Find("damage"),
+                        Type = AttributeModifierType.Add,
+                        Amount = damageBoost.fixedAmount
+                    });
+                }
+                damageBoost.duration--;
+                gameStateManager.currentSaveGame.inventory.damageBoosts[i] = damageBoost;
+            }
+            else
+            {
+                Debug.Log("Removing damage boost: '"+damageBoost+"' due to the duration running out");
+                gameStateManager.currentSaveGame.inventory.damageBoosts.RemoveAll(boost => boost.duration <= 0);
+            }
+        }
         gameStateManager.Save();
     }
     

@@ -17,4 +17,5 @@ public class ShopItemConfig : ScriptableObject
     public CurrencyType currencyType;
     public GameState.HealthBoost healthBoost;
     public GameState.SpeedBoost speedBoost;
+    public GameState.DamageBoost damageBoost;
 }

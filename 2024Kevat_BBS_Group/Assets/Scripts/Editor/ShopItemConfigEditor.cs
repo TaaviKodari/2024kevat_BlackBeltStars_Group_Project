@@ -24,6 +24,11 @@ public class ShopItemConfigEditor : Editor
         config.speedBoost.multiplier = EditorGUILayout.FloatField("Speed Boost Multiplier", config.speedBoost.multiplier);
         config.speedBoost.duration = EditorGUILayout.IntField("Speed Boost Duration", config.speedBoost.duration);
 
+        // fields for DamageBoost properties
+        config.damageBoost.fixedAmount = EditorGUILayout.IntField("Damage Boost Fixed Amount", config.damageBoost.fixedAmount);
+        config.damageBoost.multiplier = EditorGUILayout.FloatField("Damage Boost Multiplier", config.damageBoost.multiplier);
+        config.damageBoost.duration = EditorGUILayout.IntField("Damage Boost Duration", config.damageBoost.duration);
+        
         if (EditorGUI.EndChangeCheck())
         {
             EditorUtility.SetDirty(config);

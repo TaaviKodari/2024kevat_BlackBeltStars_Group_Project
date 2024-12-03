@@ -96,6 +96,11 @@ public class ShopItem : MonoBehaviour
             gameStateManager.currentSaveGame.inventory.speedBoosts.Add(itemConfig.speedBoost);
             Debug.Log("Added SpeedBoost to inventory: " + itemConfig.speedBoost.multiplier + "x for " + itemConfig.speedBoost.duration + " games");
         }
+        if((itemConfig.damageBoost.multiplier >= 1 || itemConfig.damageBoost.fixedAmount >= 1) && itemConfig.damageBoost.duration > 0)
+        {
+            gameStateManager.currentSaveGame.inventory.damageBoosts.Add(itemConfig.damageBoost);
+            Debug.Log("Added DamageBoost to inventory: " + itemConfig.damageBoost.multiplier + "x & +"+itemConfig.damageBoost.fixedAmount+" dmg for " + itemConfig.damageBoost.duration + " games");
+        }
     }
 
     // Method to get the config and sprite from the manager and initialize the UI components

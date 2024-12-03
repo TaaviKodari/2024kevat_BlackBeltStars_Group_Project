@@ -37,9 +37,18 @@ namespace GameState
     }
     
     [Serializable]
+    public struct DamageBoost
+    {
+        public int fixedAmount;
+        public float multiplier;
+        public int duration;
+    }
+    
+    [Serializable]
     public struct Inventory
     {
         public List<SpeedBoost> speedBoosts;
         public List<HealthBoost> healthBoosts;
+        public List<DamageBoost> damageBoosts;
     }
 }
