@@ -30,14 +30,6 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     private GameObject shopItemPrefab;
 
-    // List of predetermined spawn points
-    [SerializeField]
-    private List<Transform> spawnPoints;
-
-    // Reference to the parent transform where shop items will be instantiated
-    [SerializeField]
-    private Transform shopItemParent;
-
     // Reference to the currency text objects
     [SerializeField]
     private TMP_Text diamondText;
@@ -65,21 +57,15 @@ public class ShopManager : MonoBehaviour
     // Method to initialize the shop items
     private void InitializeShop()
     {
-        for (int i = 0; i < shopItems.Count; i++)
+        foreach (var item in shopItems)
         {
-            if (i >= spawnPoints.Count)
-            {
-                Debug.LogWarning("No more spawn points available for shop items.");
-                break;
-            }
-
             // Instantiate the shop item prefab at the predetermined spawn point
-            var shopItemObject = Instantiate(shopItemPrefab, spawnPoints[i].position, spawnPoints[i].rotation, shopItemParent);
+            var shopItemObject = Instantiate(shopItemPrefab, Vector3.zero, Quaternion.identity, transform);
 
             // Get the ShopItem component and initialize it
             var shopItem = shopItemObject.GetComponent<ShopItem>();
-            var currencySprite = GetSprite(shopItems[i].currencyType);
-            shopItem.Initialize(shopItems[i], currencySprite);
+            var currencySprite = GetSprite(item.currencyType);
+            shopItem.Initialize(item, currencySprite);
         }
     }
 
