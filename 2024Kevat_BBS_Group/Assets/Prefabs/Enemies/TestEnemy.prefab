@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1453978197814258362}
   - component: {fileID: 4908577002335786849}
   - component: {fileID: 972661598584550853}
+  - component: {fileID: 5990355135015265967}
   m_Layer: 7
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -141,16 +142,15 @@ MonoBehaviour:
     - attribute: knockback
       value: 2
   healthBar: {fileID: 5248273694673526953}
+  onKilled:
+    m_PersistentCalls:
+      m_Calls: []
   drops:
   - type: {fileID: 11400000, guid: a4d3e6967337a444dbacf4787edc2a2d, type: 2}
     amount: 3
   - type: {fileID: 11400000, guid: 7152db1e095851849baac84b8494c59c, type: 2}
     amount: 1
-  killParticle: {fileID: 1720417163331193416, guid: 28d91257635b2b1a9955ac4daf03f940, type: 3}
   manager: {fileID: 0}
-  onKilled:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!61 &4908577002335786849
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -211,6 +211,21 @@ MonoBehaviour:
   maxDistance: 100
   navPosOffset: {x: 0, y: 0.5}
   rotationSpeed: 180
+--- !u!114 &5990355135015265967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453978197814258366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87e6f4db398e4a59b96736485a90151a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 1720417163331193416, guid: 28d91257635b2b1a9955ac4daf03f940, type: 3}
+  - {fileID: 5083230111386163098, guid: bcf291b874ecb69459ce9d570dff2f8c, type: 3}
 --- !u!1001 &5223635474971765568
 PrefabInstance:
   m_ObjectHideFlags: 0

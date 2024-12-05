@@ -1,6 +1,7 @@
 using Attributes;
 using Sound;
 using UnityEngine;
+using UnityEngine.Events;
 using Attribute = Attributes.Attribute;
 
 public abstract class Entity : MonoBehaviour, IBuildingBlocker
@@ -29,6 +30,8 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
     // Reference to the HealthBar UI element that shows the entity's health
     [SerializeField]
     private HealthBar healthBar;
+
+    public UnityEvent onKilled = new();
 
     protected Entity()
     {
@@ -147,6 +150,7 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
     // Virtual method that can be overridden to define custom behavior when the entity dies
     protected virtual void Die()
     {
+        onKilled.Invoke();
         // Destroy the entity's GameObject when it dies
         Destroy(gameObject);
     }

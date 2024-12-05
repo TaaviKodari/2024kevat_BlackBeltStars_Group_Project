@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Pathfinding;
 using Sound;
 using UnityEngine;
-using UnityEngine.Events;
 using Attribute = Attributes.Attribute;
 
 public class Enemy : Entity
@@ -15,9 +14,6 @@ public class Enemy : Entity
     
     // when the enemy has attacked last time
     private float lastAttackTime = 0f;
-
-    [SerializeField]
-    private GameObject killParticle;
     
     // Serializable class representing a resource drop, including its type and amount
     [Serializable]
@@ -31,7 +27,6 @@ public class Enemy : Entity
     public EnemyManager manager;
     private EntityPathfinder pathfinder;
     private SpriteRenderer spriteRenderer;
-    public UnityEvent onKilled = new();
 
     private Vector2 prevMoveDirections;
 
@@ -64,14 +59,10 @@ public class Enemy : Entity
     // Handles the enemy's death by dropping loot, notifying the manager, and playing a sound
     protected override void Die()
     {
-        // Play the kill particle effect
-        GameObject particle = Instantiate(killParticle, transform.position, Quaternion.identity);
-        Destroy(particle, particle.GetComponent<ParticleSystem>().main.duration);
         // Drop the loot upon death
         DropLoot();
         // Notify the EnemyManager that this enemy has died
         manager.EnemyDie(this);
-        onKilled.Invoke();
         // Call the base class's Die method to handle destruction
         base.Die();
         
