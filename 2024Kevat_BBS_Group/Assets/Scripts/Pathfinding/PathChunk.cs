@@ -30,6 +30,7 @@ namespace Pathfinding
 
         internal void RenderGizmos()
         {
+            #if UNITY_EDITOR
             for (var x = 0; x < nodes.GetLength(0); x++)
             {
                 for (var y = 0; y < nodes.GetLength(1); y++)
@@ -45,6 +46,7 @@ namespace Pathfinding
                     Gizmos.DrawCube(nodePos, new Vector3(0.1f, 0.1f, 0.1f));
                 }
             }
+            #endif
         }
         
         internal void Update()
