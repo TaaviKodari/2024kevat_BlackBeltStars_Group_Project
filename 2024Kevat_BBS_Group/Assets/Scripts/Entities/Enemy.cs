@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
+using GameState;
 using Pathfinding;
 using Sound;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Attribute = Attributes.Attribute;
 
 public class Enemy : Entity
 {
     // List of resource drops that this enemy will drop when it dies
     public List<ResourceDrop> drops;
+    public int goldAmount;
     // Flag to ensure resources are dropped only once when the enemy dies
     private bool resourcesDropped;
     
@@ -81,6 +84,8 @@ public class Enemy : Entity
         {
             ResourceManager.Instance.SpawnResource(drop.type, drop.amount, transform.position);
         }
+
+        FindObjectOfType<GameStateManager>().currentSaveGame.resources.gold += goldAmount;
 
         // Mark resources as dropped to prevent dropping again
         resourcesDropped = true;

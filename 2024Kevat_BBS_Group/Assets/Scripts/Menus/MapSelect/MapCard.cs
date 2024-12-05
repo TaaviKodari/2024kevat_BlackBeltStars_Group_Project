@@ -13,6 +13,8 @@ namespace MapSelect
         private TMP_Text title;
         [SerializeField]
         private TMP_Text stats;
+        [SerializeField]
+        private TMP_Text reward;
 
         public void Populate(MapStats mapStats)
         {
@@ -25,6 +27,7 @@ namespace MapSelect
 
             stats.text = textBuilder.ToString();
             title.text = mapStats.goal?.Describe() ?? "<color=#c65197>Missing goal";
+            reward.text = $"Reward: {mapStats.diamondCount}";
         }
     }
 }

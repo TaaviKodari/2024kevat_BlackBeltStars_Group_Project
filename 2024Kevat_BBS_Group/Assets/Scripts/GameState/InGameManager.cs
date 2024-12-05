@@ -73,6 +73,7 @@ namespace GameState
         {
             if (won)
             {
+                manager.currentSaveGame.resources.diamonds += manager.currentMap.diamondCount;
                 onWin.Invoke();
             }
             else

@@ -150,6 +150,7 @@ MonoBehaviour:
     amount: 3
   - type: {fileID: 11400000, guid: 7152db1e095851849baac84b8494c59c, type: 2}
     amount: 1
+  goldAmount: 2
   manager: {fileID: 0}
 --- !u!61 &4908577002335786849
 BoxCollider2D:

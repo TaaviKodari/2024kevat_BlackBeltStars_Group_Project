@@ -22,6 +22,7 @@ namespace GameState
         [SerializeReference, SubclassSelector]
         public IMapGoal goal;
         public int seed;
+        public int diamondCount;
     }
     
     public interface IMapModifier

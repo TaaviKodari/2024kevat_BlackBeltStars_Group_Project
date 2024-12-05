@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = Unity.Mathematics.Random;
@@ -48,7 +49,9 @@ namespace GameState
         private static MapStats GenerateMap()
         {
             var random = new Random((uint) UnityEngine.Random.Range(int.MinValue, int.MaxValue));
-            
+
+            var difficulty = 0f;
+
             var modifiers = new List<IMapModifier>();
             for (var i = 0; i < random.NextInt(1, 5); i++)
             {
@@ -56,14 +59,18 @@ namespace GameState
                 if (value < 0.2f)
                 {
                     if (modifiers.OfType<GoldAmountMapModifier>().Any()) continue;
-                    modifiers.Add(new GoldAmountMapModifier(random.NextFloat(2)));
+                    var amount = random.NextFloat(2);
+                    modifiers.Add(new GoldAmountMapModifier(amount));
+                    difficulty -= (amount - 1) / 2;
                 }
                 else
                 {
                     var types = VariantManager.Instance.TerrainObstacles.Values;
                     var type = types.ElementAt(random.NextInt(types.Count));
                     if (modifiers.OfType<ObstacleCountMapModifier>().Any(it => it.obstacleType == type.id)) continue;
-                    modifiers.Add(new ObstacleCountMapModifier(type.id, random.NextFloat(2)));
+                    var amount = random.NextFloat(2);
+                    modifiers.Add(new ObstacleCountMapModifier(type.id, amount));
+                    difficulty -= (amount - 1) * 4;
                 }
             }
 
@@ -71,18 +78,23 @@ namespace GameState
             IMapGoal goal;
             if (goalChooser < 0.5f)
             {
-                goal = new KillAntsMapGoal { amount = random.NextInt(2, 5) * 10 };
+                var amount = random.NextInt(2, 5) * 10;
+                goal = new KillAntsMapGoal { amount = amount };
+                difficulty += (amount - 30) / 2f;
             }
             else
             {
-                goal = new SurviveWavesMapGoal { amount = random.NextInt(5, 10) };
+                var amount = random.NextInt(5, 10);
+                goal = new SurviveWavesMapGoal { amount = amount };
+                difficulty += (amount - 7) * 2;
             }
 
             return new MapStats
             {
                 modifiers = modifiers,
                 goal = goal,
-                seed = random.NextInt()
+                seed = random.NextInt(),
+                diamondCount = (int) Math.Round(difficulty + 20)
             };
         }
     }
