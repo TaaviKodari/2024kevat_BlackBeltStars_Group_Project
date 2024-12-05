@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Sound;
 using UnityEngine;
 
@@ -7,6 +5,7 @@ public class ArrowTower : MonoBehaviour
 {
     public float shootWait;
     public float damage;
+    public float range = 10;
     public Arrow arrowPrefab;
     public Transform shootPoint;
     public float arrowForce;
@@ -25,7 +24,7 @@ public class ArrowTower : MonoBehaviour
     void Update()
     {
         var nearest = EnemyManager.instance.GetNearestEnemy(building.GetPosition());
-        if (!(Time.time - lastShoot >= shootWait) || nearest == null) return;
+        if (!(Time.time - lastShoot >= shootWait) || nearest == null || (transform.position - nearest.transform.position).sqrMagnitude > range * range) return;
 
         var relativeTarget = nearest.transform.position - transform.position;
         var angle = Mathf.Atan2(relativeTarget.y, relativeTarget.x) * Mathf.Rad2Deg;
