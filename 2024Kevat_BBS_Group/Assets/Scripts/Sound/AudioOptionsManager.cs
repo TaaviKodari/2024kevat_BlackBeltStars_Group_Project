@@ -50,7 +50,7 @@ namespace Sound
             File.WriteAllText("options/audio.json", JsonUtility.ToJson(Options));
         }
 
-        [RuntimeInitializeOnLoadMethod]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         private static void Load()
         {
             if (File.Exists("options/audio.json"))
