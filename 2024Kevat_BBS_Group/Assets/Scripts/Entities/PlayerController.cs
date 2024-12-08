@@ -50,10 +50,7 @@ public class PlayerController : Entity
     // Called when the object becomes enabled and active
     private void OnEnable()
     {
-        if (gameStateManager != null)
-        {
-            InitPlayerAttributes();
-        }
+        InitPlayerAttributes();
     }
 
     // Initialize player attributes based on the current save game

@@ -13,6 +13,7 @@ namespace GameState
         public Resources resources;
         public Maps maps;
         public Inventory inventory;
+        public List<ShopItemConfig> shopItems;
     }
 
     [Serializable]

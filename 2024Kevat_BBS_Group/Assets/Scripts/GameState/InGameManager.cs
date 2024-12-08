@@ -80,6 +80,7 @@ namespace GameState
             {
                 onLose.Invoke();
             }
+            manager.currentSaveGame.shopItems.Clear();
         }
         
         [AtomicCommand("GameState", "SpawnPortal", "Spawns the portal")]
