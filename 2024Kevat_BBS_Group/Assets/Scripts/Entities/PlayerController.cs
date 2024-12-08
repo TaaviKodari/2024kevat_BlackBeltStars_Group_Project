@@ -137,7 +137,6 @@ public class PlayerController : Entity
                 gameStateManager.currentSaveGame.inventory.damageBoosts.RemoveAll(boost => boost.duration <= 0);
             }
         }
-        gameStateManager.Save();
     }
     
     // Update is called once per frame
@@ -160,7 +159,7 @@ public class PlayerController : Entity
         }
 
         // Check if the player is moving to play the walking sound
-        if(gameManager.Input.Player.Movement.IsPressed() && AudioManager.CheckPeriod(0.35f))
+        if(rb.velocity.sqrMagnitude > 0.1f && AudioManager.CheckPeriod(0.35f))
         {
             AudioManager.Instance.PlaySfx("WalkSound");
         }

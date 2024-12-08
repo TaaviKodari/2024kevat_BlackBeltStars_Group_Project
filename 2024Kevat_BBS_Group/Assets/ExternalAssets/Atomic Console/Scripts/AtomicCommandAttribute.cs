@@ -1,7 +1,10 @@
+using JetBrains.Annotations;
+
 namespace AtomicConsole
 {
     using System;
 
+    [MeansImplicitUse]
     [AttributeUsage(AttributeTargets.Method)]
     public class AtomicCommandAttribute : Attribute
     {
