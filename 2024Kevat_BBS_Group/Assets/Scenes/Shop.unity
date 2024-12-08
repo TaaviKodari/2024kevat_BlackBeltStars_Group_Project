@@ -977,8 +977,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -32}
-  m_SizeDelta: {x: 1200, y: 800}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1200, y: 384}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1065065512
 MonoBehaviour:
@@ -992,11 +992,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b357a6f54c4ef144b9e2a06ab48dde1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transition: {fileID: 0}
+  transition: {fileID: 471945732}
   shopItems:
-  - {fileID: 11400000, guid: 793bf4e57c33ed44f9a72a15137c9fac, type: 2}
   - {fileID: 11400000, guid: cbe807c7715bbdd48b1ccbc984698b48, type: 2}
+  - {fileID: 11400000, guid: 749e804ff58e6bc43b32ea72715ca83c, type: 2}
   - {fileID: 11400000, guid: 1d81ba7547ab03d4a9a9fac2742b05d0, type: 2}
+  - {fileID: 11400000, guid: e94cecf9f71d39c4aba530dc9b8e1ad3, type: 2}
+  - {fileID: 11400000, guid: 793bf4e57c33ed44f9a72a15137c9fac, type: 2}
+  - {fileID: 11400000, guid: c93ef84b50fc7be47bf9e067a1b6c7a3, type: 2}
   goldSprite: {fileID: 9013548742856534495, guid: 6bb4aacabffa2c743866f60e7e2efb67, type: 3}
   diamondSprite: {fileID: -9184849575763380954, guid: 6bb4aacabffa2c743866f60e7e2efb67, type: 3}
   shopItemPrefab: {fileID: 7986763077253751737, guid: a6f8c03fb24e5dd43806a0ab5c87b1e3, type: 3}

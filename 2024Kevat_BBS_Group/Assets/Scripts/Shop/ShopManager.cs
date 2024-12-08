@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using GameState;
 using TMPro;
 using UnityEngine;
+using Random = System.Random;
 
 public class ShopManager : MonoBehaviour
 {
     private GameStateManager gameStateManager;
     [SerializeField]
     private SceneTransition transition;
-
-    
-    private int index;
 
     // List of shop item configurations
     [SerializeField]
@@ -35,14 +34,16 @@ public class ShopManager : MonoBehaviour
     private TMP_Text diamondText;
     [SerializeField]
     private TMP_Text goldText;
-    
+
+    // Random instance for generating random numbers
+    private Random random;
+
     void Start()
     {
         gameStateManager = FindObjectOfType<GameStateManager>();
         InitializeCurrencySprites();
         InitializeShop();
         UpdateCurrencyTextFields();
-        
     }
 
     public void UpdateCurrencyTextFields()
@@ -53,11 +54,23 @@ public class ShopManager : MonoBehaviour
             diamondText.text = gameStateManager.currentSaveGame.resources.diamonds.ToString();
         }
     }
-    
+
     // Method to initialize the shop items
     private void InitializeShop()
     {
-        foreach (var item in shopItems)
+        var selectedItems = new List<ShopItemConfig>();
+        var possibleItems = new List<ShopItemConfig>(shopItems);
+        random = new Random();
+
+        for (int i = 0; i < 3; i++)
+        {
+            int randomNum = random.Next(0, possibleItems.Count);
+            Debug.Log("Random Number: " + randomNum);
+            selectedItems.Add(possibleItems[randomNum]);
+            possibleItems.RemoveAt(randomNum);
+        }
+
+        foreach (var item in selectedItems)
         {
             // Instantiate the shop item prefab at the predetermined spawn point
             var shopItemObject = Instantiate(shopItemPrefab, Vector3.zero, Quaternion.identity, transform);
@@ -87,18 +100,5 @@ public class ShopManager : MonoBehaviour
             return sprite;
         }
         return null;
-    }
-
-    // Method to get the ShopItemConfig and corresponding sprite
-    public (ShopItemConfig, Sprite) GetShopItemConfigAndSprite()
-    {
-        if (index < 0 || index >= shopItems.Count)
-        {
-            return (null, null);
-        }
-        var config = shopItems[index];
-        var sprite = GetSprite(config.currencyType);
-        index++; // Increment the index to get the next item in the next call
-        return (config, sprite);
     }
 }
