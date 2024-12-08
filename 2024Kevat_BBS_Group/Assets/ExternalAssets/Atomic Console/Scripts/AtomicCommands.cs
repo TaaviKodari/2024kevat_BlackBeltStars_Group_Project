@@ -10,8 +10,8 @@ namespace AtomicAssembly.GeneratedCommands
         {
             Type.GetType("PlayerController, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", true).GetMethod("HealCommandCallback"),
             Type.GetType("ResourceManager, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", true).GetMethod("IncrementResources"),
+            Type.GetType("Portal.PortalManager, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", true).GetMethod("SpawnPortal"),
             Type.GetType("GameState.InGameManager, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", true).GetMethod("EndGame"),
-            Type.GetType("GameState.InGameManager, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", true).GetMethod("SpawnPortal"),
             Type.GetType("GameState.InGameManager, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", true).GetMethod("PrepareNextRound"),
             Type.GetType("GameState.InGameManager, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", true).GetMethod("RollBackGame"),
             Type.GetType("GameState.InGameManager, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", true).GetMethod("AbandonGame"),
