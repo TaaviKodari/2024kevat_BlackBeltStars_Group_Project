@@ -31,6 +31,7 @@ namespace GameState
             if (currentSaveGame.inventory.healthBoosts == null) currentSaveGame.inventory.healthBoosts = new List<HealthBoost>();
             if (currentSaveGame.inventory.speedBoosts == null) currentSaveGame.inventory.speedBoosts = new List<SpeedBoost>();
             if (currentSaveGame.inventory.damageBoosts == null) currentSaveGame.inventory.damageBoosts = new List<DamageBoost>();
+            if(currentSaveGame.shopItems == null) currentSaveGame.shopItems = new List<ShopItemConfig>();
             
         }
         
