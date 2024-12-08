@@ -63,13 +63,13 @@ namespace GameState
             if (won)
             {
                 manager.currentSaveGame.resources.diamonds += manager.currentMap.diamondCount;
+                manager.currentSaveGame.shopItems.Clear();
                 onWin.Invoke();
             }
             else
             {
                 onLose.Invoke();
             }
-            manager.currentSaveGame.shopItems.Clear();
         }
 
         public void AddKilledAnt()
