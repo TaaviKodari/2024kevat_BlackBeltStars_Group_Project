@@ -15,16 +15,16 @@
             "StaticMethod": false
         },
         {
-            "Name": "GameState.FadeGameEnd",
-            "Description": "Fade to game end screen. Arguments: <won: bool>",
-            "TypeField": "Bool",
+            "Name": "PortalManager.SpawnPortal",
+            "Description": "Spawns the portal",
+            "TypeField": "",
             "Locked": false,
             "StaticMethod": false
         },
         {
-            "Name": "GameState.SpawnPortal",
-            "Description": "Spawns the portal",
-            "TypeField": "",
+            "Name": "GameState.FadeGameEnd",
+            "Description": "Fade to game end screen. Arguments: <won: bool>",
+            "TypeField": "Bool",
             "Locked": false,
             "StaticMethod": false
         },

@@ -1,18 +1,15 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AtomicConsole;
 using Pause;
+using Portal;
 using UnityEngine;
 using UnityEngine.Events;
-using Random = UnityEngine.Random;
 
 namespace GameState
 {
     public class InGameManager : MonoBehaviour
     {
         public static InGameManager Instance { get; private set; }
-        
-        private int portalPlacementLayerMask;
 
         [SerializeField]
         private SceneTransition transition;
@@ -22,12 +19,6 @@ namespace GameState
         private int antsKilled;
         private int wavesSurvived;
         private GameStateManager manager;
-
-        public GameObject portalPrefab;
-        public Transform playerTransform;
-        private bool portalActive = false;
-        public GameObject portalPopUp;
-        public PopUpManager popUpManager;
 
         [SerializeField]
         private UnityEvent onWin;
@@ -46,8 +37,6 @@ namespace GameState
         private void Start()
         {
             manager = FindObjectOfType<GameStateManager>();
-            popUpManager = FindObjectOfType<PopUpManager>();
-            portalPlacementLayerMask = LayerMask.GetMask("Buildings", "Terrain Obstacles");
         }
 
         private void OnDestroy()
@@ -81,43 +70,7 @@ namespace GameState
                 onLose.Invoke();
             }
         }
-        
-        [AtomicCommand("GameState", "SpawnPortal", "Spawns the portal")]
-        public void SpawnPortal()
-        {
-            if (portalActive) return;
-            portalActive = true;
 
-            var portalLocation = PickPortalLocation();
-            var portal = Instantiate(portalPrefab, portalLocation, Quaternion.identity);
-
-            for (var i = 0; i < 5; i++)
-            {
-                if (Physics2D.OverlapBox(portalLocation, Vector2.one, 0, portalPlacementLayerMask))
-                {
-                    print($"Portal placement failed at ${portalLocation}, retrying");
-                    portalLocation = PickPortalLocation();
-                    portal.transform.position = portalLocation;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            
-            print($"Spawned the portal at {portalLocation}");
-            popUpManager.SetActivePopUp(portalPopUp, true);
-        }
-
-        private Vector2 PickPortalLocation()
-        {
-            var playerPos = (Vector2)playerTransform.position;
-            var angle = Random.value * 2 * Mathf.PI;
-            var distance = 10 + (Random.value - 0.5f) * 5;
-
-            return playerPos + new Vector2(Mathf.Cos(angle) * distance, Mathf.Sin(angle) * distance);
-        }
-        
         public void AddKilledAnt()
         {
             antsKilled++;
@@ -133,7 +86,7 @@ namespace GameState
         private void CheckWin()
         {
             if (!HasWon()) return;
-            SpawnPortal();
+            FindObjectOfType<PortalManager>().SpawnPortal();
         }
 
         private bool HasWon()
