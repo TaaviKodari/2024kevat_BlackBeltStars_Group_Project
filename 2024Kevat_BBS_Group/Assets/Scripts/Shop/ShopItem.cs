@@ -5,12 +5,13 @@ using GameState;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
 public class ShopItem : MonoBehaviour
 {
     private ShopManager shopManager;
     [SerializeField]
     private GameStateManager gameStateManager;
-    
+
     [SerializeField]
     private TMPro.TMP_Text itemNameText;
     [SerializeField]
@@ -28,12 +29,12 @@ public class ShopItem : MonoBehaviour
     public void Initialize(ShopItemConfig config, Sprite currencySprite)
     {
         UpdateItemInformation(config, currencySprite);
-        
+
         // Clear existing listeners and assign the button click event
         itemButton.onClick.RemoveAllListeners();
         itemButton.onClick.AddListener(OnItemButtonClick);
     }
-    
+
     public void UpdateItemInformation(ShopItemConfig config, Sprite currencySprite)
     {
         itemConfig = config;
@@ -42,21 +43,20 @@ public class ShopItem : MonoBehaviour
         itemDescriptionText.text = itemConfig.description;
         currencyImage.sprite = currencySprite;
     }
-    
+
     private bool CanAfford(int itemCost, ShopItemConfig.CurrencyType currencyType)
     {
-        if(currencyType == ShopItemConfig.CurrencyType.Gold)
+        if (currencyType == ShopItemConfig.CurrencyType.Gold)
         {
             return gameStateManager.currentSaveGame.resources.gold >= itemCost;
         }
-        else if(currencyType == ShopItemConfig.CurrencyType.Diamonds)
+        else if (currencyType == ShopItemConfig.CurrencyType.Diamonds)
         {
             return gameStateManager.currentSaveGame.resources.diamonds >= itemCost;
         }
         return false;
     }
 
-    
     private void OnItemButtonClick()
     {
         if (gameStateManager != null)
@@ -80,7 +80,6 @@ public class ShopItem : MonoBehaviour
                 Debug.Log("Not enough currency to purchase item.");
                 return;
             }
-
         }
     }
 
@@ -96,20 +95,10 @@ public class ShopItem : MonoBehaviour
             gameStateManager.currentSaveGame.inventory.speedBoosts.Add(itemConfig.speedBoost);
             Debug.Log("Added SpeedBoost to inventory: " + itemConfig.speedBoost.multiplier + "x for " + itemConfig.speedBoost.duration + " games");
         }
-        if((itemConfig.damageBoost.multiplier >= 1 || itemConfig.damageBoost.fixedAmount >= 1) && itemConfig.damageBoost.duration > 0)
+        if ((itemConfig.damageBoost.multiplier >= 1 || itemConfig.damageBoost.fixedAmount >= 1) && itemConfig.damageBoost.duration > 0)
         {
             gameStateManager.currentSaveGame.inventory.damageBoosts.Add(itemConfig.damageBoost);
-            Debug.Log("Added DamageBoost to inventory: " + itemConfig.damageBoost.multiplier + "x & +"+itemConfig.damageBoost.fixedAmount+" dmg for " + itemConfig.damageBoost.duration + " games");
-        }
-    }
-
-    // Method to get the config and sprite from the manager and initialize the UI components
-    public void Setup()
-    {
-        var (config, sprite) = shopManager.GetShopItemConfigAndSprite();
-        if (config != null && sprite != null)
-        {
-            Initialize(config, sprite);
+            Debug.Log("Added DamageBoost to inventory: " + itemConfig.damageBoost.multiplier + "x & +" + itemConfig.damageBoost.fixedAmount + " dmg for " + itemConfig.damageBoost.duration + " games");
         }
     }
 
@@ -121,6 +110,5 @@ public class ShopItem : MonoBehaviour
         {
             Debug.LogError("GameStateManager not found in the scene.");
         }
-        Setup();
     }
 }
