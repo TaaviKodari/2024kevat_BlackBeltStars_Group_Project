@@ -140,7 +140,6 @@ public class PlayerController : Entity
                 gameStateManager.currentSaveGame.inventory.damageBoosts.RemoveAll(boost => boost.duration <= 0);
             }
         }
-        gameStateManager.Save();
     }
     
     // Update is called once per frame
