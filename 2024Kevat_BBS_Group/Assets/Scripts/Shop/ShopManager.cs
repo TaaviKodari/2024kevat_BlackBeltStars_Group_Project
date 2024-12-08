@@ -58,19 +58,24 @@ public class ShopManager : MonoBehaviour
     // Method to initialize the shop items
     private void InitializeShop()
     {
-        var selectedItems = new List<ShopItemConfig>();
-        var possibleItems = new List<ShopItemConfig>(shopItems);
-        random = new Random();
-
-        for (int i = 0; i < 3; i++)
+        if (gameStateManager.currentSaveGame.shopItems == null || gameStateManager.currentSaveGame.shopItems.Count == 0)
         {
-            int randomNum = random.Next(0, possibleItems.Count);
-            Debug.Log("Random Number: " + randomNum);
-            selectedItems.Add(possibleItems[randomNum]);
-            possibleItems.RemoveAt(randomNum);
+            var selectedItems = new List<ShopItemConfig>();
+            var possibleItems = new List<ShopItemConfig>(shopItems);
+            random = new Random();
+
+            for (int i = 0; i < 3; i++)
+            {
+                int randomNum = random.Next(0, possibleItems.Count);
+                selectedItems.Add(possibleItems[randomNum]);
+                possibleItems.RemoveAt(randomNum);
+            }
+
+            gameStateManager.currentSaveGame.shopItems = selectedItems;
+            gameStateManager.Save();
         }
 
-        foreach (var item in selectedItems)
+        foreach (var item in gameStateManager.currentSaveGame.shopItems)
         {
             // Instantiate the shop item prefab at the predetermined spawn point
             var shopItemObject = Instantiate(shopItemPrefab, Vector3.zero, Quaternion.identity, transform);
