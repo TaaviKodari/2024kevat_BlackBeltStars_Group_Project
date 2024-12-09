@@ -1,3 +1,4 @@
+using System;
 using AtomicConsole;
 using GameState;
 using Sound;
@@ -56,87 +57,26 @@ public class PlayerController : Entity
     // Initialize player attributes based on the current save game
     private void InitPlayerAttributes()
     {
-        for (var i = 0; i < gameStateManager.currentSaveGame.inventory.speedBoosts.Count; i++)
-        {
-            var speedBoost = gameStateManager.currentSaveGame.inventory.speedBoosts[i];
-            
-            if(speedBoost.duration >= 1)
-            {
-                AttributeHolder.AddModifier(new AttributeModifier
-                {
-                    Tag = "speed",
-                    Attribute = Attribute.Find("speed"),
-                    Type = AttributeModifierType.Multiply,
-                    Amount = speedBoost.multiplier
-                });
-                speedBoost.duration--;
-                gameStateManager.currentSaveGame.inventory.speedBoosts[i] = speedBoost;
-            }
-            else
-            {
-                Debug.Log("Removing speed boost: "+speedBoost+" due to the duration running out");
-                gameStateManager.currentSaveGame.inventory.speedBoosts.RemoveAll(boost => boost.duration <= 0);
-            }
-        }
-        
-        for (var i = 0; i < gameStateManager.currentSaveGame.inventory.healthBoosts.Count; i++)
-        {
-            var healthBoost = gameStateManager.currentSaveGame.inventory.healthBoosts[i];
-            if (healthBoost.duration >= 1)
-            {
-                AttributeHolder.AddModifier(new AttributeModifier
-                {
-                    Tag = "max_health",
-                    Attribute = Attribute.Find("max_health"),
-                    Type = AttributeModifierType.Multiply,
-                    Amount = healthBoost.multiplier
-                });
-                healthBoost.duration--;
-                gameStateManager.currentSaveGame.inventory.healthBoosts[i] = healthBoost;
+        var boosters = gameStateManager.currentSaveGame.boosters;
 
-            }
-            else
+        for (var i = 0; i < boosters.Count; i++)
+        {
+            var booster = boosters[i];
+            booster.gamesLeft--;
+            boosters[i] = booster;
+
+            switch (booster.booster)
             {
-                Debug.Log("Removing health boost: '"+healthBoost+"' due to the duration running out");
-                gameStateManager.currentSaveGame.inventory.healthBoosts.RemoveAll(boost => boost.duration <= 0);
+                case AttributeBooster attributeBooster:
+                    AttributeHolder.AddModifier(attributeBooster.CreateModifier($"booster-{i}"));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(booster));
             }
-            
         }
 
-        for (var i = 0; i < gameStateManager.currentSaveGame.inventory.damageBoosts.Count; i++)
-        {
-            var damageBoost = gameStateManager.currentSaveGame.inventory.damageBoosts[i];
-            if(damageBoost.duration >= 1)
-            {
-                if (damageBoost.multiplier != 0)
-                {
-                    AttributeHolder.AddModifier(new AttributeModifier
-                    {
-                        Tag = "damage",
-                        Attribute = Attribute.Find("damage"),
-                        Type = AttributeModifierType.Multiply,
-                        Amount = damageBoost.multiplier
-                    });
-                }
-                if (damageBoost.fixedAmount != 0)
-                {
-                    AttributeHolder.AddModifier(new AttributeModifier
-                    {
-                        Tag = "damage",
-                        Attribute = Attribute.Find("damage"),
-                        Type = AttributeModifierType.Add,
-                        Amount = damageBoost.fixedAmount
-                    });
-                }
-                damageBoost.duration--;
-                gameStateManager.currentSaveGame.inventory.damageBoosts[i] = damageBoost;
-            }
-            else
-            {
-                Debug.Log("Removing damage boost: '"+damageBoost+"' due to the duration running out");
-                gameStateManager.currentSaveGame.inventory.damageBoosts.RemoveAll(boost => boost.duration <= 0);
-            }
-        }
+        boosters.RemoveAll(booster => booster.gamesLeft <= 0);
+        ResetHealth();
     }
     
     // Update is called once per frame

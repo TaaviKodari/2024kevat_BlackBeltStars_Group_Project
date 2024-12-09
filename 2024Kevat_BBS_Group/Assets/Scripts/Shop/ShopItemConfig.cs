@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using GameState;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ShopItem", menuName = "Shop/ShopItemConfig")]
@@ -10,12 +9,13 @@ public class ShopItemConfig : ScriptableObject
         Gold,
         Diamonds
     }
-    public int cost;
+
     public string itemName;
+    public string itemDescription;
     public Sprite itemSprite;
-    public string description;
-    public CurrencyType currencyType;
-    public GameState.HealthBoost healthBoost;
-    public GameState.SpeedBoost speedBoost;
-    public GameState.DamageBoost damageBoost;
+    public CurrencyType currency;
+    public int cost;
+
+    [SerializeReference, SubclassSelector]
+    public IBooster booster;
 }

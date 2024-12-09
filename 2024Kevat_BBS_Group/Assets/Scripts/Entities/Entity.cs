@@ -43,10 +43,12 @@ public abstract class Entity : MonoBehaviour, IBuildingBlocker
     {
         // Get the Rigidbody2D component attached to the entity
         rb = GetComponent<Rigidbody2D>();
-        // Initialize health to the maximum health value
-        health = MaxHealth;
+        ResetHealth();
+    }
 
-        // Set up the health bar with the max health and current health
+    protected void ResetHealth()
+    {
+        health = MaxHealth;
         healthBar.SetHealth(MaxHealth, MaxHealth);
     }
 

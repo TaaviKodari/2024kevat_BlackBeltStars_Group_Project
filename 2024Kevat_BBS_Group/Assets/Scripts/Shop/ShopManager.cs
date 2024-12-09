@@ -66,6 +66,7 @@ public class ShopManager : MonoBehaviour
 
             for (int i = 0; i < 3; i++)
             {
+                if (possibleItems.Count == 0) break;
                 int randomNum = random.Next(0, possibleItems.Count);
                 selectedItems.Add(possibleItems[randomNum]);
                 possibleItems.RemoveAt(randomNum);
@@ -82,7 +83,7 @@ public class ShopManager : MonoBehaviour
 
             // Get the ShopItem component and initialize it
             var shopItem = shopItemObject.GetComponent<ShopItem>();
-            var currencySprite = GetSprite(item.currencyType);
+            var currencySprite = GetSprite(item.currency);
             shopItem.Initialize(item, currencySprite);
         }
     }

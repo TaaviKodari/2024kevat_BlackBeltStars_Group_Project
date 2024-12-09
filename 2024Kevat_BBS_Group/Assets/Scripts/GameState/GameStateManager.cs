@@ -28,11 +28,8 @@ namespace GameState
         public void LoadGame(SaveGame game)
         {
             currentSaveGame = game;
-            if (currentSaveGame.inventory.healthBoosts == null) currentSaveGame.inventory.healthBoosts = new List<HealthBoost>();
-            if (currentSaveGame.inventory.speedBoosts == null) currentSaveGame.inventory.speedBoosts = new List<SpeedBoost>();
-            if (currentSaveGame.inventory.damageBoosts == null) currentSaveGame.inventory.damageBoosts = new List<DamageBoost>();
-            if(currentSaveGame.shopItems == null) currentSaveGame.shopItems = new List<ShopItemConfig>();
-            
+            currentSaveGame.boosters ??= new List<BoosterInstance>();
+            currentSaveGame.shopItems ??= new List<ShopItemConfig>();
         }
         
         public void Save()
