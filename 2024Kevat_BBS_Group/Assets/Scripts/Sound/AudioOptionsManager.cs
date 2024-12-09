@@ -7,6 +7,7 @@ namespace Sound
 {
     public static class AudioOptionsManager
     {
+        private static readonly string SavePath = $"{Application.persistentDataPath}/options/audio.json";
         public static AudioOptions Options { get; private set; }
 
         // Sets the volume of a specific audio channel
@@ -46,16 +47,16 @@ namespace Sound
             var audioManager = Object.FindObjectOfType<AudioManager>();
             if (audioManager != null) audioManager.UpdateMixerVolumes();
 
-            Directory.CreateDirectory("options");
-            File.WriteAllText("options/audio.json", JsonUtility.ToJson(Options));
+            Directory.CreateDirectory(SavePath.Remove(SavePath.LastIndexOf("/", StringComparison.Ordinal)));
+            File.WriteAllText(SavePath, JsonUtility.ToJson(Options));
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         private static void Load()
         {
-            if (File.Exists("options/audio.json"))
+            if (File.Exists(SavePath))
             {
-                Options = JsonUtility.FromJson<AudioOptions>(File.ReadAllText("options/audio.json"));
+                Options = JsonUtility.FromJson<AudioOptions>(File.ReadAllText(SavePath));
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -6,10 +7,12 @@ namespace GameState
 {
     public static class SaveManager
     {
+        private static readonly string SavePath = $"{Application.persistentDataPath}/saves/";
+
         public static void SaveGame(SaveGame saveGame)
         {
-            var path = $"saves/{saveGame.SaveName}.json";
-            Directory.CreateDirectory("saves");
+            var path = $"{SavePath}{saveGame.SaveName}.json";
+            Directory.CreateDirectory(SavePath.Remove(SavePath.LastIndexOf("/", StringComparison.Ordinal)));
 
             var writer = File.CreateText(path);
             writer.Write(JsonUtility.ToJson(saveGame));
@@ -19,9 +22,9 @@ namespace GameState
         public static List<SaveGame> LoadGames()
         {
             var saves = new List<SaveGame>();
-            if (Directory.Exists("saves"))
+            if (Directory.Exists(SavePath))
             {
-                foreach (var saveFile in Directory.EnumerateFiles("saves", "*.json", SearchOption.AllDirectories))
+                foreach (var saveFile in Directory.EnumerateFiles(SavePath, "*.json", SearchOption.AllDirectories))
                 {
                     var text = File.ReadAllText(saveFile);
                     var save = JsonUtility.FromJson<SaveGame>(text);
