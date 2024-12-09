@@ -5,6 +5,7 @@ using GameState;
 using UnityEngine;
 using TMPro;
 using AtomicConsole;
+using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour
 {
@@ -26,8 +27,9 @@ public class WaveManager : MonoBehaviour
     public int minRange; // min distance from the player, where the enemy can spawn
     public int maxRange; // max distance from the player, where the enemy can spawn
     
-    public TMP_Text waveTimerText; // value of the in-game text field for the time untill next wave
     public TMP_Text waveText; // value of the in-game text field for the current wave number
+
+    public Slider waveSlider; // value of the in-game progress bar/slider for the time until next wave
 
     // Counter for alive enemies, used to mark waves as completed
     private readonly Dictionary<int, int> enemiesAlive = new();
@@ -40,9 +42,9 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
-        // update the in-game text boxes
-        waveTimerText.text = "Next wave in: " + (timeBetweenWaves - timer).ToString("F2");
-        waveText.text = "Current wave: " + currentWave;
+        // update the in-game text box and progress bar
+        waveSlider.value = (timeBetweenWaves - timer) / timeBetweenWaves;
+        waveText.text = "Wave " + currentWave;
         
         timer += Time.deltaTime; // update the timer
         

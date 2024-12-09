@@ -34,7 +34,7 @@ public class MapGoalUI : MonoBehaviour
         }
         else
         {
-            text.text = $"Current goal: {currentGoal.Describe()} ({progress}/{target})";
+            text.text = $"Goal: {currentGoal.Describe()} ({progress}/{target})";
         }
     }
 }
