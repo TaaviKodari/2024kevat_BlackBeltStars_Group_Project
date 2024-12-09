@@ -31,7 +31,10 @@ namespace Sound
             {
                 soundLookup[sound.name] = sound;
             }
+        }
 
+        private void Start()
+        {
             UpdateMixerVolumes();
         }
 
