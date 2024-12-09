@@ -28,7 +28,7 @@ namespace GameState
                 {
                     var text = File.ReadAllText(saveFile);
                     var save = JsonUtility.FromJson<SaveGame>(text);
-                    save.SaveName = saveFile.Remove(saveFile.Length - 5).Remove(0, 6);
+                    save.SaveName = saveFile.Remove(saveFile.Length - 5).Remove(0, SavePath.Length);
                     save.name ??= save.SaveName; // Old version didn't save the save name
                     saves.Add(save);
                 }
