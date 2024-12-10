@@ -314,7 +314,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "<u>Code</u>\nMatias Koivikko\nVille Jokinen\nTommy Kroon\nAaro Larjo \nLeevi
-    Tulijoki\n'Nuftuf'"
+    Tulijoki\n'Nuftuf'\nAapo Anttila"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 376fb1b684988ce4e85fc092b0919df6, type: 2}
   m_sharedMaterial: {fileID: -5560292473983103567, guid: 376fb1b684988ce4e85fc092b0919df6, type: 2}
@@ -2569,7 +2569,10 @@ MonoBehaviour:
 
     Matias Koivikko
 
-    ''Nuftuf'''
+    ''Nuftuf''
+
+    Aapo
+    Anttila'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 376fb1b684988ce4e85fc092b0919df6, type: 2}
   m_sharedMaterial: {fileID: -5560292473983103567, guid: 376fb1b684988ce4e85fc092b0919df6, type: 2}
@@ -6761,7 +6764,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2126663680}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
