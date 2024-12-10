@@ -18,8 +18,12 @@ namespace VideoSettings
 
         private void Awake()
         {
+#if UNITY_WEBGL
+            windowModeDropdown.options.RemoveAll(it => it.text == "Borderless");
+            resolutionDropdown.gameObject.SetActive(false);
+#else
             visibleResolutions = Screen.resolutions
-                .Where(res => Mathf.Approximately(res.width / (float) res.height, 16 / 9f)) // Only show 19:6 resolutions
+                .Where(res => Mathf.Approximately(res.width / (float)res.height, 16 / 9f)) // Only show 19:6 resolutions
                 .OrderByDescending(res => res.refreshRateRatio.value) // Largest refresh rate first so that gets picked
                 .Distinct(new ResolutionComparer()) // Only one refresh rate per resolution
                 .OrderByDescending(res => res.height) // Largest resolution first
@@ -27,6 +31,7 @@ namespace VideoSettings
 
             resolutionDropdown.options = new List<TMP_Dropdown.OptionData> { new("") };
             resolutionDropdown.options.AddRange(visibleResolutions.Select(res => new TMP_Dropdown.OptionData($"{res.width} x {res.height}")));
+#endif
         }
 
         private void OnEnable()
@@ -40,7 +45,7 @@ namespace VideoSettings
                 _ => throw new ArgumentOutOfRangeException()
             };
             resolutionDropdown.value = Array.FindIndex(visibleResolutions,
-                    res => res.width == Screen.width && res.height == Screen.height) + 1; // -1 becomes 0
+                res => res.width == Screen.width && res.height == Screen.height) + 1; // -1 becomes 0
         }
 
         [UsedImplicitly]
@@ -54,9 +59,7 @@ namespace VideoSettings
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            var resolution = resolutionDropdown.value == 0 ?
-                Screen.currentResolution :
-                visibleResolutions[resolutionDropdown.value - 1];
+            var resolution = resolutionDropdown.value == 0 ? Screen.currentResolution : visibleResolutions[resolutionDropdown.value - 1];
             Screen.SetResolution(resolution.width, resolution.height, fullScreenMode, resolution.refreshRateRatio);
         }
     }
