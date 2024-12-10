@@ -8,7 +8,7 @@ namespace Portal
         [SerializeField]
         private Vector2 margin;
 
-        private void Update()
+        private void LateUpdate()
         {
             var cam = Camera.main;
             if (portal == null || cam == null) return;

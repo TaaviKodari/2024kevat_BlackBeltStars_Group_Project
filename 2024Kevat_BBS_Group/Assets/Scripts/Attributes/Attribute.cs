@@ -20,7 +20,7 @@ namespace Attributes
 
         public readonly string Id;
 
-        public Attribute(string id)
+        private Attribute(string id)
         {
             Id = id;
         }
