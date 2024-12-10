@@ -72,30 +72,6 @@ public class ResourceManager : MonoBehaviour
         throw new KeyNotFoundException($"Unknown resource type: {type}");
     }
 
-
-    // Temp method for hotkey for the function below
-
-    private float addResourcesDelay = 0.1f;
-    private float resourceAddTimer = 0f;
-
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.R))
-        {
-            resourceAddTimer += Time.deltaTime;
-
-            if (resourceAddTimer >= addResourcesDelay)
-            {
-                IncrementResources();
-                resourceAddTimer = 0f;
-            }
-        }
-        else
-        {
-            resourceAddTimer = 0f;
-        }
-    }
-
     // Temporary method for use in UI. Button callbacks can't deal with enums
     [AtomicCommand(name: "AddResources",group:"Resources",description:"Adds resources to the player (default: 10, increase multiplier with ResourceMultiplier)")]
     public void IncrementResources()
