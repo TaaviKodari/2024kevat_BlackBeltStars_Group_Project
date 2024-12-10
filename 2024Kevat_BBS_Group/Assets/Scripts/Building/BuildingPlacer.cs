@@ -20,7 +20,9 @@ public class BuildingPlacer : MonoBehaviour
     private Material invalidPreviewMaterial;
     [SerializeField] 
     private Material hoverMaterial;
-
+    [SerializeField]
+    private Material linePreviewMaterial;
+    
     [SerializeField]
     private BuildingData wallBuildData;
     [SerializeField]
@@ -31,7 +33,6 @@ public class BuildingPlacer : MonoBehaviour
     private BuildingData campfireBuildData;
     [SerializeField]
     private BuildingData arrowTowerBuildData;
-    
     
     private BuildingData selectedBuilding;
     private GameObject buildingPreview;
@@ -51,7 +52,7 @@ public class BuildingPlacer : MonoBehaviour
         gameManager = FindObjectOfType<InGameManager>();
 
         lineRenderer = gameObject.AddComponent<LineRenderer>();
-        lineRenderer.material = previewMaterial;
+        lineRenderer.material = linePreviewMaterial;
         lineRenderer.startWidth = 0.2f;
         lineRenderer.endWidth = 0.2f;
         lineRenderer.positionCount = 0;
@@ -140,7 +141,7 @@ public class BuildingPlacer : MonoBehaviour
             lineRenderer.SetPosition(i, worldPos);
         }
     
-        // Set the last point to the corner
+        // Ensure the last point is exactly the same as other points
         var cornerWorldPos = manager.BuildingPosToWorldPos(corner) + new Vector2(0.5f, 0.5f);
         lineRenderer.SetPosition(linePoints.Count, cornerWorldPos);
     
@@ -148,7 +149,7 @@ public class BuildingPlacer : MonoBehaviour
 
         validationBuilding.transform.position = lineRenderer.GetPosition(0);
         var isValid = manager.CanPlace(validationBuilding);
-        lineRenderer.material = isValid ? previewMaterial : invalidPreviewMaterial;
+        lineRenderer.material = isValid ? linePreviewMaterial : invalidPreviewMaterial;
     }
 
     private void CancelLinePlacement()
