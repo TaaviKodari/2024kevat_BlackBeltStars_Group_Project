@@ -768,11 +768,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b0733bc5211c52468c2d2daf19f1537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateManager: {fileID: 0}
   itemNameText: {fileID: 6661038086051256358}
   itemPriceText: {fileID: 5475994774656692020}
   itemDescriptionText: {fileID: 2241043283724947575}
   currencyImage: {fileID: 2957152516779082168}
   itemButton: {fileID: 6500177491449022306}
+  itemBackground: {fileID: 3920146631143575354, guid: dbf67fe51ef7aee409e4e3985df2d270, type: 3}
 --- !u!1 &8957919417914072794
 GameObject:
   m_ObjectHideFlags: 0

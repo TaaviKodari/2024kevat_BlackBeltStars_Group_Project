@@ -19,7 +19,6 @@ public class ShopItem : MonoBehaviour
     private Image currencyImage;
     [SerializeField]
     private Button itemButton;
-
     private ShopItemConfig itemConfig;
 
     // Method to initialize the shop item with the given config
@@ -68,6 +67,7 @@ public class ShopItem : MonoBehaviour
             }
             shopManager.UpdateCurrencyTextFields();
             ApplyItemEffects();
+            DarkenItem();
             gameStateManager.Save();
         }
         else
@@ -79,6 +79,11 @@ public class ShopItem : MonoBehaviour
     private void ApplyItemEffects()
     {
         gameStateManager.currentSaveGame.boosters.Add(new BoosterInstance(itemConfig.booster));
+    }
+
+    private void DarkenItem()
+    {
+        itemButton.interactable = false;
     }
 
     private void Start()
