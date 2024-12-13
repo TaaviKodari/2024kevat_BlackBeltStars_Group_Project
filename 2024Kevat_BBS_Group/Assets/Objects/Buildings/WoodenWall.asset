@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b42bdbe6f704f4999b335fb5577626, type: 3}
   m_Name: WoodenWall
   m_EditorClassIdentifier: 
-  blocksProjectiles: 1
   size: {x: 1, y: 1}
   verticalSize: {x: 0, y: 0}
   offset: {x: 0, y: 0}
@@ -21,4 +20,4 @@ MonoBehaviour:
   costs:
   - type: {fileID: 11400000, guid: a4d3e6967337a444dbacf4787edc2a2d, type: 2}
     amount: 1
-  durability: 25
+  durability: 30

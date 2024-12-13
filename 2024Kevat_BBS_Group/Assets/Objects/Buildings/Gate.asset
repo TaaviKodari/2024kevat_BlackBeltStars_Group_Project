@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b42bdbe6f704f4999b335fb5577626, type: 3}
   m_Name: Gate
   m_EditorClassIdentifier: 
-  blocksProjectiles: 1
   size: {x: 2, y: 1}
   verticalSize: {x: 1, y: 2}
   offset: {x: 0, y: 0}
@@ -23,4 +22,4 @@ MonoBehaviour:
     amount: 3
   - type: {fileID: 11400000, guid: 7152db1e095851849baac84b8494c59c, type: 2}
     amount: 1
-  durability: 25
+  durability: 30

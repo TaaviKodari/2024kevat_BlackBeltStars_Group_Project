@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b42bdbe6f704f4999b335fb5577626, type: 3}
   m_Name: ArrowTower
   m_EditorClassIdentifier: 
-  blocksProjectiles: 0
   size: {x: 1, y: 1}
   verticalSize: {x: 0, y: 0}
   offset: {x: 0, y: 0}
@@ -23,4 +22,4 @@ MonoBehaviour:
     amount: 10
   - type: {fileID: 11400000, guid: 7152db1e095851849baac84b8494c59c, type: 2}
     amount: 2
-  durability: 10
+  durability: 20
