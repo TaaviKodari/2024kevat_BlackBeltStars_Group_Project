@@ -12,7 +12,6 @@ public class ShopItemConfig : ScriptableObject
 
     public string itemName;
     public string itemDescription;
-    public Sprite itemSprite;
     public CurrencyType currency;
     public int cost;
 

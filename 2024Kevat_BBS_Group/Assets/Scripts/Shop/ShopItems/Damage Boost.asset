@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Sharper Sword I
   itemDescription: Increases player attack damage by 1.5x for 5 rounds
-  itemSprite: {fileID: 9013548742856534495, guid: 6bb4aacabffa2c743866f60e7e2efb67, type: 3}
   currency: 0
   cost: 25
   booster:
@@ -28,4 +27,5 @@ MonoBehaviour:
         attribute: damage
         type: 1
         amount: 1.5
+        sprite: {fileID: 21300000, guid: e4aa9592de6e0c645ab8741a9521699e, type: 3}
         duration: 0

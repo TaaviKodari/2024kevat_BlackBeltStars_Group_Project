@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Quick Draw I
   itemDescription: Decreases player bow draw time by 25% for 5 rounds
-  itemSprite: {fileID: 9013548742856534495, guid: 6bb4aacabffa2c743866f60e7e2efb67, type: 3}
   currency: 1
   cost: 25
   booster:
@@ -28,4 +27,5 @@ MonoBehaviour:
         attribute: attack_speed
         type: 1
         amount: 0.75
+        sprite: {fileID: 21300000, guid: 09244639fd6bfc345aab4ca2bf833300, type: 3}
         duration: 0

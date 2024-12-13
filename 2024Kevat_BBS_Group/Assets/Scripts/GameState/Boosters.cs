@@ -22,6 +22,7 @@ namespace GameState
     public interface IBooster
     {
         int Duration { get; }
+        Sprite Sprite { get; }
     }
 
     [Serializable]
@@ -31,6 +32,8 @@ namespace GameState
         public string attribute;
         public AttributeModifierType type;
         public float amount;
+        public Sprite sprite;
+        public Sprite Sprite => sprite;
         public int duration;
         public int Duration => duration;
 

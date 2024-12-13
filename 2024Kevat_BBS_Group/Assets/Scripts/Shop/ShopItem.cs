@@ -10,6 +10,8 @@ public class ShopItem : MonoBehaviour
     private GameStateManager gameStateManager;
 
     [SerializeField]
+    private Image itemIconImage;
+    [SerializeField]
     private TMP_Text itemNameText;
     [SerializeField]
     private TMP_Text itemPriceText;
@@ -34,6 +36,7 @@ public class ShopItem : MonoBehaviour
     public void UpdateItemInformation(ShopItemConfig config, Sprite currencySprite)
     {
         itemConfig = config;
+        itemIconImage.sprite = config.booster.Sprite;
         itemNameText.text = itemConfig.itemName;
         itemPriceText.text = itemConfig.cost.ToString();
         itemDescriptionText.text = itemConfig.itemDescription;
