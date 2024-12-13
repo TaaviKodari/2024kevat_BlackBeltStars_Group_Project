@@ -17,4 +17,6 @@ public class ShopItemConfig : ScriptableObject
 
     [SerializeReference, SubclassSelector]
     public IBooster booster;
+
+    public bool bought;
 }

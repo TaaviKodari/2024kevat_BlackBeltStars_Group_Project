@@ -76,15 +76,16 @@ public class ShopManager : MonoBehaviour
             gameStateManager.Save();
         }
 
-        foreach (var item in gameStateManager.currentSaveGame.shopItems)
+        for (var i = 0; i < gameStateManager.currentSaveGame.shopItems.Count; i++)
         {
+            var item = gameStateManager.currentSaveGame.shopItems[i];
             // Instantiate the shop item prefab at the predetermined spawn point
             var shopItemObject = Instantiate(shopItemPrefab, Vector3.zero, Quaternion.identity, transform);
 
             // Get the ShopItem component and initialize it
             var shopItem = shopItemObject.GetComponent<ShopItem>();
             var currencySprite = GetSprite(item.currency);
-            shopItem.Initialize(item, currencySprite);
+            shopItem.Initialize(item, currencySprite, i);
         }
     }
 

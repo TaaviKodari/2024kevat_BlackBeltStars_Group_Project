@@ -22,15 +22,17 @@ public class ShopItem : MonoBehaviour
     [SerializeField]
     private Button itemButton;
     private ShopItemConfig itemConfig;
+    private int configIndex;
 
     // Method to initialize the shop item with the given config
-    public void Initialize(ShopItemConfig config, Sprite currencySprite)
+    public void Initialize(ShopItemConfig config, Sprite currencySprite, int itemIndex)
     {
         UpdateItemInformation(config, currencySprite);
 
         // Clear existing listeners and assign the button click event
         itemButton.onClick.RemoveAllListeners();
         itemButton.onClick.AddListener(OnItemButtonClick);
+        configIndex = itemIndex;
     }
 
     public void UpdateItemInformation(ShopItemConfig config, Sprite currencySprite)
@@ -41,6 +43,8 @@ public class ShopItem : MonoBehaviour
         itemPriceText.text = itemConfig.cost.ToString();
         itemDescriptionText.text = itemConfig.itemDescription;
         currencyImage.sprite = currencySprite;
+
+        itemButton.interactable = !config.bought;
     }
 
     private bool CanAfford(int itemCost, ShopItemConfig.CurrencyType currencyType)
@@ -69,6 +73,7 @@ public class ShopItem : MonoBehaviour
                     break;
             }
             shopManager.UpdateCurrencyTextFields();
+            gameStateManager.currentSaveGame.shopItems[configIndex].bought = true;
             ApplyItemEffects();
             DarkenItem();
             gameStateManager.Save();
