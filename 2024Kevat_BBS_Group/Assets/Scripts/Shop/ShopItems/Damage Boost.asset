@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38842fb8801740e44a6a17770095d1e7, type: 3}
   m_Name: Damage Boost
   m_EditorClassIdentifier: 
-  itemName: Sharper Sword I
+  itemName: Sharp Sword I
   itemDescription: Increases player attack damage by 1.5x for 5 rounds
   currency: 0
   cost: 25
