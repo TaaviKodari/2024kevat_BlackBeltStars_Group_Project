@@ -30,6 +30,7 @@ namespace GameState
             currentSaveGame = game;
             currentSaveGame.boosters ??= new List<BoosterInstance>();
             currentSaveGame.shopItems ??= new List<ShopItemConfig>();
+            currentSaveGame.boughtItems ??= new List<bool>();
         }
         
         public void Save()

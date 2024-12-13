@@ -64,6 +64,7 @@ namespace GameState
             {
                 manager.currentSaveGame.resources.diamonds += manager.currentMap.diamondCount;
                 manager.currentSaveGame.shopItems.Clear();
+                manager.currentSaveGame.boughtItems.Clear();
                 onWin.Invoke();
             }
             else

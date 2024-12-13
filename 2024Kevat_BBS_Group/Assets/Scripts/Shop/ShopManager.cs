@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using GameState;
 using TMPro;
 using UnityEngine;
@@ -73,6 +74,7 @@ public class ShopManager : MonoBehaviour
             }
 
             gameStateManager.currentSaveGame.shopItems = selectedItems;
+            gameStateManager.currentSaveGame.boughtItems = new List<bool>(Enumerable.Repeat(false, selectedItems.Count));
             gameStateManager.Save();
         }
 
@@ -85,7 +87,7 @@ public class ShopManager : MonoBehaviour
             // Get the ShopItem component and initialize it
             var shopItem = shopItemObject.GetComponent<ShopItem>();
             var currencySprite = GetSprite(item.currency);
-            shopItem.Initialize(item, currencySprite, i);
+            shopItem.Initialize(item, currencySprite, !gameStateManager.currentSaveGame.boughtItems[i], i);
         }
     }
 

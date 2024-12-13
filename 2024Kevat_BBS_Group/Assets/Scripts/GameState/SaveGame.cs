@@ -13,6 +13,7 @@ namespace GameState
         public Maps maps;
         public List<BoosterInstance> boosters;
         public List<ShopItemConfig> shopItems;
+        public List<bool> boughtItems;
     }
 
     [Serializable]
